@@ -44,7 +44,6 @@ namespace RPG_Project
         {
             if (Input.GetKeyDown("i"))
             {
-                print(34);
                 AddCommand(0);
                 return true;
             }
