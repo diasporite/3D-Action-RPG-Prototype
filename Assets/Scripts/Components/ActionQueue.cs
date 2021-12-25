@@ -73,7 +73,7 @@ namespace RPG_Project
                     currentAction = 0;
 
                     actions.Clear();
-                    controller.Sm.ChangeState(controller.COMBAT);
+                    controller.Sm.ChangeState(controller.MOVE);
 
                     executing = false;
                 }

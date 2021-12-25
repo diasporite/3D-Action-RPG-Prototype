@@ -57,8 +57,7 @@ namespace RPG_Project
             player.ResourceTick(Time.deltaTime);
 
             if (player.Run()) return;
-            //else if (player.Attack()) return;
-            else if (Input.GetKeyDown("u")) psm.ChangeState(player.COMBAT);
+            else if (player.Attack()) return;
             else Move();
         }
 

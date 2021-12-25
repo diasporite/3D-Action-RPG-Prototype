@@ -8,8 +8,7 @@ namespace RPG_Project
     {
         [Header("Linear speed")]
         [SerializeField] float walkSpeed = 3;
-        [SerializeField] float runningSpeed = 8;
-        [SerializeField] float combatSpeed = 3;
+        [SerializeField] float runningSpeed = 6;
         [SerializeField] float currentSpeed = 0;
 
         [Header("Rotational speed")]
@@ -83,9 +82,6 @@ namespace RPG_Project
                     break;
                 case ControllerMode.Run:
                     currentSpeed = runningSpeed;
-                    break;
-                case ControllerMode.Combat:
-                    currentSpeed = combatSpeed;
                     break;
                 default:
                     break;

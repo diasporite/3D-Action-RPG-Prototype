@@ -26,7 +26,6 @@ namespace RPG_Project
             sm.AddState(RECOVER, new PlayerRecoveryState(this));
             sm.AddState(STAGGER, new PlayerStaggerState(this));
             sm.AddState(ACTION, new PlayerActionState(this));
-            sm.AddState(COMBAT, new PlayerCombatState(this));
         }
 
         public bool Run()
@@ -42,7 +41,8 @@ namespace RPG_Project
 
         public bool Attack()
         {
-            if (Input.GetKeyDown("i"))
+            if (Input.GetKeyDown("u") || Input.GetKeyDown("o") || 
+                Input.GetKeyDown("y") || Input.GetKeyDown("p"))
             {
                 AddCommand(0);
                 return true;

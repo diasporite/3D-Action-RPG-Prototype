@@ -8,9 +8,12 @@ namespace RPG_Project
     {
         Walk = 0,
         Run = 1,
-        Combat = 2,
-        Action = 3,
-        Stagger = 4,
+        Action = 2,
+        Stagger = 3,
+        Roll = 4,
+        Dodge = 5,
+        Jump = 6,
+        BasicAction = 7,    // Non combat actions (talk, pickup, interact)
     }
 
     [RequireComponent(typeof(Movement), typeof(Combatant), typeof(ActionQueue))]
@@ -21,7 +24,8 @@ namespace RPG_Project
         public readonly string RECOVER = "recover";
         public readonly string STAGGER = "stagger";
         public readonly string ACTION = "action";
-        public readonly string COMBAT = "combat";
+
+        [SerializeField] ControllerMode mode;
 
         Vector3 inputDir = new Vector3(0, 0);
 
@@ -36,6 +40,8 @@ namespace RPG_Project
         protected Poise poise;
 
         protected StateMachine sm = new StateMachine();
+
+        public ControllerMode Mode => mode;
 
         public Vector3 RawInputDir
         {

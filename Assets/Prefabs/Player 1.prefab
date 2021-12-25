@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.5
-  offset: 0.01
+  offset: 0.02
   skin: 0.05
 --- !u!1 &4012377324784288313
 GameObject:
