@@ -18,13 +18,13 @@ namespace RPG_Project
             anim.SetTrigger("SwordSwing");
 
             controller.Stamina.ChangeResource(-7);
-            controller.Poise.ChangeResource(-17);
+            controller.Poise.ChangeResource(-47);
         }
 
         public override IEnumerator ExecuteCo()
         {
             controller.Stamina.ChangeResource(-10);
-            controller.Poise.ChangeResource(-17);
+            controller.Poise.ChangeResource(-47);
 
             // Continually track direction to target
             // Animation will move instigator in that direction

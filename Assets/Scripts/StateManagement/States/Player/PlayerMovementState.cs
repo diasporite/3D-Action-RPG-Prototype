@@ -26,8 +26,6 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            anim.SetBool("InCombat", false);
-
             movement.SetRunning(false);
         }
 

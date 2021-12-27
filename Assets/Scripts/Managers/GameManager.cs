@@ -8,6 +8,12 @@ namespace RPG_Project
     {
         public static GameManager instance = null;
 
+        CombatManager combat;
+        InputManager input;
+
+        public CombatManager Combat => combat;
+        public InputManager Input => input;
+
         private void Awake()
         {
             if (instance == null) instance = this;
