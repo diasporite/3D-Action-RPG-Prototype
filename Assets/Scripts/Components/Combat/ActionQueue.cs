@@ -15,6 +15,8 @@ namespace RPG_Project
         [SerializeField] int currentAction = 0;
         [SerializeField] List<BattleAction> actions = new List<BattleAction>();
 
+        string initialState;
+
         public bool Executing => executing;
 
         private void Awake()
@@ -43,6 +45,7 @@ namespace RPG_Project
 
             if (currentAction < actions.Count && !controller.Stamina.Empty)
             {
+                initialState = controller.Sm.GetCurrentKey.ToString();
                 actions[currentAction].Execute();
                 controller.Sm.ChangeState(controller.ACTION);
             }
@@ -51,7 +54,8 @@ namespace RPG_Project
         public void NextAction()
         {
             currentAction++;
-            print(345);
+            //print(345);
+
             if (controller.Stamina.Empty)
             {
                 currentAction = 0;
@@ -73,7 +77,8 @@ namespace RPG_Project
                     currentAction = 0;
 
                     actions.Clear();
-                    controller.Sm.ChangeState(controller.MOVE);
+                    controller.Sm.ChangeState(initialState);
+                    //controller.Sm.ChangeState(controller.MOVE);
 
                     executing = false;
                 }

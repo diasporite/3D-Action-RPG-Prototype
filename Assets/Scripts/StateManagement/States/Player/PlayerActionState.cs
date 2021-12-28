@@ -50,9 +50,11 @@ namespace RPG_Project
 
         void Command()
         {
-            if (!queue.Executing) psm.ChangeState(player.MOVE);
+            //if (!queue.Executing) psm.ChangeState(player.MOVE);
 
-            if (player.Attack()) return;
+            if (player.UseSkill()) return;
+            //else if (player.SheatheLeft()) return;
+            //else if (player.SheatheRight()) return;
         }
     }
 }

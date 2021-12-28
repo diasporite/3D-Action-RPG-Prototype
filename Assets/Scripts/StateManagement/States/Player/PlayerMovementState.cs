@@ -27,6 +27,13 @@ namespace RPG_Project
         public void Enter(params object[] args)
         {
             movement.SetRunning(false);
+
+            player.Hand = WeaponHand.Empty;
+
+            GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.BasicSkills);
+
+            anim.SetBool("LeftWeapon", false);
+            anim.SetBool("RightWeapon", false);
         }
 
         public void ExecuteFrame()
@@ -55,14 +62,9 @@ namespace RPG_Project
             player.ResourceTick(Time.deltaTime);
 
             if (player.Run()) return;
-            else if (player.Attack()) return;
-            else Move();
-        }
-
-        void Move()
-        {
-            var dir = player.RawInputDir;
-            player.Move(dir);
+            else if (player.SheatheLeft()) return;
+            else if (player.SheatheRight()) return;
+            else player.MovePlayer();
         }
 
         void Tick()

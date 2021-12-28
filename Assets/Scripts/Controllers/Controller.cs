@@ -18,6 +18,13 @@ namespace RPG_Project
         RightWeapon = 9,
     }
 
+    public enum WeaponHand
+    {
+        Empty = 0,
+        Left = 1,
+        Right = 2,
+    }
+
     [RequireComponent(typeof(Movement), typeof(Combatant), typeof(ActionQueue))]
     public class Controller : MonoBehaviour
     {
@@ -29,7 +36,10 @@ namespace RPG_Project
         public readonly string LEFT_WEAPON = "left weapon";
         public readonly string RIGHT_WEAPON = "right weapon";
 
-        [SerializeField] ControllerMode mode;
+        [SerializeField] protected ControllerMode mode;
+        [SerializeField] protected WeaponHand currentWeapon;
+
+        [SerializeField] string currentState;
 
         Vector3 inputDir = new Vector3(0, 0);
 
@@ -47,7 +57,17 @@ namespace RPG_Project
 
         protected InputManager inputManager;
 
-        public ControllerMode Mode => mode;
+        public ControllerMode Mode
+        {
+            get => mode;
+            set => mode = value;
+        }
+
+        public WeaponHand Hand
+        {
+            get => currentWeapon;
+            set => currentWeapon = value;
+        }
 
         public Vector3 RawInputDir
         {
@@ -106,6 +126,8 @@ namespace RPG_Project
         protected virtual void Update()
         {
             sm.Update();
+
+            currentState = sm.GetCurrentKey.ToString();
         }
 
         protected virtual void OnDrawGizmos()
@@ -118,9 +140,8 @@ namespace RPG_Project
 
         }
 
-        public virtual void Move(Vector3 dir)
+        public void Move(Vector3 dir)
         {
-            print(77);
             movement.MovePosition(dir, Time.deltaTime);
         }
 

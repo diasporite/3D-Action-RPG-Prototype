@@ -8,10 +8,14 @@ namespace RPG_Project
     {
         public static GameManager instance = null;
 
+        public BattleUI battleUi;
+
         CombatManager combat;
         InputManager input;
 
         PartyManager party;
+
+        public BattleUI BattleUi => battleUi;
 
         public CombatManager Combat => combat;
         public InputManager Input => input;

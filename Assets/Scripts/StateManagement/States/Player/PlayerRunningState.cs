@@ -60,8 +60,8 @@ namespace RPG_Project
                 psm.ChangeState(player.RECOVER);
             else if (!Input.GetKey("j"))
                 psm.ChangeState(player.MOVE);
-            else if (player.Attack()) return;
-            else Move();
+            else if (player.UseSkill()) return;
+            else player.MovePlayer();
         }
 
         void Move()

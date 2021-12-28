@@ -15,7 +15,7 @@ namespace RPG_Project
         public InputButton button;
 
         protected Image background;
-        [SerializeField] protected CanvasGroup vignette;
+        protected CanvasGroup vignette;
 
         protected Color selected = new Color(0.7f, 0.7f, 0.7f);
         protected Color notSelected = new Color(0.3f, 0.3f, 0.3f);

@@ -7,13 +7,15 @@ namespace RPG_Project
 {
     public class PlayerController : Controller
     {
-        public InputMaster controls;
+        //public InputMaster controls;
+
+        Vector3 ds = new Vector3(0, 0, 0);
 
         protected override void Awake()
         {
             base.Awake();
 
-            controls = new InputMaster();
+            //controls = new InputMaster();
         }
 
         protected override void Start()
@@ -25,12 +27,12 @@ namespace RPG_Project
 
         private void OnEnable()
         {
-            controls.Enable();
+            //controls.Enable();
         }
 
         private void OnDisable()
         {
-            controls.Disable();
+            //controls.Disable();
         }
 
         protected override void OnDrawGizmos()
@@ -46,12 +48,24 @@ namespace RPG_Project
             sm.AddState(RECOVER, new PlayerRecoveryState(this));
             sm.AddState(STAGGER, new PlayerStaggerState(this));
             sm.AddState(ACTION, new PlayerActionState(this));
+            sm.AddState(LEFT_WEAPON, new PlayerWeaponState(this, WeaponHand.Left));
+            sm.AddState(RIGHT_WEAPON, new PlayerWeaponState(this, WeaponHand.Right));
+        }
+
+        public void MovePlayer()
+        {
+            //var dir = controls.Player.Movement.ReadValue<Vector2>();
+            var dir = RawInputDir;
+            //ds.x = dir.x;
+            //ds.z = dir.y;
+            //Move(ds);
+            Move(dir);
         }
 
         public bool Run()
         {
-            //if (Input.GetKey("j") /*&& !movement.Stationary && !stamina.Empty*/)
-            if (controls.PlayerMove.Run.triggered)
+            if (Input.GetKey("j") /*&& !movement.Stationary && !stamina.Empty*/)
+            //if (controls.Player.Run.triggered)
             {
                 sm.ChangeState(RUN);
                 return true;
@@ -60,13 +74,16 @@ namespace RPG_Project
             return false;
         }
 
-        public bool Attack()
+        public bool UseSkill()
         {
-            if (Input.GetKeyDown("u") || Input.GetKeyDown("o") || 
-                Input.GetKeyDown("y") || Input.GetKeyDown("p"))
+            if (Input.GetKeyDown("i") || Input.GetKeyDown("j") || 
+                Input.GetKeyDown("k") || Input.GetKeyDown("l"))
             //if (inputManager.upSkill.GetInput || inputManager.leftSkill.GetInput || 
             //    inputManager.rightSkill.GetInput || inputManager.downSkill.GetInput)
+            //if (controls.Player.UseSkill.triggered)
             {
+                //var dir = controls.Player.UseSkill.ReadValue<Vector2>();
+                // Cast dir to 4 directions
                 AddCommand(0);
                 return true;
             }
@@ -74,23 +91,67 @@ namespace RPG_Project
             return false;
         }
 
-        public void OnMovement(InputAction.CallbackContext context)
+        public bool SheatheLeft()
         {
-            var dir = context.ReadValue<Vector2>();
-            var ds = new Vector3(dir.x, 0, dir.y);
-            print(ds);
-            Move(ds);
+            if (Input.GetKeyDown("u"))
+            {
+                switch (currentWeapon)
+                {
+                    case WeaponHand.Left:
+                        sm.ChangeState(MOVE);
+                        return true;
+                    case WeaponHand.Right:
+                        sm.ChangeState(LEFT_WEAPON);
+                        return true;
+                    default:
+                        sm.ChangeState(LEFT_WEAPON);
+                        return true;
+                }
+            }
+
+            return false;
         }
 
-        public void OnRun(InputAction.CallbackContext context)
+        public bool SheatheRight()
         {
-            print("run");
-            if (context.started) sm.ChangeState(RUN);
+            if (Input.GetKeyDown("o"))
+            {
+                switch (currentWeapon)
+                {
+                    case WeaponHand.Left:
+                        sm.ChangeState(RIGHT_WEAPON);
+                        return true;
+                    case WeaponHand.Right:
+                        sm.ChangeState(MOVE);
+                        return true;
+                    default:
+                        sm.ChangeState(RIGHT_WEAPON);
+                        return true;
+                }
+            }
+            return false;
         }
 
-        public void OnAttack()
-        {
-            AddCommand(0);
-        }
+        //#region NewInputSystem
+        //public void OnMovement(InputAction.CallbackContext context)
+        //{
+        //    var dir = context.ReadValue<Vector2>();
+        //    var ds = new Vector3(dir.x, 0, dir.y);
+        //    print(ds);
+        //    Move(ds);
+        //}
+
+        //public void OnRun(InputAction.CallbackContext context)
+        //{
+        //    print("run");
+        //    if (context.started) sm.ChangeState(RUN);
+        //}
+
+        //public void OnUseSkill(InputAction.CallbackContext context)
+        //{
+        //    var dir = context.ReadValue<Vector2>();
+        //    AddCommand(0);
+        //}
+        //#endregion
     }
 }

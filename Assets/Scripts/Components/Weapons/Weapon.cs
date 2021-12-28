@@ -6,25 +6,28 @@ namespace RPG_Project
 {
     public class Weapon : MonoBehaviour
     {
-        Hitbox hitbox;
+        protected Controller owner;
 
-        public Hitbox Hitbox => hitbox;
+        public virtual Hitbox Hitbox { get; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            hitbox = GetComponentInChildren<Hitbox>();
+
         }
 
-        public void ActivateWeapon()
+        public virtual void InitWeapon(Controller owner)
         {
-            hitbox.SetActive(true);
-            print("act");
+            this.owner = owner;
         }
 
-        public void DeactivateWeapon()
+        public virtual void ActivateWeapon()
         {
-            hitbox.SetActive(false);
-            print("deact");
+
+        }
+
+        public virtual void DeactivateWeapon()
+        {
+
         }
     }
 }

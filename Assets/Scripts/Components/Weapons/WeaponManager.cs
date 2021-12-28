@@ -6,21 +6,34 @@ namespace RPG_Project
 {
     public class WeaponManager : MonoBehaviour
     {
-        [SerializeField] Weapon weapon;
+        [Header("Weapons")]
+        [SerializeField] Weapon leftWeapon;
+        [SerializeField] Weapon rightWeapon;
+
+        [Header("Parameters")]
+        [SerializeField] int raycastAmmo = 10;
+
+        [SerializeField] Weapon currentWeapon;
 
         private void Start()
         {
-            weapon.Hitbox.SetController(GetComponent<Controller>());
+            var owner = GetComponent<Controller>();
+
+            leftWeapon.InitWeapon(owner);
+            rightWeapon.InitWeapon(owner);
+
+            //currentWeapon = null;
+            currentWeapon = rightWeapon;
         }
 
         public void ActivateWeapon()
         {
-            weapon.ActivateWeapon();
+            currentWeapon.ActivateWeapon();
         }
 
         public void DeactivateWeapon()
         {
-            weapon.DeactivateWeapon();
+            currentWeapon.DeactivateWeapon();
         }
     }
 }

@@ -4,9 +4,11 @@ namespace RPG_Project
 {
     public class StateMachine
     {
+        object currentStateKey;
         IState currentState = new EmptyState();
         Dictionary<object, IState> states = new Dictionary<object, IState>();
 
+        public object GetCurrentKey => currentStateKey;
         public IState _currentState => currentState;
         public Dictionary<object, IState> _states => states;
         public int _stateCount => states.Count;
@@ -59,6 +61,7 @@ namespace RPG_Project
 
             if (states.ContainsKey(id))
             {
+                currentStateKey = id;
                 currentState = states[id];
                 currentState.Enter(args);
             }
