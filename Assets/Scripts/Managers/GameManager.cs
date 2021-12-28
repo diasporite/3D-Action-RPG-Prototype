@@ -11,13 +11,22 @@ namespace RPG_Project
         CombatManager combat;
         InputManager input;
 
+        PartyManager party;
+
         public CombatManager Combat => combat;
         public InputManager Input => input;
+
+        public PartyManager Party => party;
 
         private void Awake()
         {
             if (instance == null) instance = this;
             else Destroy(gameObject);
+
+            combat = GetComponent<CombatManager>();
+            input = GetComponent<InputManager>();
+
+            party = FindObjectOfType<PartyManager>();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace RPG_Project
 
         private void Update()
         {
-            if (button.ItemInput) onButtonPress.Invoke();
+            if (button.GetInput) onButtonPress.Invoke();
         }
 
         void ChangeText()

@@ -1,16 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace RPG_Project
 {
     public class PlayerController : Controller
     {
+        public InputMaster controls;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            controls = new InputMaster();
+        }
+
         protected override void Start()
         {
             base.Start();
 
             sm.ChangeState(MOVE);
+        }
+
+        private void OnEnable()
+        {
+            controls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            controls.Disable();
         }
 
         protected override void OnDrawGizmos()
@@ -30,7 +50,8 @@ namespace RPG_Project
 
         public bool Run()
         {
-            if (Input.GetKey("j") /*&& !movement.Stationary && !stamina.Empty*/)
+            //if (Input.GetKey("j") /*&& !movement.Stationary && !stamina.Empty*/)
+            if (controls.PlayerMove.Run.triggered)
             {
                 sm.ChangeState(RUN);
                 return true;
@@ -43,12 +64,33 @@ namespace RPG_Project
         {
             if (Input.GetKeyDown("u") || Input.GetKeyDown("o") || 
                 Input.GetKeyDown("y") || Input.GetKeyDown("p"))
+            //if (inputManager.upSkill.GetInput || inputManager.leftSkill.GetInput || 
+            //    inputManager.rightSkill.GetInput || inputManager.downSkill.GetInput)
             {
                 AddCommand(0);
                 return true;
             }
 
             return false;
+        }
+
+        public void OnMovement(InputAction.CallbackContext context)
+        {
+            var dir = context.ReadValue<Vector2>();
+            var ds = new Vector3(dir.x, 0, dir.y);
+            print(ds);
+            Move(ds);
+        }
+
+        public void OnRun(InputAction.CallbackContext context)
+        {
+            print("run");
+            if (context.started) sm.ChangeState(RUN);
+        }
+
+        public void OnAttack()
+        {
+            AddCommand(0);
         }
     }
 }

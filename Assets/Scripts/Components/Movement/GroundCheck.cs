@@ -31,15 +31,21 @@ namespace RPG_Project
             //transform.position += skin * Vector3.down;
         }
 
+        private void Update()
+        {
+            startPos = transform.position + (0.5f * height + offset) * Vector3.down;
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawRay(startPos, skin * Vector3.down);
+            //Gizmos.DrawRay(startPos, skin * Vector3.down);
+            Gizmos.DrawWireSphere(startPos, 0.5f * skin);
         }
 
         public bool IsGrounded(GameObject excludeObj)
         {
-            //var hits = Physics.OverlapSphere(transform.position, radius);
+            //var hits = Physics.OverlapSphere(transform.position, 0.5f * skin);
 
             //if (hits != null)
             //    foreach (var hit in hits)
@@ -55,7 +61,25 @@ namespace RPG_Project
         // For steep ground, angle of incline > cc slope limit
         public bool OnSteepGround()
         {
+            RaycastHit hit;
+
+            if (Physics.Raycast(startPos, 0.2f * Vector3.down, out hit))
+            {
+                var theta = Vector3.Angle(Vector3.down, hit.normal);
+                return theta > slopeLimit;
+            }
+
             return false;
+        }
+
+        public float GroundAngle()
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(startPos, Vector3.down, out hit))
+                return Vector3.Angle(Vector3.down, hit.normal);
+
+            return 0;
         }
     }
 }

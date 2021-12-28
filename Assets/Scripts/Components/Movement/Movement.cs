@@ -24,6 +24,10 @@ namespace RPG_Project
         Vector3 gravity = new Vector3(0, -9.81f, 0);
         float fallSpeed = 0;
         float sqrTerminalSpeed = 1600f;
+
+        [Header("Fall Damage")]
+        [SerializeField] float fallDamageThreshold = 0.75f;
+        [SerializeField] float damageSpeed = 35;
         
         Transform cam;
 
@@ -48,6 +52,8 @@ namespace RPG_Project
             }
         }
 
+        float FallDamagePercent => 10 + damageSpeed * (timeSinceGrounded - fallDamageThreshold);
+
         private void Awake()
         {
             controller = GetComponent<Controller>();
@@ -60,11 +66,6 @@ namespace RPG_Project
             sqrTerminalSpeed = terminalSpeed * terminalSpeed;
 
             cam = Camera.main.transform;
-        }
-
-        private void Update()
-        {
-            //Fall(Time.deltaTime);
         }
 
         public void SetRunning(bool value)
@@ -93,6 +94,7 @@ namespace RPG_Project
         {
             if (dir != Vector3.zero)
             {
+                print(222);
                 dir.Normalize();
 
                 var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
@@ -101,6 +103,8 @@ namespace RPG_Project
                 cc.transform.rotation = Quaternion.Euler(0, angle, 0);
 
                 var ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+                ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
+
                 cc.Move(currentSpeed * ds.normalized * dt);
             }
 
@@ -113,10 +117,14 @@ namespace RPG_Project
 
             cc.Move(fallVelocity * Time.deltaTime);
 
-            grounded = groundCheck.IsGrounded(gameObject);
+            //grounded = groundCheck.IsGrounded(gameObject);
+            grounded = cc.isGrounded;
 
-            if (cc.isGrounded)
+            if (grounded)
             {
+                if (timeSinceGrounded >= fallDamageThreshold)
+                    GetComponent<Health>().ChangeResourcePercent(-FallDamagePercent);
+
                 if (timeSinceGrounded != 0)
                     timeSinceGrounded = 0;
                 if (fallVelocity.y != 0)

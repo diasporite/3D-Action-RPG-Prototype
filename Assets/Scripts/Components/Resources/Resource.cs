@@ -86,6 +86,15 @@ namespace RPG_Project
             UpdateUI();
         }
 
+        public void ChangeResourcePercent(float percent)
+        {
+            var p = 0.01f * percent;
+
+            resourcePoints.PointFraction += p;
+            resource.CooldownFraction += p;
+            UpdateUI();
+        }
+
         public void SetResource(int amount)
         {
             resourcePoints.PointValue = amount;

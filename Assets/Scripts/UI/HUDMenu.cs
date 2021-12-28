@@ -17,7 +17,7 @@ namespace RPG_Project
         private void Update()
         {
             foreach (var p in panels)
-                if (p.button.ItemInput)
+                if (p.button.GetInput)
                     p.onButtonPress.Invoke();
         }
     }

@@ -13,9 +13,11 @@ namespace RPG_Project
         [SerializeField] bool directional;
         Vector3 dir = new Vector3(0, 0);
 
+        public OnButtonPress onButtonPress;
+
         public string _key => key;
 
-        public bool ItemInput
+        public bool GetInput
         {
             get
             {
@@ -24,7 +26,7 @@ namespace RPG_Project
             }
         }
 
-        public Vector3 Dir
+        public Vector3 DirXy
         {
             get
             {
@@ -32,6 +34,29 @@ namespace RPG_Project
                 dir.y = Input.GetAxisRaw("Vertical");
                 return dir;
             }
+        }
+
+        public Vector3 DirXz
+        {
+            get
+            {
+                dir.x = Input.GetAxisRaw("Horizontal");
+                dir.z = Input.GetAxisRaw("Vertical");
+                return dir;
+            }
+        }
+
+        public InputButton(string key, bool hold, bool directional)
+        {
+            this.key = key;
+            this.hold = hold;
+            this.directional = directional;
+        }
+
+        public void Invoke()
+        {
+            if (GetInput)
+                onButtonPress.Invoke();
         }
     }
 }

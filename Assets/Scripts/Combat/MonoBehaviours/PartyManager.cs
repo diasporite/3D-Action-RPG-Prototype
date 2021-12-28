@@ -8,13 +8,13 @@ namespace RPG_Project
     {
         int partyCap = 8;
         int currentMember = 0;
-        [SerializeField] List<PlayerController> party = new List<PlayerController>();
+        [SerializeField] List<Controller> party = new List<Controller>();
 
         [SerializeField] Vector3 currentPos = new Vector3(0, 0, 0);
 
-        public PlayerController CurrentPartyMember => party[currentMember];
+        public Controller CurrentPartyMember => party[currentMember];
 
-        public PlayerController GetPartyMember(int index)
+        public Controller GetPartyMember(int index)
         {
             index = Mathf.Abs(index);
 

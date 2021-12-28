@@ -14,6 +14,8 @@ namespace RPG_Project
         Dodge = 5,
         Jump = 6,
         BasicAction = 7,    // Non combat actions (talk, pickup, interact)
+        LeftWeapon = 8,
+        RightWeapon = 9,
     }
 
     [RequireComponent(typeof(Movement), typeof(Combatant), typeof(ActionQueue))]
@@ -24,6 +26,8 @@ namespace RPG_Project
         public readonly string RECOVER = "recover";
         public readonly string STAGGER = "stagger";
         public readonly string ACTION = "action";
+        public readonly string LEFT_WEAPON = "left weapon";
+        public readonly string RIGHT_WEAPON = "right weapon";
 
         [SerializeField] ControllerMode mode;
 
@@ -40,6 +44,8 @@ namespace RPG_Project
         protected Poise poise;
 
         protected StateMachine sm = new StateMachine();
+
+        protected InputManager inputManager;
 
         public ControllerMode Mode => mode;
 
@@ -77,7 +83,7 @@ namespace RPG_Project
 
         public StateMachine Sm => sm;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             anim = GetComponent<Animator>();
 
@@ -92,6 +98,8 @@ namespace RPG_Project
 
         protected virtual void Start()
         {
+            inputManager = GameManager.instance.Input;
+
             InitSM();
         }
 
@@ -112,6 +120,7 @@ namespace RPG_Project
 
         public virtual void Move(Vector3 dir)
         {
+            print(77);
             movement.MovePosition(dir, Time.deltaTime);
         }
 

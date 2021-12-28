@@ -9,7 +9,7 @@ namespace RPG_Project
     public class CharPanel : UIPanel
     {
         PartyManager party;
-        PlayerController character;
+        Controller character;
         [SerializeField] int characterIndex;
 
         [SerializeField] Image portrait;

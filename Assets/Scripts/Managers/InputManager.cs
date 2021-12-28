@@ -7,15 +7,15 @@ namespace RPG_Project
     public class InputManager : MonoBehaviour
     {
         [Header("Skills")]
-        public string tlSkill = "y";
-        public string trSkill = "p";
-        public string blSkill = "u";
-        public string brSkill = "o";
+        public InputButton upSkill = new InputButton("i", false, false);
+        public InputButton leftSkill = new InputButton("j", false, false);
+        public InputButton rightSkill = new InputButton("l", false, false);
+        public InputButton downSkill = new InputButton("k", false, false);
 
         [Header("D-Pad Menu")]
-        public string up = "up";
-        public string left = "left";
-        public string right = "right";
-        public string down = "down";
+        public InputButton up = new InputButton("up", false, false);
+        public InputButton left = new InputButton("left", false, false);
+        public InputButton right = new InputButton("right", false, false);
+        public InputButton down = new InputButton("down", false, false);
     }
 }

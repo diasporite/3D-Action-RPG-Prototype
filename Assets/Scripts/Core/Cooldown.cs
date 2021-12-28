@@ -34,7 +34,15 @@ namespace RPG_Project
             }
         }
 
-        public float CooldownFraction => count / cooldown;
+        public float CooldownFraction
+        {
+            get
+            {
+                if (cooldown > 0) return count / cooldown;
+                return 0;
+            }
+            set => Count = value * (float)cooldown;
+        }
 
         public bool Empty => count <= 0;
 
