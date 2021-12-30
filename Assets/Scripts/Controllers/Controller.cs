@@ -35,11 +35,12 @@ namespace RPG_Project
         public readonly string ACTION = "action";
         public readonly string LEFT_WEAPON = "left weapon";
         public readonly string RIGHT_WEAPON = "right weapon";
-
+        public readonly string WEAPON = "weapon";
+            
         [SerializeField] protected ControllerMode mode;
         [SerializeField] protected WeaponHand currentWeapon;
 
-        [SerializeField] string currentState;
+        [SerializeField] protected string currentState;
 
         Vector3 inputDir = new Vector3(0, 0);
 
@@ -48,6 +49,8 @@ namespace RPG_Project
         protected Movement movement;
         protected Combatant combatant;
         protected ActionQueue queue;
+        protected WeaponManager weapon;
+        //protected LockOn lockOn;
 
         protected Health health;
         protected Stamina stamina;
@@ -96,6 +99,8 @@ namespace RPG_Project
         public Movement Movement => movement;
         public Combatant Combatant => combatant;
         public ActionQueue Queue => queue;
+        public WeaponManager Weapon => weapon;
+        //public LockOn LockOn => lockOn;
 
         public Health Health => health;
         public Stamina Stamina => stamina;
@@ -110,6 +115,8 @@ namespace RPG_Project
             movement = GetComponent<Movement>();
             combatant = GetComponent<Combatant>();
             queue = GetComponent<ActionQueue>();
+            weapon = GetComponent<WeaponManager>();
+            //lockOn = GetComponent<LockOn>();
 
             health = GetComponent<Health>();
             stamina = GetComponent<Stamina>();
@@ -162,6 +169,11 @@ namespace RPG_Project
         public void AddCommand(int index)
         {
             queue.AddAction(new AttackAction(this, transform.forward));
+        }
+
+        public void AddCommand(BattleAction action)
+        {
+            queue.AddAction(action);
         }
     }
 }

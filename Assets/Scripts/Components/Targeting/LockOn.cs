@@ -6,6 +6,7 @@ namespace RPG_Project
 {
     public class LockOn : MonoBehaviour
     {
+        bool lockedOn;
         [SerializeField] float searchRadius = 5f;
 
         int currentTarget = 0;

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
 namespace RPG_Project
 {
@@ -98,13 +98,19 @@ namespace RPG_Project
                 switch (currentWeapon)
                 {
                     case WeaponHand.Left:
-                        sm.ChangeState(MOVE);
+                        if (currentState != ACTION)
+                        {
+                            sm.ChangeState(MOVE);
+                            weapon.SwitchWeapon(WeaponHand.Empty);
+                        }
                         return true;
                     case WeaponHand.Right:
                         sm.ChangeState(LEFT_WEAPON);
+                        weapon.SwitchWeapon(WeaponHand.Left);
                         return true;
                     default:
                         sm.ChangeState(LEFT_WEAPON);
+                        weapon.SwitchWeapon(WeaponHand.Left);
                         return true;
                 }
             }
@@ -120,12 +126,18 @@ namespace RPG_Project
                 {
                     case WeaponHand.Left:
                         sm.ChangeState(RIGHT_WEAPON);
+                        weapon.SwitchWeapon(WeaponHand.Right);
                         return true;
                     case WeaponHand.Right:
-                        sm.ChangeState(MOVE);
+                        if (currentState != ACTION)
+                        {
+                            sm.ChangeState(MOVE);
+                            weapon.SwitchWeapon(WeaponHand.Empty);
+                        }
                         return true;
                     default:
                         sm.ChangeState(RIGHT_WEAPON);
+                        weapon.SwitchWeapon(WeaponHand.Right);
                         return true;
                 }
             }

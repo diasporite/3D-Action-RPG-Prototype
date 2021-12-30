@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerWeaponState : IState
+    public class PlayerCombatState : IState
     {
         PlayerController player;
         StateMachine psm;
@@ -14,34 +14,19 @@ namespace RPG_Project
 
         WeaponHand hand;
 
-        public PlayerWeaponState(PlayerController player, WeaponHand hand)
+        public PlayerCombatState(PlayerController player)
         {
             this.player = player;
             psm = player.Sm;
 
-            this.hand = hand;
-
+            weapon = player.Weapon;
             anim = player.Anim;
         }
 
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            player.Hand = hand;
 
-            //weapon.SwitchWeapon(player.Hand);
-
-            //switch (hand)
-            //{
-            //    case WeaponHand.Left:
-            //        GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.LeftWeaponSkills);
-            //        anim.SetBool("LeftWeapon", true);
-            //        break;
-            //    case WeaponHand.Right:
-            //        GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.RightWeaponSkills);
-            //        anim.SetBool("RightWeapon", true);
-            //        break;
-            //}
         }
 
         public void ExecuteFrame()

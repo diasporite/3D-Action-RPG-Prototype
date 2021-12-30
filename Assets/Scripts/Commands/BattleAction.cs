@@ -23,11 +23,23 @@ namespace RPG_Project
         public bool CanProgress => canProgress;
         public bool Complete => complete;
 
+        public BattleAction(Controller controller)
+        {
+            this.controller = controller;
+            dir = controller.transform.forward;
+
+            canProgress = false;
+            complete = false;
+
+            InitAction();
+        }
+
         public BattleAction(Controller controller, Vector3 dir)
         {
             this.controller = controller;
             this.dir = dir;
 
+            canProgress = false;
             complete = false;
 
             InitAction();
