@@ -45,10 +45,12 @@ namespace RPG_Project
                     currentWeapon = leftWeapon;
                     GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.LeftWeaponSkills);
                     anim.SetBool("LeftWeapon", true);
+                    anim.SetBool("RightWeapon", false);
                     break;
                 case WeaponHand.Right:
                     currentWeapon = rightWeapon;
                     GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.RightWeaponSkills);
+                    anim.SetBool("LeftWeapon", false);
                     anim.SetBool("RightWeapon", true);
                     break;
                 default:
@@ -61,6 +63,16 @@ namespace RPG_Project
                     }
                     break;
             }
+        }
+
+        public void SwitchToLeftWeapon()
+        {
+
+        }
+
+        public void SwitchToRightWeapon()
+        {
+
         }
 
         public void ActivateWeapon()

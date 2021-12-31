@@ -10,6 +10,7 @@ namespace RPG_Project
         StateMachine psm;
 
         ActionQueue queue;
+        WeaponManager weapon;
 
         public PlayerActionState(PlayerController player)
         {
@@ -24,6 +25,8 @@ namespace RPG_Project
         {
             player.Stamina.Regenerative = false;
             player.Poise.Regenerative = false;
+
+            weapon.CanDisarm = false;
         }
 
         public void ExecuteFrame()
@@ -45,6 +48,8 @@ namespace RPG_Project
         {
             player.Stamina.Regenerative = true;
             player.Poise.Regenerative = true;
+
+            weapon.CanDisarm = true;
         }
         #endregion
 

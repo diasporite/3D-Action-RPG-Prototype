@@ -50,6 +50,7 @@ namespace RPG_Project
             sm.AddState(ACTION, new PlayerActionState(this));
             sm.AddState(LEFT_WEAPON, new PlayerWeaponState(this, WeaponHand.Left));
             sm.AddState(RIGHT_WEAPON, new PlayerWeaponState(this, WeaponHand.Right));
+            sm.AddState(COMBAT, new PlayerCombatState(this));
         }
 
         public void MovePlayer()
@@ -95,24 +96,32 @@ namespace RPG_Project
         {
             if (Input.GetKeyDown("u"))
             {
-                switch (currentWeapon)
-                {
-                    case WeaponHand.Left:
-                        if (currentState != ACTION)
-                        {
-                            sm.ChangeState(MOVE);
-                            weapon.SwitchWeapon(WeaponHand.Empty);
-                        }
-                        return true;
-                    case WeaponHand.Right:
-                        sm.ChangeState(LEFT_WEAPON);
-                        weapon.SwitchWeapon(WeaponHand.Left);
-                        return true;
-                    default:
-                        sm.ChangeState(LEFT_WEAPON);
-                        weapon.SwitchWeapon(WeaponHand.Left);
-                        return true;
-                }
+                //switch (currentWeapon)
+                //{
+                //    case WeaponHand.Left:
+                //        if (currentState != ACTION)
+                //        {
+                //            sm.ChangeState(MOVE);
+                //            weapon.SwitchWeapon(WeaponHand.Empty);
+                //            anim.SetBool("LeftWeapon", false);
+                //            anim.SetBool("RightWeapon", false);
+                //        }
+                //        return true;
+                //    case WeaponHand.Right:
+                //        sm.ChangeState(LEFT_WEAPON);
+                //        weapon.SwitchWeapon(WeaponHand.Left);
+                //        anim.SetBool("LeftWeapon", true);
+                //        anim.SetBool("RightWeapon", false);
+                //        return true;
+                //    default:
+                //        sm.ChangeState(LEFT_WEAPON);
+                //        weapon.SwitchWeapon(WeaponHand.Left);
+                //        anim.SetBool("LeftWeapon", true);
+                //        anim.SetBool("RightWeapon", false);
+                //        return true;
+                //}
+
+                weapon.SwitchWeapon(WeaponHand.Left);
             }
 
             return false;
@@ -122,24 +131,32 @@ namespace RPG_Project
         {
             if (Input.GetKeyDown("o"))
             {
-                switch (currentWeapon)
-                {
-                    case WeaponHand.Left:
-                        sm.ChangeState(RIGHT_WEAPON);
-                        weapon.SwitchWeapon(WeaponHand.Right);
-                        return true;
-                    case WeaponHand.Right:
-                        if (currentState != ACTION)
-                        {
-                            sm.ChangeState(MOVE);
-                            weapon.SwitchWeapon(WeaponHand.Empty);
-                        }
-                        return true;
-                    default:
-                        sm.ChangeState(RIGHT_WEAPON);
-                        weapon.SwitchWeapon(WeaponHand.Right);
-                        return true;
-                }
+                //switch (currentWeapon)
+                //{
+                //    case WeaponHand.Left:
+                //        sm.ChangeState(RIGHT_WEAPON);
+                //        weapon.SwitchWeapon(WeaponHand.Right);
+                //        anim.SetBool("LeftWeapon", false);
+                //        anim.SetBool("RightWeapon", true);
+                //        return true;
+                //    case WeaponHand.Right:
+                //        if (currentState != ACTION)
+                //        {
+                //            sm.ChangeState(MOVE);
+                //            weapon.SwitchWeapon(WeaponHand.Empty);
+                //            anim.SetBool("LeftWeapon", false);
+                //            anim.SetBool("RightWeapon", false);
+                //        }
+                //        return true;
+                //    default:
+                //        sm.ChangeState(RIGHT_WEAPON);
+                //        weapon.SwitchWeapon(WeaponHand.Right);
+                //        anim.SetBool("LeftWeapon", false);
+                //        anim.SetBool("RightWeapon", true);
+                //        return true;
+                //}
+
+                weapon.SwitchWeapon(WeaponHand.Right);
             }
             return false;
         }

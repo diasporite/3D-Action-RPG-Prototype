@@ -36,7 +36,8 @@ namespace RPG_Project
         public readonly string LEFT_WEAPON = "left weapon";
         public readonly string RIGHT_WEAPON = "right weapon";
         public readonly string WEAPON = "weapon";
-            
+        public readonly string COMBAT = "combat";
+
         [SerializeField] protected ControllerMode mode;
         [SerializeField] protected WeaponHand currentWeapon;
 
