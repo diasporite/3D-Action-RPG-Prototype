@@ -69,9 +69,9 @@ namespace RPG_Project
         {
             player.ResourceTick(Time.deltaTime);
 
-            if (player.SheatheLeft()) return;
-            else if (player.SheatheRight()) return;
-            else if (player.UseSkill()) return;
+            //if (player.SheatheLeft()) return;
+            //else if (player.SheatheRight()) return;
+            if (player.UseSkill()) return;
             else player.MovePlayer();
         }
     }

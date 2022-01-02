@@ -54,7 +54,6 @@ namespace RPG_Project
         public void NextAction()
         {
             currentAction++;
-            //print(345);
 
             if (controller.Stamina.Empty)
             {
@@ -77,8 +76,7 @@ namespace RPG_Project
                     currentAction = 0;
 
                     actions.Clear();
-                    controller.Sm.ChangeState(initialState);
-                    //controller.Sm.ChangeState(controller.MOVE);
+                    controller.Sm.ChangeState(controller.MOVE);
 
                     executing = false;
                 }

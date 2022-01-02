@@ -3,3 +3,11 @@ PROJECT RESOURCES
 
 - Camera controller
   - https://learn.unity.com/tutorial/controlling-unity-camera-behaviour
+- Building UI
+  - https://www.youtube.com/watch?v=6ztY9-IX3Qg
+
+NOTES
+
+BUGS
+- Animation events not firing (fixed)
+  - Check that the full animation is played out before transitioning into another

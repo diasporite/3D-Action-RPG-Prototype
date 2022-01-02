@@ -10,28 +10,26 @@ namespace RPG_Project
         [Header("Char Info")]
         public string charName;
         public int id;
-
-        public Sprite sprite;
+        public WeightClass weightClass;
 
         [Header("Base Stats")]
         public int baseExp = 100;
         public int baseExpReward = 100;
 
         public int baseHp = 100;
-        public int baseMp = 100;
         public int baseSp = 100;
+        public int basePp = 100;
 
         public int baseAtk = 100;
         public int baseDef = 100;
 
-        public int baseSpd = 100;
-
         [Header("Skills")]
         public SkillData[] skills;
 
+        public BattleChar Character => new BattleChar(this);
+
         public BattleChar GetChar()
         {
-            //return new BattleChar(id, baseHp, baseAtk, baseDef, baseSpd);
             return new BattleChar(this);
         }
     }

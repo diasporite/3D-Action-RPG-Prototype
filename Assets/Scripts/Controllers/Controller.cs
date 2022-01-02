@@ -33,8 +33,8 @@ namespace RPG_Project
         public readonly string RECOVER = "recover";
         public readonly string STAGGER = "stagger";
         public readonly string ACTION = "action";
-        public readonly string LEFT_WEAPON = "left weapon";
-        public readonly string RIGHT_WEAPON = "right weapon";
+        //public readonly string LEFT_WEAPON = "left weapon";
+        //public readonly string RIGHT_WEAPON = "right weapon";
         public readonly string WEAPON = "weapon";
         public readonly string COMBAT = "combat";
 

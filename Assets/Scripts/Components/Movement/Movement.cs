@@ -6,6 +6,8 @@ namespace RPG_Project
     [RequireComponent(typeof(CharacterController), typeof(GroundCheck))]
     public class Movement : MonoBehaviour
     {
+        bool locked = false;
+
         [Header("Linear speed")]
         [SerializeField] float walkSpeed = 3;
         [SerializeField] float runningSpeed = 6;
@@ -35,6 +37,8 @@ namespace RPG_Project
 
         CharacterController cc;
         CapsuleCollider col;
+
+        CombatManager combat;
 
         public float Speed
         {
@@ -68,6 +72,39 @@ namespace RPG_Project
             cam = Camera.main.transform;
         }
 
+        private void Start()
+        {
+            combat = GameManager.instance.Combat;
+
+            GameManager.instance.Party.onCharacterChanged += SetSpeeds;
+
+            SetSpeeds(null);
+        }
+
+        public void SetSpeeds(BattleChar character)
+        {
+            var weight = WeightClass.Middleweight;
+
+            if (character != null)
+                weight = character.WeightClass;
+
+            switch (weight)
+            {
+                case WeightClass.Lightweight:
+                    walkSpeed = combat.lightweightWalk;
+                    runningSpeed = combat.lightweightRun;
+                    break;
+                case WeightClass.Middleweight:
+                    walkSpeed = combat.middleweightWalk;
+                    runningSpeed = combat.middleweightRun;
+                    break;
+                case WeightClass.Heavyweight:
+                    walkSpeed = combat.heavyweightWalk;
+                    runningSpeed = combat.heavyweightRun;
+                    break;
+            }
+        }
+
         public void SetRunning(bool value)
         {
             if (value) currentSpeed = runningSpeed;
@@ -89,12 +126,21 @@ namespace RPG_Project
             }
         }
 
+        public void LockMovement()
+        {
+            locked = true;
+        }
+
+        public void UnlockMovement()
+        {
+            locked = false;
+        }
+
         // Source: https://www.youtube.com/watch?v=4HpC--2iowE
         public void MovePosition(Vector3 dir, float dt)
         {
-            if (dir != Vector3.zero)
+            if (!locked && dir != Vector3.zero)
             {
-                print(222);
                 dir.Normalize();
 
                 var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;

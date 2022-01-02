@@ -7,13 +7,19 @@ namespace RPG_Project
 {
     public class PlayerController : Controller
     {
+        [SerializeField] PartyManager party;
+
         //public InputMaster controls;
 
         Vector3 ds = new Vector3(0, 0, 0);
 
+        public PartyManager Party => party;
+
         protected override void Awake()
         {
             base.Awake();
+
+            party = GetComponentInParent<PartyManager>();
 
             //controls = new InputMaster();
         }
@@ -48,9 +54,9 @@ namespace RPG_Project
             sm.AddState(RECOVER, new PlayerRecoveryState(this));
             sm.AddState(STAGGER, new PlayerStaggerState(this));
             sm.AddState(ACTION, new PlayerActionState(this));
-            sm.AddState(LEFT_WEAPON, new PlayerWeaponState(this, WeaponHand.Left));
-            sm.AddState(RIGHT_WEAPON, new PlayerWeaponState(this, WeaponHand.Right));
-            sm.AddState(COMBAT, new PlayerCombatState(this));
+            //sm.AddState(LEFT_WEAPON, new PlayerWeaponState(this, WeaponHand.Left));
+            //sm.AddState(RIGHT_WEAPON, new PlayerWeaponState(this, WeaponHand.Right));
+            //sm.AddState(COMBAT, new PlayerCombatState(this));
         }
 
         public void MovePlayer()
@@ -77,8 +83,8 @@ namespace RPG_Project
 
         public bool UseSkill()
         {
-            if (Input.GetKeyDown("i") || Input.GetKeyDown("j") || 
-                Input.GetKeyDown("k") || Input.GetKeyDown("l"))
+            if (Input.GetKeyDown("y") || Input.GetKeyDown("u") || 
+                Input.GetKeyDown("o") || Input.GetKeyDown("p"))
             //if (inputManager.upSkill.GetInput || inputManager.leftSkill.GetInput || 
             //    inputManager.rightSkill.GetInput || inputManager.downSkill.GetInput)
             //if (controls.Player.UseSkill.triggered)
@@ -92,74 +98,78 @@ namespace RPG_Project
             return false;
         }
 
-        public bool SheatheLeft()
-        {
-            if (Input.GetKeyDown("u"))
-            {
-                //switch (currentWeapon)
-                //{
-                //    case WeaponHand.Left:
-                //        if (currentState != ACTION)
-                //        {
-                //            sm.ChangeState(MOVE);
-                //            weapon.SwitchWeapon(WeaponHand.Empty);
-                //            anim.SetBool("LeftWeapon", false);
-                //            anim.SetBool("RightWeapon", false);
-                //        }
-                //        return true;
-                //    case WeaponHand.Right:
-                //        sm.ChangeState(LEFT_WEAPON);
-                //        weapon.SwitchWeapon(WeaponHand.Left);
-                //        anim.SetBool("LeftWeapon", true);
-                //        anim.SetBool("RightWeapon", false);
-                //        return true;
-                //    default:
-                //        sm.ChangeState(LEFT_WEAPON);
-                //        weapon.SwitchWeapon(WeaponHand.Left);
-                //        anim.SetBool("LeftWeapon", true);
-                //        anim.SetBool("RightWeapon", false);
-                //        return true;
-                //}
+        //public bool SheatheLeft()
+        //{
+        //    if (Input.GetKeyDown("u"))
+        //    {
+        //        switch (currentWeapon)
+        //        {
+        //            case WeaponHand.Left:
+        //                if (currentState != ACTION)
+        //                {
+        //                    sm.ChangeState(MOVE);
+        //                    weapon.SwitchWeapon(WeaponHand.Empty);
+        //                    anim.SetBool("LeftWeapon", false);
+        //                    anim.SetBool("RightWeapon", false);
+        //                }
+        //                return true;
+        //            case WeaponHand.Right:
+        //                sm.ChangeState(LEFT_WEAPON);
+        //                weapon.SwitchWeapon(WeaponHand.Left);
+        //                anim.SetBool("LeftWeapon", true);
+        //                anim.SetBool("RightWeapon", false);
+        //                return true;
+        //            default:
+        //                sm.ChangeState(LEFT_WEAPON);
+        //                weapon.SwitchWeapon(WeaponHand.Left);
+        //                anim.SetBool("LeftWeapon", true);
+        //                anim.SetBool("RightWeapon", false);
+        //                return true;
+        //        }
 
-                weapon.SwitchWeapon(WeaponHand.Left);
-            }
+        //        //if (currentState != ACTION)
+        //        //    sm.ChangeState(COMBAT);
+        //        //weapon.SwitchWeapon(WeaponHand.Left);
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
-        public bool SheatheRight()
-        {
-            if (Input.GetKeyDown("o"))
-            {
-                //switch (currentWeapon)
-                //{
-                //    case WeaponHand.Left:
-                //        sm.ChangeState(RIGHT_WEAPON);
-                //        weapon.SwitchWeapon(WeaponHand.Right);
-                //        anim.SetBool("LeftWeapon", false);
-                //        anim.SetBool("RightWeapon", true);
-                //        return true;
-                //    case WeaponHand.Right:
-                //        if (currentState != ACTION)
-                //        {
-                //            sm.ChangeState(MOVE);
-                //            weapon.SwitchWeapon(WeaponHand.Empty);
-                //            anim.SetBool("LeftWeapon", false);
-                //            anim.SetBool("RightWeapon", false);
-                //        }
-                //        return true;
-                //    default:
-                //        sm.ChangeState(RIGHT_WEAPON);
-                //        weapon.SwitchWeapon(WeaponHand.Right);
-                //        anim.SetBool("LeftWeapon", false);
-                //        anim.SetBool("RightWeapon", true);
-                //        return true;
-                //}
+        //public bool SheatheRight()
+        //{
+        //    if (Input.GetKeyDown("o"))
+        //    {
+        //        switch (currentWeapon)
+        //        {
+        //            case WeaponHand.Left:
+        //                sm.ChangeState(RIGHT_WEAPON);
+        //                weapon.SwitchWeapon(WeaponHand.Right);
+        //                anim.SetBool("LeftWeapon", false);
+        //                anim.SetBool("RightWeapon", true);
+        //                return true;
+        //            case WeaponHand.Right:
+        //                if (currentState != ACTION)
+        //                {
+        //                    sm.ChangeState(MOVE);
+        //                    weapon.SwitchWeapon(WeaponHand.Empty);
+        //                    anim.SetBool("LeftWeapon", false);
+        //                    anim.SetBool("RightWeapon", false);
+        //                }
+        //                return true;
+        //            default:
+        //                sm.ChangeState(RIGHT_WEAPON);
+        //                weapon.SwitchWeapon(WeaponHand.Right);
+        //                anim.SetBool("LeftWeapon", false);
+        //                anim.SetBool("RightWeapon", true);
+        //                return true;
+        //        }
 
-                weapon.SwitchWeapon(WeaponHand.Right);
-            }
-            return false;
-        }
+        //        //if (currentState != ACTION)
+        //        //    sm.ChangeState(COMBAT);
+        //        //weapon.SwitchWeapon(WeaponHand.Right);
+        //    }
+        //    return false;
+        //}
 
         //#region NewInputSystem
         //public void OnMovement(InputAction.CallbackContext context)

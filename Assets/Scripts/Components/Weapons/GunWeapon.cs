@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class RaycastWeapon : Weapon
+    public class GunWeapon : Weapon
     {
         [SerializeField] float range = 5f;
 

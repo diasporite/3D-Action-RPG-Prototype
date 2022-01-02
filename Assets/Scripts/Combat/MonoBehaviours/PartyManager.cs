@@ -6,6 +6,12 @@ namespace RPG_Project
 {
     public class PartyManager : MonoBehaviour
     {
+        public OnCharacterChanged onCharacterChanged;
+
+        public OnHealthChanged onHealthChanged;
+        public OnStaminaChanged onStaminaChanged;
+        public OnPoiseChanged onPoiseChanged;
+
         int partyCap = 8;
         int currentMember = 0;
         [SerializeField] List<Controller> party = new List<Controller>();

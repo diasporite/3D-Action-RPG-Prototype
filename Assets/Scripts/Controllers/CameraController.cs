@@ -19,6 +19,8 @@ namespace RPG_Project
         public float camDist = 10;
         public float thetaXz = 10;
         public float thetaY = 180;
+        public float xzMax = 45;
+        public float xzMin = -10;
         public Vector3 defaultCamOffset = new Vector3(0, 2, -8);
         Vector3 camPos;
         public Vector3 targetPlayerOffset = new Vector3(5, 0, 5);
@@ -93,7 +95,8 @@ namespace RPG_Project
             if (Input.GetKey("up")) thetaXz += speed * Time.deltaTime;
             if (Input.GetKey("down")) thetaXz -= speed * Time.deltaTime;
 
-            if (Mathf.Abs(thetaXz) > 30) thetaXz = 30 * Mathf.Sign(thetaXz);
+            if (thetaXz > xzMax) thetaXz = xzMax;
+            if (thetaXz < xzMin) thetaXz = xzMin;
         }
 
         public void FollowPlayer()

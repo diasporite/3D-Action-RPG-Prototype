@@ -11,6 +11,8 @@ namespace RPG_Project
         public AttackAction(Controller controller, Vector3 dir) : base(controller, dir)
         {
             anim = controller.Anim;
+
+            actionName = "attack";
         }
 
         public override void Execute()

@@ -31,9 +31,6 @@ namespace RPG_Project
             player.Hand = WeaponHand.Empty;
 
             GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.BasicSkills);
-
-            anim.SetBool("LeftWeapon", false);
-            anim.SetBool("RightWeapon", false);
         }
 
         public void ExecuteFrame()
@@ -62,8 +59,9 @@ namespace RPG_Project
             player.ResourceTick(Time.deltaTime);
 
             if (player.Run()) return;
-            else if (player.SheatheLeft()) return;
-            else if (player.SheatheRight()) return;
+            //else if (player.SheatheLeft()) return;
+            //else if (player.SheatheRight()) return;
+            else if (player.UseSkill()) return;
             else player.MovePlayer();
         }
 

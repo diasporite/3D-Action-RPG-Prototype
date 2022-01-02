@@ -206,6 +206,7 @@ MonoBehaviour:
   mode: 0
   currentWeapon: 0
   currentState: 
+  party: {fileID: 0}
 --- !u!114 &4012377324784288308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   regenerative: 0
   points: 400
-  initPoints: 360
+  initPoints: 400
   regenSpeed: 30
   currentRegen: 0
   resourcePoints:
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   regenerative: 1
   points: 150
-  initPoints: 0
+  initPoints: 150
   regenSpeed: 25
   currentRegen: 0
   resourcePoints:

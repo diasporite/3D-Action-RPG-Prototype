@@ -29,10 +29,7 @@ namespace RPG_Project
             player.Stamina.Run(false);
             player.Movement.SetRunning(false);
 
-            anim.SetBool("Recovery", true);
-
-            anim.SetBool("LeftWeapon", false);
-            anim.SetBool("RightWeapon", false);
+            anim.SetTrigger("Recovery");
         }
 
         public void ExecuteFrame()
@@ -52,7 +49,7 @@ namespace RPG_Project
 
         public void Exit()
         {
-            anim.SetBool("Recovery", false);
+
         }
         #endregion
 

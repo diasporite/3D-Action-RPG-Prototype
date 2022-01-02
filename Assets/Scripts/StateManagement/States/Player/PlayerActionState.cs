@@ -18,6 +18,7 @@ namespace RPG_Project
             psm = player.Sm;
 
             queue = player.Queue;
+            weapon = player.Weapon;
         }
 
         #region InterfaceMethods
@@ -60,6 +61,7 @@ namespace RPG_Project
             if (player.UseSkill()) return;
             //else if (player.SheatheLeft()) return;
             //else if (player.SheatheRight()) return;
+            else player.MovePlayer();
         }
     }
 }

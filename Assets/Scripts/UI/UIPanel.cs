@@ -22,6 +22,11 @@ namespace RPG_Project
 
         public OnButtonPress onButtonPress;
 
+        protected virtual void OnDestroy()
+        {
+            onButtonPress -= SelectUI;
+        }
+
         public virtual void InitPanel()
         {
             background = GetComponent<Image>();

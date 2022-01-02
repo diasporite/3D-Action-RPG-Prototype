@@ -18,6 +18,7 @@ namespace RPG_Project
         [SerializeField] Weapon currentWeapon;
 
         Controller controller;
+        StateMachine csm;
         Animator anim;
 
         public bool CanDisarm
@@ -29,6 +30,7 @@ namespace RPG_Project
         private void Start()
         {
             controller = GetComponent<Controller>();
+            csm = controller.Sm;
             anim = controller.Anim;
 
             leftWeapon.InitWeapon(controller);
@@ -44,22 +46,17 @@ namespace RPG_Project
                 case WeaponHand.Left:
                     currentWeapon = leftWeapon;
                     GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.LeftWeaponSkills);
-                    anim.SetBool("LeftWeapon", true);
-                    anim.SetBool("RightWeapon", false);
                     break;
                 case WeaponHand.Right:
                     currentWeapon = rightWeapon;
                     GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.RightWeaponSkills);
-                    anim.SetBool("LeftWeapon", false);
-                    anim.SetBool("RightWeapon", true);
                     break;
                 default:
                     if (canDisarm)
                     {
                         currentWeapon = null;
                         GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.BasicSkills);
-                        anim.SetBool("LeftWeapon", false);
-                        anim.SetBool("RightWeapon", false);
+                        csm.ChangeState(controller.MOVE);
                     }
                     break;
             }

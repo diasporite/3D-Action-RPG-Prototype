@@ -6,6 +6,10 @@ namespace RPG_Project
 {
     public class Combatant : MonoBehaviour, IDamageable
     {
+        public OnHealthChanged onHealthChanged;
+        public OnStaminaChanged onStaminaChanged;
+        public OnPoiseChanged onPoiseChanged;
+
         [SerializeField] bool player = false;
 
         bool invincible = false;
@@ -32,6 +36,11 @@ namespace RPG_Project
 
             controller = GetComponent<Controller>();
             sm = controller.Sm;
+        }
+
+        private void OnDestroy()
+        {
+            
         }
 
         public void OnDamage(int healthDamage, int poiseDamage)
