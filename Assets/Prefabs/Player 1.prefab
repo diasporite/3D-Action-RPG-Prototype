@@ -243,6 +243,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
+  character:
+    dead: 0
+    charName: 0
+    id: 0
+    weightClass: 1
+    progression:
+      lv: 0
+      currentLvCap: 0
+      exp: 0
+      expAtLv: 
+      expRewardAtLv: 
+    rewards:
+      expAtLv: 
+      moneyAtLv: 
+    health:
+      statValue: 400
+      currentStatValue: 400
+      pointValue: 400
+    stamina:
+      statValue: 32
+      currentStatValue: 32
+      pointValue: 32
+    poise:
+      statValue: 160
+      currentStatValue: 160
+      pointValue: 160
+    attack:
+      statValue: 128
+      currentStatValue: 128
+    defence:
+      statValue: 128
+      currentStatValue: 128
+  skillset:
+    tlSkill:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    trSkill:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    blSkill:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    brSkill:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    skillset: []
 --- !u!114 &4494172850248752210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,10 +329,96 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2386ae113fde5d4fbf9c0ad52fc6e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWeapon: {fileID: 3066900411084317503}
-  rightWeapon: {fileID: 6758360262487538939}
-  raycastAmmo: 10
+  weapons:
+  - {fileID: 3066900411084317503}
+  - {fileID: 6758360262487538939}
+  topLeftAbility:
+    action:
+      weapon: {fileID: 3066900411084317503}
+      animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
+      numberOfHits: 3
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 50
+      poiseDps: 30
+    healthDamage: 0
+    poiseDamage: 0
+  topRightAbility:
+    action:
+      weapon: {fileID: 3066900411084317503}
+      animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
+      numberOfHits: 1
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 50
+      poiseDps: 30
+    healthDamage: 0
+    poiseDamage: 0
+  bottomLeftAbility:
+    action:
+      weapon: {fileID: 6758360262487538939}
+      animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
+      numberOfHits: 1
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 50
+      poiseDps: 30
+    healthDamage: 0
+    poiseDamage: 0
+  bottomRightAbility:
+    action:
+      weapon: {fileID: 6758360262487538939}
+      animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
+      numberOfHits: 1
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 7
+      uses:
+        statValue: 12
+        currentStatValue: 12
+        pointValue: 12
+      healthDps: 50
+      poiseDps: 30
+    healthDamage: 0
+    poiseDamage: 0
+  gunAmmo: 10
   currentWeapon: {fileID: 0}
+  currentAbility:
+    action:
+      weapon: {fileID: 0}
+      animation: {fileID: 0}
+      numberOfHits: 1
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    healthDamage: 0
+    poiseDamage: 0
 --- !u!114 &4012377324784288302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,8 +447,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regenerative: 0
-  points: 400
-  initPoints: 400
   regenSpeed: 30
   currentRegen: 0
   resourcePoints:
@@ -314,8 +472,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regenerative: 1
-  points: 25
-  initPoints: 25
   regenSpeed: 5
   currentRegen: 0
   resourcePoints:
@@ -344,8 +500,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regenerative: 1
-  points: 150
-  initPoints: 150
   regenSpeed: 25
   currentRegen: 0
   resourcePoints:

@@ -2021,6 +2021,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1042886820}
     m_Modifications:
+    - target: {fileID: 701807042117368926, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: SP 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2778502855517331917, guid: f508ab633c4a6714bb1a02c49b037d65,
         type: 3}
       propertyPath: button.key
@@ -2151,6 +2156,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4610039436680016938, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: Sword Swing
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f508ab633c4a6714bb1a02c49b037d65, type: 3}
 --- !u!224 &482963288 stripped
@@ -2166,6 +2176,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1042886820}
     m_Modifications:
+    - target: {fileID: 701807042117368926, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: SP 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2778502855517331917, guid: f508ab633c4a6714bb1a02c49b037d65,
         type: 3}
       propertyPath: button.key
@@ -2295,6 +2310,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610039436680016938, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: Sword Swing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f508ab633c4a6714bb1a02c49b037d65, type: 3}
@@ -3001,7 +3021,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -5347,7 +5367,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -5441,7 +5461,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -6840,6 +6860,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1042886820}
     m_Modifications:
+    - target: {fileID: 701807042117368926, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: SP 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2778502855517331917, guid: f508ab633c4a6714bb1a02c49b037d65,
         type: 3}
       propertyPath: button.key
@@ -6969,6 +6994,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610039436680016938, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: Sword Swing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f508ab633c4a6714bb1a02c49b037d65, type: 3}
@@ -9614,6 +9644,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1042886820}
     m_Modifications:
+    - target: {fileID: 701807042117368926, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: SP 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2778502855517331917, guid: f508ab633c4a6714bb1a02c49b037d65,
         type: 3}
       propertyPath: button.key
@@ -9759,6 +9794,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4610039436680016938, guid: f508ab633c4a6714bb1a02c49b037d65,
+        type: 3}
+      propertyPath: m_Text
+      value: Sword Swing
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f508ab633c4a6714bb1a02c49b037d65, type: 3}
 --- !u!114 &866114671841221353 stripped
@@ -9816,6 +9856,11 @@ PrefabInstance:
       propertyPath: statText
       value: 
       objectReference: {fileID: 621538263}
+    - target: {fileID: 4012377324784288305, guid: 34bfc414ad98ace45849c5e23942f5cc,
+        type: 3}
+      propertyPath: regenSpeed
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4012377324784288308, guid: 34bfc414ad98ace45849c5e23942f5cc,
         type: 3}
       propertyPath: walkSpeed
@@ -9900,16 +9945,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Target
-      objectReference: {fileID: 0}
-    - target: {fileID: 7563798107814350232, guid: 34bfc414ad98ace45849c5e23942f5cc,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7563798107814350232, guid: 34bfc414ad98ace45849c5e23942f5cc,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34bfc414ad98ace45849c5e23942f5cc, type: 3}

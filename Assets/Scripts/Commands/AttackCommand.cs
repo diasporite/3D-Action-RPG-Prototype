@@ -4,20 +4,24 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class AttackAction : BattleAction
+    [System.Serializable]
+    public class AttackCommand : BattleCommand
     {
         Animator anim;
 
-        public AttackAction(Controller controller, Vector3 dir) : base(controller, dir)
+        [SerializeField] string trigger;
+
+        public AttackCommand(Controller controller, Vector3 dir, string trigger) : base(controller, dir)
         {
             anim = controller.Anim;
 
             actionName = "attack";
+            this.trigger = trigger;
         }
 
         public override void Execute()
         {
-            anim.SetTrigger("SwordSwing");
+            anim.SetTrigger(trigger);
 
             controller.Stamina.ChangeResource(-7);
             controller.Poise.ChangeResource(-47);

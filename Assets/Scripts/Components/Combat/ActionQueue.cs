@@ -13,7 +13,7 @@ namespace RPG_Project
         Animator anim;
 
         [SerializeField] int currentAction = 0;
-        [SerializeField] List<BattleAction> actions = new List<BattleAction>();
+        [SerializeField] List<BattleCommand> actions = new List<BattleCommand>();
 
         string initialState;
 
@@ -25,7 +25,7 @@ namespace RPG_Project
             anim = GetComponent<Animator>();
         }
 
-        public void AddAction(BattleAction action)
+        public void AddAction(BattleCommand action)
         {
             if (action != null)
             {
@@ -90,6 +90,30 @@ namespace RPG_Project
             actions.Clear();
 
             executing = false;
+        }
+
+        public void StopActionStagger()
+        {
+            StopCoroutine(ActionChain());
+
+            actions.Clear();
+
+            executing = false;
+
+            controller.Sm.ChangeState(controller.STAGGER);
+            anim.SetBool("Stagger", true);
+        }
+
+        public void StopActionDeath()
+        {
+            StopCoroutine(ActionChain());
+
+            actions.Clear();
+
+            executing = false;
+
+            controller.Sm.ChangeState(controller.DEATH);
+            anim.SetTrigger("Death");
         }
 
         IEnumerator ActionChain()

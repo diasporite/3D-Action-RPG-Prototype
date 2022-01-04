@@ -9,15 +9,15 @@ namespace RPG_Project
         PlayerController player;
         StateMachine psm;
 
+        Animator anim;
         ActionQueue queue;
-
-        Cooldown cooldown = new Cooldown(2f, 1);
 
         public PlayerStaggerState(PlayerController player)
         {
             this.player = player;
             psm = player.Sm;
 
+            anim = player.Anim;
             queue = player.Queue;
         }
 
@@ -28,11 +28,13 @@ namespace RPG_Project
             player.Poise.Regenerative = false;
 
             //player.Movement.StopRb();
+
+            anim.SetBool("Stagger", true);
         }
 
         public void ExecuteFrame()
         {
-            Tick();
+
         }
 
         public void ExecuteFrameFixed()
@@ -51,11 +53,5 @@ namespace RPG_Project
             player.Poise.Regenerative = true;
         }
         #endregion
-
-        void Tick()
-        {
-            cooldown.Tick(Time.deltaTime);
-            if (cooldown.Full) psm.ChangeState(player.MOVE);
-        }
     }
 }

@@ -10,7 +10,7 @@ namespace RPG_Project
         StateMachine psm;
 
         ActionQueue queue;
-        WeaponManager weapon;
+        AbilityManager weapon;
 
         public PlayerActionState(PlayerController player)
         {
@@ -18,7 +18,7 @@ namespace RPG_Project
             psm = player.Sm;
 
             queue = player.Queue;
-            weapon = player.Weapon;
+            weapon = player.Ability;
         }
 
         #region InterfaceMethods
@@ -59,9 +59,7 @@ namespace RPG_Project
             //if (!queue.Executing) psm.ChangeState(player.MOVE);
 
             if (player.UseSkill()) return;
-            //else if (player.SheatheLeft()) return;
-            //else if (player.SheatheRight()) return;
-            else player.MovePlayer();
+            //else player.MovePlayer();
         }
     }
 }

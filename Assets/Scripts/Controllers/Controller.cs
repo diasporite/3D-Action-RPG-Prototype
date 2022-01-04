@@ -33,10 +33,7 @@ namespace RPG_Project
         public readonly string RECOVER = "recover";
         public readonly string STAGGER = "stagger";
         public readonly string ACTION = "action";
-        //public readonly string LEFT_WEAPON = "left weapon";
-        //public readonly string RIGHT_WEAPON = "right weapon";
-        public readonly string WEAPON = "weapon";
-        public readonly string COMBAT = "combat";
+        public readonly string DEATH = "death";
 
         [SerializeField] protected ControllerMode mode;
         [SerializeField] protected WeaponHand currentWeapon;
@@ -50,7 +47,7 @@ namespace RPG_Project
         protected Movement movement;
         protected Combatant combatant;
         protected ActionQueue queue;
-        protected WeaponManager weapon;
+        protected AbilityManager ability;
         //protected LockOn lockOn;
 
         protected Health health;
@@ -100,7 +97,7 @@ namespace RPG_Project
         public Movement Movement => movement;
         public Combatant Combatant => combatant;
         public ActionQueue Queue => queue;
-        public WeaponManager Weapon => weapon;
+        public AbilityManager Ability => ability;
         //public LockOn LockOn => lockOn;
 
         public Health Health => health;
@@ -116,7 +113,7 @@ namespace RPG_Project
             movement = GetComponent<Movement>();
             combatant = GetComponent<Combatant>();
             queue = GetComponent<ActionQueue>();
-            weapon = GetComponent<WeaponManager>();
+            ability = GetComponent<AbilityManager>();
             //lockOn = GetComponent<LockOn>();
 
             health = GetComponent<Health>();
@@ -169,12 +166,14 @@ namespace RPG_Project
 
         public void AddCommand(int index)
         {
-            queue.AddAction(new AttackAction(this, transform.forward));
+            var command = ability.GetAbility(index).GetCommand(this);
+            if (command != null) queue.AddAction(command);
+            //queue.AddAction(new AttackCommand(this, transform.forward));
         }
 
-        public void AddCommand(BattleAction action)
+        public void AddCommand(BattleCommand action)
         {
-            queue.AddAction(action);
+            if (action != null) queue.AddAction(action);
         }
     }
 }

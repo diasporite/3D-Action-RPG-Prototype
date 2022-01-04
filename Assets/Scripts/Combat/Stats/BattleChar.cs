@@ -73,6 +73,11 @@ namespace RPG_Project
         public PointStat Stamina => stamina;
         public PointStat Poise => poise;
 
+        // Stores float values for hp, sp, pp
+        public float HealthResource { get; set; }
+        public float StaminaResource { get; set; }
+        public float PoiseResource { get; set; }
+
         public Stat Attack => attack;
         public Stat Defence => defence;
         //public Stat _speed => speed;
@@ -132,9 +137,12 @@ namespace RPG_Project
             //progression = new Progression(100, GameManager.instance._combat._levelCap);
             //rewards = new Rewards(100, 0, GameManager.instance._combat._levelCap);
 
+            var sp = Mathf.RoundToInt(0.08f * hp);
+            var pp = Mathf.RoundToInt(0.4f * hp);
+
             health = new PointStat(hp, hp, 999);
-            stamina = new PointStat(hp, hp, 999);
-            poise = new PointStat(hp, hp, 999);
+            stamina = new PointStat(sp, sp, 999);
+            poise = new PointStat(pp, pp, 999);
 
             attack = new Stat(atk, 255);
             defence = new Stat(def, 255);

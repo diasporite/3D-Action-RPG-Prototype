@@ -4,34 +4,30 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerCombatState : IState
+    public class PlayerDeathState : IState
     {
         PlayerController player;
         StateMachine psm;
 
-        WeaponManager weapon;
         Animator anim;
 
-        WeaponHand hand;
-
-        public PlayerCombatState(PlayerController player)
+        public PlayerDeathState(PlayerController player)
         {
             this.player = player;
             psm = player.Sm;
 
-            weapon = player.Weapon;
             anim = player.Anim;
         }
 
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-
+            anim.SetTrigger("Death");
         }
 
         public void ExecuteFrame()
         {
-            Command();
+
         }
 
         public void ExecuteFrameFixed()
@@ -49,15 +45,5 @@ namespace RPG_Project
 
         }
         #endregion
-
-        void Command()
-        {
-            player.ResourceTick(Time.deltaTime);
-
-            //if (player.SheatheLeft()) return;
-            //else if (player.SheatheRight()) return;
-            if (player.UseSkill()) return;
-            else player.MovePlayer();
-        }
     }
 }

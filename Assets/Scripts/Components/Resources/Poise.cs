@@ -12,5 +12,18 @@ namespace RPG_Project
             if (statText != null)
                 statText.text = "PP " + resourcePoints.PointValue + "/" + resourcePoints.CurrentStatValue;
         }
+
+        public override void SaveToCharacter()
+        {
+            character.Poise.PointValue = resourcePoints.PointValue;
+            character.PoiseResource = resource.Count;
+        }
+
+        public override void LoadFromCharacter()
+        {
+            resourcePoints = character.Poise;
+            resource._cooldown = resourcePoints.CurrentStatValue;
+            resource.Count = resourcePoints.PointValue;
+        }
     }
 }

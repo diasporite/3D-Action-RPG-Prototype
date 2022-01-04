@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace RPG_Project
 {
     [System.Serializable]
-    public class BattleAction : ICommand
+    public class BattleCommand : ICommand
     {
         [SerializeField] protected string actionName = "";
 
@@ -23,7 +23,7 @@ namespace RPG_Project
         public bool CanProgress => canProgress;
         public bool Complete => complete;
 
-        public BattleAction(Controller controller)
+        public BattleCommand(Controller controller)
         {
             this.controller = controller;
             dir = controller.transform.forward;
@@ -34,7 +34,7 @@ namespace RPG_Project
             InitAction();
         }
 
-        public BattleAction(Controller controller, Vector3 dir)
+        public BattleCommand(Controller controller, Vector3 dir)
         {
             this.controller = controller;
             this.dir = dir;

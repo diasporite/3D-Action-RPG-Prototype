@@ -9,8 +9,8 @@ namespace RPG_Project
     {
         [SerializeField] bool regenerative = true;
 
-        [SerializeField] int points = 100;
-        [SerializeField] int initPoints = 0;
+        //[SerializeField] int points = 100;
+        //[SerializeField] int initPoints = 0;
 
         [SerializeField] float regenSpeed = 30;
         [SerializeField] float currentRegen;
@@ -20,6 +20,10 @@ namespace RPG_Project
 
         [SerializeField] protected Slider statBar;
         [SerializeField] protected Text statText;
+
+        protected PartyManager party;
+        protected Combatant combatant;
+        protected BattleChar character;
 
         public bool Regenerative
         {
@@ -42,14 +46,24 @@ namespace RPG_Project
         public bool Empty => resource.Empty;
         public bool Full => resource.Full;
 
-        private void Start()
+        protected void Awake()
         {
-            currentRegen = regenSpeed;
-            resourcePoints = new PointStat(points, initPoints, points);
-            resource = new Cooldown(points, regenSpeed);
+            party = GetComponentInParent<PartyManager>();
+            combatant = GetComponent<Combatant>();
 
-            resource.Speed = regenSpeed;
-            resource.Count = initPoints;
+            currentRegen = regenSpeed;
+            //resourcePoints = new PointStat(points, initPoints, points);
+            //resource = new Cooldown(points, regenSpeed);
+
+            //resource.Speed = regenSpeed;
+            //resource.Count = initPoints;
+        }
+
+        protected virtual void Start()
+        {
+            character = combatant.Character;
+
+            LoadFromCharacter();
 
             UpdateUI();
         }
@@ -57,6 +71,11 @@ namespace RPG_Project
         private void Update()
         {
             //if (regenerative) Tick(Time.deltaTime);
+        }
+
+        protected virtual void OnDestroy()
+        {
+
         }
 
         public void Tick(float dt)
@@ -83,6 +102,7 @@ namespace RPG_Project
         {
             resourcePoints.PointValue += amount;
             resource.Count += amount;
+
             UpdateUI();
         }
 
@@ -91,7 +111,8 @@ namespace RPG_Project
             var p = 0.01f * percent;
 
             resourcePoints.PointFraction += p;
-            resource.CooldownFraction += p;
+            resource.Count = resourcePoints.PointValue;
+
             UpdateUI();
         }
 
@@ -108,7 +129,12 @@ namespace RPG_Project
             resource.Speed = currentRegen;
         }
 
-        public void ConvertToStat()
+        public virtual void SaveToCharacter()
+        {
+            
+        }
+
+        public virtual void LoadFromCharacter()
         {
 
         }

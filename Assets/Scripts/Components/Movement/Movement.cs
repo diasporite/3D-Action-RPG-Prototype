@@ -136,6 +136,7 @@ namespace RPG_Project
             locked = false;
         }
 
+        #region PositionBasedMovement
         // Source: https://www.youtube.com/watch?v=4HpC--2iowE
         public void MovePosition(Vector3 dir, float dt)
         {
@@ -154,10 +155,10 @@ namespace RPG_Project
                 cc.Move(currentSpeed * ds.normalized * dt);
             }
 
-            Fall(dt);
+            FallPosition(dt);
         }
 
-        void Fall(float dt)
+        void FallPosition(float dt)
         {
             //var onSteepSurface = false;
 
@@ -187,6 +188,60 @@ namespace RPG_Project
                     fallVelocity = terminalSpeed * fallVelocity.normalized;
             }
         }
+        #endregion
+
+        #region VelocityBasedMovement
+        public void MoveVelocity(Vector3 dir)
+        {
+            if (!locked && dir != Vector3.zero)
+            {
+                dir.Normalize();
+
+                var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+                var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
+                    ref turnVelocity, turnTime);
+                cc.transform.rotation = Quaternion.Euler(0, angle, 0);
+
+                var ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+                ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
+
+                cc.SimpleMove(currentSpeed * ds.normalized);
+            }
+
+            FallVelocity();
+        }
+
+        void FallVelocity()
+        {
+            //var onSteepSurface = false;
+
+            cc.SimpleMove(fallVelocity);
+
+            //grounded = groundCheck.IsGrounded(gameObject);
+            grounded = cc.isGrounded;
+
+            if (grounded)
+            {
+                if (timeSinceGrounded >= fallDamageThreshold)
+                    GetComponent<Health>().ChangeResourcePercent(-FallDamagePercent);
+
+                if (timeSinceGrounded != 0)
+                    timeSinceGrounded = 0;
+                if (fallVelocity.y != 0)
+                    fallVelocity.y = 0;
+            }
+            else
+            {
+                timeSinceGrounded += Time.deltaTime;
+
+                // Increase downward y component of velocity
+                fallSpeed += gravity.y * Time.deltaTime;
+                fallVelocity += gravity * Time.deltaTime;
+                if (fallVelocity.sqrMagnitude > sqrTerminalSpeed)
+                    fallVelocity = terminalSpeed * fallVelocity.normalized;
+            }
+        }
+        #endregion
 
         public IEnumerator MoveGridCo(Vector3 dir, float dt)
         {

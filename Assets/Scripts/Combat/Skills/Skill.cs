@@ -10,36 +10,35 @@ namespace RPG_Project
         [Header("Skill Info")]
         [SerializeField] protected string skillName;
         [SerializeField] protected int id;
-        [SerializeField] protected float duration = 0.1f;
 
-        [SerializeField] protected int staminaCost;
-        [SerializeField] protected int skillSpeed;
+        [SerializeField] protected int staminaCost = 5;
 
-        [SerializeField] protected PointStat uses;
+        [SerializeField] protected PointStat uses = new PointStat(10, 10);
 
-        public string _skillName => skillName;
-        public float _duration => duration;
+        [SerializeField] protected int healthDps = 50;
+        [SerializeField] protected int poiseDps = 30;
 
-        public int _staminaCost => staminaCost;
-        public int _skillSpeed => skillSpeed;
+        public string SkillName => skillName;
 
-        public PointStat _uses => uses;
+        public int StaminaCost => staminaCost;
+
+        public PointStat Uses => uses;
+
+        public int HealthDps => healthDps;
+        public int PoiseDps => poiseDps;
 
         public Skill(SkillData data)
         {
             skillName = data.skillName;
             id = data.id;
-            duration = data.duration;
 
             staminaCost = data.staminaCost;
 
             if (data.limitedUse)
                 uses = new PointStat(data.uses, data.uses);
-
-            skillSpeed = data.skillSpeed;
         }
 
-        public virtual BattleAction GetAction(Controller controller, Vector3 dir)
+        public virtual BattleCommand GetAction(Controller controller, Vector3 dir)
         {
             return null;
         }

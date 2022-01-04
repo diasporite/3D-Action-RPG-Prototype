@@ -29,7 +29,7 @@ namespace RPG_Project
             player.Stamina.Run(false);
             player.Movement.SetRunning(false);
 
-            anim.SetTrigger("Recovery");
+            anim.SetBool("Recovery", true);
         }
 
         public void ExecuteFrame()
@@ -49,7 +49,7 @@ namespace RPG_Project
 
         public void Exit()
         {
-
+            anim.SetBool("Recovery", false);
         }
         #endregion
 

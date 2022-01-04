@@ -23,5 +23,11 @@ namespace RPG_Project
 
         public float heavyweightWalk = 4.5f;
         public float heavyweightRun = 6.75f;
+
+        [Header("Resource Regen")]
+        public float staminaRegen = 12f;
+        public float staminaRun = -2f;
+
+        public float poiseRegen = 18f;
     }
 }
