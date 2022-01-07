@@ -4,7 +4,7 @@ namespace RPG_Project
 {
     public interface IDamageable
     {
-        void OnDamage(int healthDamage, int poiseDamage);
-        IEnumerator OnDamageCo(int healthDamage, int poiseDamage);
+        void OnDamage(int baseDamage, BattleChar instigator);
+        IEnumerator OnDamageCo(int baseDamage, BattleChar instigator);
     }
 }

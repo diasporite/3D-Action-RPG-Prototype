@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG_Project
 {
@@ -14,6 +15,8 @@ namespace RPG_Project
         public Transform target;
 
         [Header("Original Simple Solution")]
+        public Image reticle;
+
         public float speed = 120;
         [Range(3, 10)]
         public float camDist = 10;
@@ -24,6 +27,13 @@ namespace RPG_Project
         public Vector3 defaultCamOffset = new Vector3(0, 2, -8);
         Vector3 camPos;
         public Vector3 targetPlayerOffset = new Vector3(5, 0, 5);
+
+        public string currentState;
+
+        public Vector3 lastViewedPosition;
+
+        public Target[] LockedTargets { get; set; }
+        public LockOn lockOn { get; set; }
 
         [Header("Unity Tutorial")]
         public Transform follow;
@@ -52,7 +62,9 @@ namespace RPG_Project
             camPos = follow.transform.position + camDist * defaultCamOffset.normalized;
 
             sm.AddState(UNLOCKED, new CameraUnlockedState(this));
+            sm.AddState(LOCKED, new CameraLockedState(this));
 
+            //sm.ChangeState(LOCKED);
             sm.ChangeState(UNLOCKED);
         }
 
@@ -60,6 +72,7 @@ namespace RPG_Project
         {
             sm.Update();
 
+            currentState = (string)sm.GetCurrentKey;
             //RotateCamera();
         }
 
@@ -116,15 +129,26 @@ namespace RPG_Project
         {
             if (follow != null && target != null)
             {
-                camPos.x = follow.position.x + camDist * Mathf.Sin(thetaY * Mathf.Deg2Rad);
-                camPos.y = follow.position.y + camDist * Mathf.Sin(thetaXz * Mathf.Deg2Rad);
-                camPos.z = follow.position.z + camDist * Mathf.Cos(thetaY * Mathf.Deg2Rad);
+                var ds = target.position - follow.position;
+
+                if (ds.sqrMagnitude > 144) sm.ChangeState(UNLOCKED);
+
+                ds.y -= ds.magnitude * Mathf.Sin(10f * Mathf.Deg2Rad);
+
+                //camPos.x = 1.5f * ds.x;
+                //camPos.y = 1.5f * ds.y;
+                //camPos.z = 1.5f * ds.z;
+
+                camPos = follow.position - 4.5f * ds.normalized;
 
                 //camPos += targetPlayerOffset;
                 var look = Vector3.Lerp(follow.position, target.position, 0.5f);
 
                 transform.position = camPos;
-                transform.LookAt(look);
+                transform.position += 3f * transform.right;
+                transform.LookAt(target);
+
+                lastViewedPosition = target.position;
             }
         }
     }

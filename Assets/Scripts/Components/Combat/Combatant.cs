@@ -55,8 +55,11 @@ namespace RPG_Project
             //party.onPoiseChanged -=
         }
 
-        public void OnDamage(int healthDamage, int poiseDamage)
+        public void OnDamage(int baseDamage, BattleChar instigator)
         {
+            var healthDamage = GameManager.instance.Combat.GetDamage(baseDamage, instigator.Attack, Character.Defence);
+            var poiseDamage = GameManager.instance.Combat.GetDamage(Mathf.RoundToInt(0.4f * baseDamage), instigator.Attack, Character.Defence);
+            
             TakePoiseDamage(poiseDamage);
             TakeHealthDamage(healthDamage);
 
@@ -64,7 +67,7 @@ namespace RPG_Project
             //party.onHealthChanged.Invoke(healthDamage);
         }
 
-        public IEnumerator OnDamageCo(int healthDamage, int poiseDamage)
+        public IEnumerator OnDamageCo(int baseDamage, BattleChar instigator)
         {
             yield return null;
         }

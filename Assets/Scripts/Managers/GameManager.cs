@@ -8,6 +8,8 @@ namespace RPG_Project
     {
         public static GameManager instance = null;
 
+        public bool Paused { get; private set; }
+
         public BattleUI battleUi;
 
         CombatManager combat;
@@ -31,6 +33,27 @@ namespace RPG_Project
             input = GetComponent<InputManager>();
 
             party = FindObjectOfType<PartyManager>();
+        }
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown("h")) PauseGame();
+        }
+
+        void PauseGame()
+        {
+            Paused = !Paused;
+
+            if (Paused) Time.timeScale = 0;
+            else Time.timeScale = 1;
+        }
+
+        void PauseGame(bool value)
+        {
+            Paused = value;
+
+            if (Paused) Time.timeScale = 0;
+            else Time.timeScale = 1;
         }
     }
 }

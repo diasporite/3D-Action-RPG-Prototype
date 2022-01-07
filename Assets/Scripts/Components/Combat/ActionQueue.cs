@@ -9,6 +9,8 @@ namespace RPG_Project
     {
         [SerializeField] bool executing = false;
 
+        int actionCap = 5;
+
         Controller controller;
         Animator anim;
 
@@ -27,7 +29,7 @@ namespace RPG_Project
 
         public void AddAction(BattleCommand action)
         {
-            if (action != null)
+            if (action != null && actions.Count < actionCap)
             {
                 actions.Add(action);
                 if (!executing) StartAction();

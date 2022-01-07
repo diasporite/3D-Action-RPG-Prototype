@@ -11,11 +11,18 @@ namespace RPG_Project
 
         Controller controller;
 
+        LayerMask hittables;
+
         List<IDamageable> weaponHits = new List<IDamageable>();
 
         private void Awake()
         {
             col = GetComponent<BoxCollider>();
+        }
+
+        private void Start()
+        {
+            hittables = LayerMask.GetMask("Enemies", "Destructibles");
         }
 
         private void Update()
@@ -39,7 +46,7 @@ namespace RPG_Project
             if (active)
             {
                 var hits = Physics.OverlapBox(transform.position + col.center,
-                    0.5f * col.size, Quaternion.identity, LayerMask.GetMask("Enemies"));
+                    0.5f * col.size, Quaternion.identity, hittables);
                 if (hits != null)
                 {
                     print(hits.Length);

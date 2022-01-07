@@ -33,7 +33,7 @@ namespace RPG_Project
 
         public void ExecuteFrame()
         {
-            Command();
+            //Command();
         }
 
         public void ExecuteFrameFixed()
@@ -52,15 +52,15 @@ namespace RPG_Project
         }
         #endregion
 
-        void Command()
-        {
-            player.ResourceTick(Time.deltaTime);
+        //void Command()
+        //{
+        //    player.ResourceTick(Time.deltaTime);
 
-            if (player.Run()) return;
-            else if (player.UseSkill()) return;
-            else if (player.SpecialAction()) return;
-            else player.MovePlayer();
-        }
+        //    if (player.Run()) return;
+        //    else if (player.UseSkill()) return;
+        //    else if (player.SpecialAction()) return;
+        //    else player.MovePlayer();
+        //}
 
         void Tick()
         {

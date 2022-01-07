@@ -46,7 +46,7 @@ namespace RPG_Project
         [Header("Resource Stats")]
         [SerializeField] PointStat health = new PointStat(100, 999);
         [SerializeField] PointStat stamina = new PointStat(25, 99);
-        [SerializeField] PointStat poise = new PointStat(150, 999);
+        [SerializeField] PointStat poise = new PointStat(50, 99);
 
         [Header("Attack Stats")]
         [SerializeField] Stat attack = new Stat(100, 255);
@@ -92,13 +92,13 @@ namespace RPG_Project
         {
             get
             {
-                if (weight.CurrentStatValue < 65) return WeightClass.Lightweight;
-                if (weight.CurrentStatValue > 135) return WeightClass.Heavyweight;
+                if (weight.CurrentStatValue < 70) return WeightClass.Lightweight;
+                if (weight.CurrentStatValue > 130) return WeightClass.Heavyweight;
                 return WeightClass.Middleweight;
             }
         }
 
-        public int Lv => progression._lv;
+        public int Lv => progression.Lv;
 
         public int CurrentHp => health.PointValue;
         public int Hp => health.CurrentStatValue;
@@ -150,8 +150,8 @@ namespace RPG_Project
 
         void InitChar(int baseHp, int baseAtk, int baseDef)
         {
-            //progression = new Progression(100, GameManager.instance._combat._levelCap);
-            //rewards = new Rewards(100, 0, GameManager.instance._combat._levelCap);
+            progression = new Progression(100);
+            rewards = new Rewards(100, 0);
 
             hpAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Health, baseHp);
             spAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Stamina, baseHp);
@@ -179,8 +179,8 @@ namespace RPG_Project
 
         void InitChar(CharData data)
         {
-            //progression = new Progression(100, GameManager.instance._combat._levelCap);
-            //rewards = new Rewards(100, 0, GameManager.instance._combat._levelCap);
+            progression = new Progression(data.baseExp);
+            rewards = new Rewards(data.baseExpReward, data.baseExpReward);
 
             hpAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Health, data.baseHp);
             spAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Stamina, data.baseHp);
@@ -191,7 +191,7 @@ namespace RPG_Project
 
             var lv = 1;
 
-            var hp = spAtLv[lv - 1];
+            var hp = hpAtLv[lv - 1];
             var sp = spAtLv[lv - 1];
             var pp = ppAtLv[lv - 1];
 

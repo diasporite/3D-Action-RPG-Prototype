@@ -13,6 +13,8 @@ namespace RPG_Project
 
         public override void Execute()
         {
+            controller.Mode = ControllerMode.Guard;
+
             anim.SetTrigger("SpecialAction");
 
             controller.Stamina.ChangeResource(-Mathf.Abs(combat.guardSpCost));

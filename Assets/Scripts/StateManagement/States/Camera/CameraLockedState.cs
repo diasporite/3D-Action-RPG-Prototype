@@ -18,12 +18,12 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-
+            camera.reticle.gameObject.SetActive(true);
         }
 
         public void ExecuteFrame()
         {
-
+            //camera.lockOn.ToggleLock();
         }
 
         public void ExecuteFrameFixed()
@@ -33,7 +33,7 @@ namespace RPG_Project
 
         public void ExecuteFrameLate()
         {
-
+            camera.FollowTarget();
         }
 
         public void Exit()

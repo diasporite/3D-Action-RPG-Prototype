@@ -18,7 +18,8 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-
+            camera.reticle.gameObject.SetActive(false);
+            //camera.transform.LookAt(camera.lastViewedPosition);
         }
 
         public void ExecuteFrame()

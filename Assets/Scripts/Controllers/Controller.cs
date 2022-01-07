@@ -11,11 +11,10 @@ namespace RPG_Project
         Action = 2,
         Stagger = 3,
         Roll = 4,
-        Dodge = 5,
+        Guard = 5,
         Jump = 6,
         BasicAction = 7,    // Non combat actions (talk, pickup, interact)
-        LeftWeapon = 8,
-        RightWeapon = 9,
+        Death = 8,
     }
 
     public enum WeaponHand
@@ -149,6 +148,45 @@ namespace RPG_Project
         public void Move(Vector3 dir)
         {
             movement.MovePosition(dir, Time.deltaTime);
+        }
+
+        public void Run()
+        {
+            sm.ChangeState(RUN);
+        }
+
+        public void UseAbility(int index)
+        {
+            index = Mathf.Abs(index);
+            index = index % 4;
+
+            var command = ability.GetAbility(index).GetCommand(this);
+            if (command != null) queue.AddAction(command);
+        }
+
+        public void UseSpecialAction()
+        {
+            var weightclass = combatant.Character.Weightclass;
+            BattleCommand act;
+
+            if (Input.GetKeyDown("l"))
+            {
+                switch (weightclass)
+                {
+                    case WeightClass.Lightweight:
+                        act = new JumpCommand(this);
+                        AddCommand(act);
+                        break;
+                    case WeightClass.Heavyweight:
+                        act = new GuardCommand(this);
+                        AddCommand(act);
+                        break;
+                    default:
+                        act = new RollCommand(this);
+                        AddCommand(act);
+                        break;
+                }
+            }
         }
 
         public void ResourceTick(float dt)

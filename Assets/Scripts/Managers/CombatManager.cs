@@ -35,20 +35,11 @@ namespace RPG_Project
         public int rollSpCost = 9;
         public int guardSpCost = 12;
 
+        #region Stats
         // Placeholder
         public int GetStatValue(int baseStat)
         {
             return Mathf.RoundToInt(2.55f * baseStat);
-        }
-
-        public int[] GetStatAtLv(int baseStat)
-        {
-            int[] statAtLv = new int[10];
-
-            for (int i = 0; i < statAtLv.Length; i++)
-                statAtLv[i] = ConvertToStatValue(0.3f * (i + 1) * baseStat + 20, 999);
-
-            return statAtLv;
         }
 
         public int[] GetStatAtLv(StatType stat, int baseStat)
@@ -85,5 +76,22 @@ namespace RPG_Project
             if (value < 1) value = 1;
             return intValue;
         }
+        #endregion
+
+        #region Damage
+        public int GetDamage(int attack, int defence)
+        {
+            var damage = attack - defence;
+            if (damage < 1) damage = 1;
+            return damage;
+        }
+
+        public int GetDamage(int baseDamage, Stat offensive, Stat defensive)
+        {
+            var damage = baseDamage + offensive.CurrentStatValue - defensive.CurrentStatValue;
+            if (damage < 1) damage = 1;
+            return damage;
+        }
+        #endregion
     }
 }

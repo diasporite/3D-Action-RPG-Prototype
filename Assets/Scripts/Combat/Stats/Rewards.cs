@@ -20,9 +20,10 @@ namespace RPG_Project
             return moneyAtLv[lv - 1];
         }
 
-        public Rewards(int baseExpReward, int baseMoneyReward, int levelCap)
+        public Rewards(int baseExpReward, int baseMoneyReward)
         {
-
+            expAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Exp, baseExpReward);
+            expAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Exp, baseMoneyReward);
         }
     }
 }

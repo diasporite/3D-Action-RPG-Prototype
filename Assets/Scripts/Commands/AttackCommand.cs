@@ -27,16 +27,10 @@ namespace RPG_Project
             this.trigger = trigger;
         }
 
-        public AttackCommand(string name, Controller controller, Vector3 dir, string trigger) : base(controller, dir)
-        {
-            anim = controller.Anim;
-
-            actionName = name;
-            this.trigger = trigger;
-        }
-
         public override void Execute()
         {
+            controller.Mode = ControllerMode.Action;
+
             anim.SetTrigger(trigger);
 
             controller.Stamina.ChangeResource(-ability.SpCost);
@@ -45,13 +39,17 @@ namespace RPG_Project
 
         public override IEnumerator ExecuteCo()
         {
-            controller.Stamina.ChangeResource(-10);
+            controller.Mode = ControllerMode.Action;
+
+            anim.SetTrigger(trigger);
+
+            controller.Stamina.ChangeResource(-ability.SpCost);
             //controller.Poise.ChangeResource(-47);
 
             // Continually track direction to target
             // Animation will move instigator in that direction
 
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(ability.action.animation.length);
 
             canProgress = true;
             complete = true;

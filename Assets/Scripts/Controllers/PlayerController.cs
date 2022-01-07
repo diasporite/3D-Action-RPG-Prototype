@@ -67,28 +67,6 @@ namespace RPG_Project
             sm.AddState(ACTION, new PlayerActionState(this));
         }
 
-        public void MovePlayer()
-        {
-            //var dir = controls.Player.Movement.ReadValue<Vector2>();
-            var dir = RawInputDir;
-            //ds.x = dir.x;
-            //ds.z = dir.y;
-            //Move(ds);
-            Move(dir);
-        }
-
-        public bool Run()
-        {
-            if (Input.GetKey("j") /*&& !movement.Stationary && !stamina.Empty*/)
-            //if (controls.Player.Run.triggered)
-            {
-                sm.ChangeState(RUN);
-                return true;
-            }
-
-            return false;
-        }
-
         public bool UseSkill()
         {
             // top left, top right, bottom left, bottom right
@@ -105,43 +83,6 @@ namespace RPG_Project
             //    AddCommand(0);
             //    return true;
             //}
-
-            for (int i = 0; i < inputs.Length; i++)
-            {
-                if (Input.GetKeyDown(inputs[i]))
-                {
-                    AddAbilityCommand(i);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool SpecialAction()
-        {
-            var weightclass = combatant.Character.Weightclass;
-            BattleCommand act;
-
-            if (Input.GetKeyDown("l"))
-            {
-                switch (weightclass)
-                {
-                    case WeightClass.Lightweight:
-                        act = new JumpCommand(this);
-                        AddCommand(act);
-                        return true;
-                    case WeightClass.Heavyweight:
-                        act = new GuardCommand(this);
-                        AddCommand(act);
-                        return true;
-                    default:
-                        act = new RollCommand(this);
-                        AddCommand(act);
-                        return true;
-                }
-            }
-
             return false;
         }
 

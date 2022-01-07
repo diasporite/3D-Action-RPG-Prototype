@@ -16,6 +16,7 @@ namespace RPG_Project
         protected Ability ability;
 
         protected Controller[] targets;
+        protected Target target;
 
         protected Animator anim;
 

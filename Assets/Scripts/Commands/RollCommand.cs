@@ -18,6 +18,8 @@ namespace RPG_Project
 
         public override void Execute()
         {
+            controller.Mode = ControllerMode.Roll;
+
             //controller.transform.LookAt(controller.transform.position + dir, Vector3.up);
 
             anim.SetTrigger("SpecialAction");

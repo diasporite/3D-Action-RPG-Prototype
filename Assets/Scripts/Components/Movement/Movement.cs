@@ -21,6 +21,7 @@ namespace RPG_Project
         [SerializeField] GroundCheck groundCheck;
         [SerializeField] bool grounded = true;
         [SerializeField] float timeSinceGrounded = 0;
+        [SerializeField] float fallDamageTime = 0;
         [SerializeField] Vector3 velocity = new Vector3(0, 0, 0);
         [SerializeField] float jumpHeight = 3f;
         [SerializeField] float terminalSpeed = 40f;
@@ -29,7 +30,7 @@ namespace RPG_Project
         float sqrTerminalSpeed = 1600f;
 
         [Header("Fall Damage")]
-        [SerializeField] float fallDamageThreshold = 0.75f;
+        [SerializeField] float fallDamageThreshold = -3f;
         [SerializeField] float damageSpeed = 35;
         
         Transform cam;
@@ -59,7 +60,7 @@ namespace RPG_Project
 
         public bool Stationary => velocity.sqrMagnitude <= 0.12f;
 
-        float FallDamagePercent => 10 + damageSpeed * (timeSinceGrounded - fallDamageThreshold);
+        float FallDamagePercent => 10 + damageSpeed * fallDamageTime;
 
         private void Awake()
         {
@@ -82,11 +83,18 @@ namespace RPG_Project
             GameManager.instance.Party.onCharacterChanged += SetSpeeds;
 
             SetSpeeds(null);
+
+            velocity = Vector3.zero;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown("space")) Jump();
+            //if (Input.GetKeyDown("space")) Jump();
+        }
+
+        private void OnDestroy()
+        {
+            //GameManager.instance.Party.onCharacterChanged -= SetSpeeds;
         }
 
         public void SetSpeeds(BattleChar character)
@@ -177,11 +185,13 @@ namespace RPG_Project
 
             if (grounded)
             {
-                if (timeSinceGrounded >= fallDamageThreshold)
+                if (fallDamageTime > 0)
                     GetComponent<Health>().ChangeResourcePercent(-FallDamagePercent);
 
                 if (timeSinceGrounded != 0)
                     timeSinceGrounded = 0;
+                if (fallDamageTime != 0)
+                    fallDamageTime = 0;
                 if (velocity.y != 0)
                     velocity.y = 0;
             }
@@ -190,10 +200,12 @@ namespace RPG_Project
                 timeSinceGrounded += dt;
 
                 // Increase downward y component of velocity
-                fallSpeed += gravity.y * Time.deltaTime;
-                velocity += gravity * Time.deltaTime;
+                fallSpeed += gravity.y * dt;
+                velocity += gravity * dt;
                 if (velocity.sqrMagnitude > sqrTerminalSpeed)
                     velocity = terminalSpeed * velocity.normalized;
+
+                if (velocity.y < fallDamageThreshold) fallDamageTime += dt;
             }
         }
         #endregion
