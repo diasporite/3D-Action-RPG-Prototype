@@ -29,8 +29,6 @@ namespace RPG_Project
             movement.SetRunning(false);
 
             player.Hand = WeaponHand.Empty;
-
-            GameManager.instance.battleUi.ChangeButtonMenu(SkillMenuState.BasicSkills);
         }
 
         public void ExecuteFrame()
@@ -60,6 +58,7 @@ namespace RPG_Project
 
             if (player.Run()) return;
             else if (player.UseSkill()) return;
+            else if (player.SpecialAction()) return;
             else player.MovePlayer();
         }
 

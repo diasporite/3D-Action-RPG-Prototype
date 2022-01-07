@@ -16,6 +16,13 @@ namespace RPG_Project
         [SerializeField] int healthDamage;
         [SerializeField] int poiseDamage;
 
+        [SerializeField] int spCost;
+
+        public string Trigger => trigger;
+
+        public int SpCost => spCost;
+
+        #region Constructors
         public Ability()
         {
 
@@ -38,18 +45,22 @@ namespace RPG_Project
             this.action = action;
             effect = skill;
         }
+        #endregion
+
+        public BattleCommand GetCommand(Controller controller)
+        {
+            //return new BattleCommand(controller);
+            //return new AttackCommand(controller, controller.transform.forward, trigger);
+            return new AttackCommand(this, controller, controller.transform.forward, trigger);
+        }
 
         public void InitAbility(string trigger)
         {
             this.trigger = trigger;
 
             CalculateDamage();
-        }
 
-        public BattleCommand GetCommand(Controller controller)
-        {
-            //return new BattleCommand(controller);
-            return new AttackCommand(controller, controller.transform.forward, trigger);
+            spCost = Mathf.Abs(action.spCost) + Mathf.Abs(effect.StaminaCost);
         }
 
         public virtual void CalculateDamage()
@@ -59,6 +70,11 @@ namespace RPG_Project
 
             poiseDamage = Mathf.RoundToInt(effect.PoiseDps * action.animation.length / action.numberOfHits);
             if (poiseDamage < 1) poiseDamage = 1;
+        }
+
+        public void UseResource()
+        {
+
         }
     }
 }

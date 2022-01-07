@@ -59,6 +59,7 @@ namespace RPG_Project
             //if (!queue.Executing) psm.ChangeState(player.MOVE);
 
             if (player.UseSkill()) return;
+            else if (player.SpecialAction()) return;
             //else player.MovePlayer();
         }
     }

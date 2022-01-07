@@ -61,14 +61,8 @@ namespace RPG_Project
             else if (!Input.GetKey("j"))
                 psm.ChangeState(player.MOVE);
             else if (player.UseSkill()) return;
+            else if (player.SpecialAction()) return;
             else player.MovePlayer();
-        }
-
-        void Move()
-        {
-            var dir = player.RawInputDir;
-            if (dir == Vector3.zero) psm.ChangeState(player.MOVE);
-            else player.Move(dir);
         }
 
         void Tick()

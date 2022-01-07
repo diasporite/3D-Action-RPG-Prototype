@@ -13,9 +13,13 @@ namespace RPG_Project
         [SerializeField] protected Controller controller;
         [SerializeField] protected Vector3 dir;
 
+        protected Ability ability;
+
         protected Controller[] targets;
 
-        protected float duration = 1;
+        protected Animator anim;
+
+        protected CombatManager combat;
 
         protected bool canProgress = false;
         protected bool complete = false;
@@ -28,6 +32,10 @@ namespace RPG_Project
             this.controller = controller;
             dir = controller.transform.forward;
 
+            anim = controller.Anim;
+
+            combat = GameManager.instance.Combat;
+
             canProgress = false;
             complete = false;
 
@@ -38,6 +46,8 @@ namespace RPG_Project
         {
             this.controller = controller;
             this.dir = dir;
+
+            combat = GameManager.instance.Combat;
 
             canProgress = false;
             complete = false;

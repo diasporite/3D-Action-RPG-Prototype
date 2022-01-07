@@ -25,32 +25,24 @@ namespace RPG_Project
         public HUDMenu activeParty;
         public HUDMenu regItems;
 
-        [Header("Face Button Menus")]
-        public HUDMenu basicSkillset;
-        public HUDMenu leftWeaponSkillset;
-        public HUDMenu rightWeaponSkillset;
-
         HUDMenu[] dpadMenus;
-        HUDMenu[] skillsets;
 
         private void Awake()
         {
             dpadMenus = new HUDMenu[] { regItems, activeParty };
-            skillsets = new HUDMenu[] { basicSkillset, leftWeaponSkillset, rightWeaponSkillset };
         }
 
         private void Start()
         {
             ChangeDPadMenu(1);
-            ChangeButtonMenu(0);
         }
 
         public void ChangeDPadMenu(int j)
         {
-            for (int i = 0; i < skillsets.Length; i++)
+            for (int i = 0; i < dpadMenus.Length; i++)
             {
-                if (i == j) skillsets[i].gameObject.SetActive(true);
-                else skillsets[i].gameObject.SetActive(false);
+                if (i == j) dpadMenus[i].gameObject.SetActive(true);
+                else dpadMenus[i].gameObject.SetActive(false);
             }
         }
 
@@ -58,32 +50,10 @@ namespace RPG_Project
         {
             int j = (int)state;
 
-            for (int i = 0; i < skillsets.Length; i++)
+            for (int i = 0; i < dpadMenus.Length; i++)
             {
-                if (i == j) skillsets[i].gameObject.SetActive(true);
-                else skillsets[i].gameObject.SetActive(false);
-            }
-        }
-
-        public void ChangeButtonMenu(int j)
-        {
-            for (int i = 0; i < skillsets.Length; i++)
-            {
-
-                if (i == j) skillsets[i].gameObject.SetActive(true);
-                else skillsets[i].gameObject.SetActive(false);
-            }
-        }
-
-        public void ChangeButtonMenu(SkillMenuState state)
-        {
-            int j = (int)state;
-
-            for (int i = 0; i < skillsets.Length; i++)
-            {
-
-                if (i == j) skillsets[i].gameObject.SetActive(true);
-                else skillsets[i].gameObject.SetActive(false);
+                if (i == j) dpadMenus[i].gameObject.SetActive(true);
+                else dpadMenus[i].gameObject.SetActive(false);
             }
         }
     }

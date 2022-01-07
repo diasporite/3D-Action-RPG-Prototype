@@ -31,8 +31,9 @@ namespace RPG_Project
         public readonly string MOVE = "move";
         public readonly string RUN = "run";
         public readonly string RECOVER = "recover";
-        public readonly string STAGGER = "stagger";
         public readonly string ACTION = "action";
+        public readonly string SPECIAL_ACTION = "special action";
+        public readonly string STAGGER = "stagger";
         public readonly string DEATH = "death";
 
         [SerializeField] protected ControllerMode mode;
@@ -164,7 +165,7 @@ namespace RPG_Project
             poise.Regenerative = value;
         }
 
-        public void AddCommand(int index)
+        public void AddAbilityCommand(int index)
         {
             var command = ability.GetAbility(index).GetCommand(this);
             if (command != null) queue.AddAction(command);

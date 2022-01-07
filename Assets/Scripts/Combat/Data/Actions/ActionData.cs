@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    [System.Serializable]
-    public class Action
+    [CreateAssetMenu(fileName = "New Action", menuName = "Combat/Action")]
+    public class ActionData : ScriptableObject
     {
+        [Header("Info")]
+        public string actionName;
+
         public Weapon weapon;
         public AnimationClip animation;
 
         [Range(1, 5)]
         public int numberOfHits = 1;
 
-        public int spCost = 3;
+        public int spCost = 1;
     }
 }

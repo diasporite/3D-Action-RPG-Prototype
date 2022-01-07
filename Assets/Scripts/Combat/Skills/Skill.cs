@@ -34,8 +34,7 @@ namespace RPG_Project
 
             staminaCost = data.staminaCost;
 
-            if (data.limitedUse)
-                uses = new PointStat(data.uses, data.uses);
+            uses = new PointStat(data.uses, data.uses);
         }
 
         public virtual BattleCommand GetAction(Controller controller, Vector3 dir)

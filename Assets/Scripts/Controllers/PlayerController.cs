@@ -91,7 +91,8 @@ namespace RPG_Project
 
         public bool UseSkill()
         {
-            var inputs = new string[] { "y", "p", "o", "u" };
+            // top left, top right, bottom left, bottom right
+            var inputs = new string[] { "y", "p", "u", "o" };
 
             //if (Input.GetKeyDown("y") || Input.GetKeyDown("u") || 
             //    Input.GetKeyDown("o") || Input.GetKeyDown("p"))
@@ -109,7 +110,7 @@ namespace RPG_Project
             {
                 if (Input.GetKeyDown(inputs[i]))
                 {
-                    AddCommand(i);
+                    AddAbilityCommand(i);
                     return true;
                 }
             }
@@ -117,7 +118,34 @@ namespace RPG_Project
             return false;
         }
 
-        //#region NewInputSystem
+        public bool SpecialAction()
+        {
+            var weightclass = combatant.Character.Weightclass;
+            BattleCommand act;
+
+            if (Input.GetKeyDown("l"))
+            {
+                switch (weightclass)
+                {
+                    case WeightClass.Lightweight:
+                        act = new JumpCommand(this);
+                        AddCommand(act);
+                        return true;
+                    case WeightClass.Heavyweight:
+                        act = new GuardCommand(this);
+                        AddCommand(act);
+                        return true;
+                    default:
+                        act = new RollCommand(this);
+                        AddCommand(act);
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        #region NewInputSystem
         //public void OnMovement(InputAction.CallbackContext context)
         //{
         //    var dir = context.ReadValue<Vector2>();
@@ -137,6 +165,6 @@ namespace RPG_Project
         //    var dir = context.ReadValue<Vector2>();
         //    AddCommand(0);
         //}
-        //#endregion
+        #endregion
     }
 }

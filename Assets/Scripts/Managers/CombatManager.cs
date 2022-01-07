@@ -29,5 +29,61 @@ namespace RPG_Project
         public float staminaRun = -2f;
 
         public float poiseRegen = 18f;
+
+        [Header("Basic Action Costs")]
+        public int jumpSpCost = 6;
+        public int rollSpCost = 9;
+        public int guardSpCost = 12;
+
+        // Placeholder
+        public int GetStatValue(int baseStat)
+        {
+            return Mathf.RoundToInt(2.55f * baseStat);
+        }
+
+        public int[] GetStatAtLv(int baseStat)
+        {
+            int[] statAtLv = new int[10];
+
+            for (int i = 0; i < statAtLv.Length; i++)
+                statAtLv[i] = ConvertToStatValue(0.3f * (i + 1) * baseStat + 20, 999);
+
+            return statAtLv;
+        }
+
+        public int[] GetStatAtLv(StatType stat, int baseStat)
+        {
+            int[] statAtLv = new int[10];
+
+            switch (stat)
+            {
+                case StatType.Health:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(1.3f * (i + 1) * baseStat + 80, 999);
+                    break;
+                case StatType.Stamina:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.07f * (i + 1) * baseStat + 20, 99);
+                    break;
+                case StatType.Poise:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.11f * (i + 1) * baseStat + 30, 99);
+                    break;
+                default:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.3f * (i + 1) * baseStat + 20, 255);
+                    break;
+            }
+
+            return statAtLv;
+        }
+
+        public int ConvertToStatValue(float value, int cap)
+        {
+            var intValue = Mathf.RoundToInt(value);
+            if (value > cap) value = cap;
+            if (value < 1) value = 1;
+            return intValue;
+        }
     }
 }

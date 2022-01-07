@@ -6,11 +6,11 @@ namespace RPG_Project
 {
     public class Combatant : MonoBehaviour, IDamageable
     {
-        [SerializeField] bool player = false;
-
         bool invincible = false;
 
-        [SerializeField] BattleChar character = new BattleChar(0, 400, 128, 128);
+        [SerializeField] CharData characterData;
+
+        [SerializeField] BattleChar character;
         [SerializeField] Skillset skillset = new Skillset();
 
         Controller controller;
@@ -43,6 +43,8 @@ namespace RPG_Project
 
         private void Start()
         {
+            character = characterData.Character;
+
             //party.onHealthChanged +=
             //party.onPoiseChanged +=
         }

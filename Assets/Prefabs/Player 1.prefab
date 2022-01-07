@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1300688546323487351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5291729281861472995}
+  - component: {fileID: 5283076859185392982}
+  - component: {fileID: 3346284461492783386}
+  - component: {fileID: 5165208675269175826}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5291729281861472995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300688546323487351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4012377324784288309}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5283076859185392982
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300688546323487351}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &3346284461492783386
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300688546323487351}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cd955c9416be9154bbfa56a84fa46e94, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!136 &5165208675269175826
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300688546323487351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2445785347659742286
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +123,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4012377324784288309}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2410540993899593946
 MonoBehaviour:
@@ -86,6 +180,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5291729281861472995}
   - {fileID: 6472251436261879616}
   - {fileID: 1925266055238658279}
   - {fileID: 2125464271666690378}
@@ -219,16 +314,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00732e81f28e64890f2a5d89170098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  runningSpeed: 8
+  walkSpeed: 4.5
+  runningSpeed: 6.75
   currentSpeed: 0
   turnTime: 0.1
   groundCheck: {fileID: 0}
   grounded: 1
   timeSinceGrounded: 0
-  fallVelocity: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  jumpHeight: 3.5
   terminalSpeed: 40
-  fallDamageThreshold: 0.65
+  fallDamageThreshold: 0.95
   damageSpeed: 25
 --- !u!114 &4012377324784288301
 MonoBehaviour:
@@ -242,12 +338,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea477365893c7ff4e971ac58822616c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 1
+  characterData: {fileID: 11400000, guid: 8c51296dfe6676a48a3be7e86cb11447, type: 2}
   character:
     dead: 0
     charName: 0
     id: 0
-    weightClass: 1
     progression:
       lv: 0
       currentLvCap: 0
@@ -275,6 +370,9 @@ MonoBehaviour:
     defence:
       statValue: 128
       currentStatValue: 128
+    weight:
+      statValue: 100
+      currentStatValue: 100
   skillset:
     tlSkill:
       skillName: 
@@ -333,10 +431,12 @@ MonoBehaviour:
   - {fileID: 3066900411084317503}
   - {fileID: 6758360262487538939}
   topLeftAbility:
+    trigger: 
     action:
       weapon: {fileID: 3066900411084317503}
       animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
       numberOfHits: 3
+      spCost: 3
     effect:
       skillName: 
       id: 0
@@ -349,11 +449,14 @@ MonoBehaviour:
       poiseDps: 30
     healthDamage: 0
     poiseDamage: 0
+    spCost: 0
   topRightAbility:
+    trigger: 
     action:
       weapon: {fileID: 3066900411084317503}
       animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
       numberOfHits: 1
+      spCost: 3
     effect:
       skillName: 
       id: 0
@@ -366,11 +469,14 @@ MonoBehaviour:
       poiseDps: 30
     healthDamage: 0
     poiseDamage: 0
+    spCost: 0
   bottomLeftAbility:
+    trigger: 
     action:
       weapon: {fileID: 6758360262487538939}
       animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
       numberOfHits: 1
+      spCost: 3
     effect:
       skillName: 
       id: 0
@@ -383,11 +489,14 @@ MonoBehaviour:
       poiseDps: 30
     healthDamage: 0
     poiseDamage: 0
+    spCost: 0
   bottomRightAbility:
+    trigger: 
     action:
       weapon: {fileID: 6758360262487538939}
       animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
       numberOfHits: 1
+      spCost: 3
     effect:
       skillName: 
       id: 0
@@ -400,13 +509,14 @@ MonoBehaviour:
       poiseDps: 30
     healthDamage: 0
     poiseDamage: 0
-  gunAmmo: 10
-  currentWeapon: {fileID: 0}
-  currentAbility:
+    spCost: 0
+  jumpAbility:
+    trigger: SpecialAction
     action:
       weapon: {fileID: 0}
       animation: {fileID: 0}
       numberOfHits: 1
+      spCost: 3
     effect:
       skillName: 
       id: 0
@@ -419,6 +529,68 @@ MonoBehaviour:
       poiseDps: 0
     healthDamage: 0
     poiseDamage: 0
+    spCost: 0
+  rollAbility:
+    trigger: SpecialAction
+    action:
+      weapon: {fileID: 0}
+      animation: {fileID: 0}
+      numberOfHits: 1
+      spCost: 3
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    healthDamage: 0
+    poiseDamage: 0
+    spCost: 0
+  guardAbility:
+    trigger: SpecialAction
+    action:
+      weapon: {fileID: 0}
+      animation: {fileID: 0}
+      numberOfHits: 1
+      spCost: 3
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    healthDamage: 0
+    poiseDamage: 0
+    spCost: 0
+  gunAmmo: 10
+  currentAbility:
+    trigger: 
+    action:
+      weapon: {fileID: 0}
+      animation: {fileID: 0}
+      numberOfHits: 1
+      spCost: 3
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    healthDamage: 0
+    poiseDamage: 0
+    spCost: 0
 --- !u!114 &4012377324784288302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,8 +657,6 @@ MonoBehaviour:
   statBar: {fileID: 0}
   statText: {fileID: 0}
   inRecovery: 0
-  staminaRegen: 12
-  runningRegen: -2
 --- !u!114 &4012377324784288305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +692,7 @@ PrefabInstance:
     - target: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
         type: 3}
@@ -614,7 +784,7 @@ PrefabInstance:
     - target: {fileID: 4814914806199085327, guid: 4f9d85822df8f99469998230fc2da729,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4814914806199085327, guid: 4f9d85822df8f99469998230fc2da729,
         type: 3}
@@ -702,7 +872,7 @@ PrefabInstance:
     - target: {fileID: 7750481888995871317, guid: 6b6871c5c739b674c8a96da055769f4c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7750481888995871317, guid: 6b6871c5c739b674c8a96da055769f4c,
         type: 3}

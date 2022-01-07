@@ -21,7 +21,8 @@ namespace RPG_Project
         [SerializeField] GroundCheck groundCheck;
         [SerializeField] bool grounded = true;
         [SerializeField] float timeSinceGrounded = 0;
-        [SerializeField] Vector3 fallVelocity = new Vector3(0, 0, 0);
+        [SerializeField] Vector3 velocity = new Vector3(0, 0, 0);
+        [SerializeField] float jumpHeight = 3f;
         [SerializeField] float terminalSpeed = 40f;
         Vector3 gravity = new Vector3(0, -9.81f, 0);
         float fallSpeed = 0;
@@ -56,6 +57,8 @@ namespace RPG_Project
             }
         }
 
+        public bool Stationary => velocity.sqrMagnitude <= 0.12f;
+
         float FallDamagePercent => 10 + damageSpeed * (timeSinceGrounded - fallDamageThreshold);
 
         private void Awake()
@@ -81,12 +84,17 @@ namespace RPG_Project
             SetSpeeds(null);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown("space")) Jump();
+        }
+
         public void SetSpeeds(BattleChar character)
         {
             var weight = WeightClass.Middleweight;
 
             if (character != null)
-                weight = character.WeightClass;
+                weight = character.Weightclass;
 
             switch (weight)
             {
@@ -162,7 +170,7 @@ namespace RPG_Project
         {
             //var onSteepSurface = false;
 
-            cc.Move(fallVelocity * Time.deltaTime);
+            cc.Move(velocity * Time.deltaTime);
 
             //grounded = groundCheck.IsGrounded(gameObject);
             grounded = cc.isGrounded;
@@ -174,8 +182,8 @@ namespace RPG_Project
 
                 if (timeSinceGrounded != 0)
                     timeSinceGrounded = 0;
-                if (fallVelocity.y != 0)
-                    fallVelocity.y = 0;
+                if (velocity.y != 0)
+                    velocity.y = 0;
             }
             else
             {
@@ -183,9 +191,9 @@ namespace RPG_Project
 
                 // Increase downward y component of velocity
                 fallSpeed += gravity.y * Time.deltaTime;
-                fallVelocity += gravity * Time.deltaTime;
-                if (fallVelocity.sqrMagnitude > sqrTerminalSpeed)
-                    fallVelocity = terminalSpeed * fallVelocity.normalized;
+                velocity += gravity * Time.deltaTime;
+                if (velocity.sqrMagnitude > sqrTerminalSpeed)
+                    velocity = terminalSpeed * velocity.normalized;
             }
         }
         #endregion
@@ -215,7 +223,7 @@ namespace RPG_Project
         {
             //var onSteepSurface = false;
 
-            cc.SimpleMove(fallVelocity);
+            cc.SimpleMove(velocity);
 
             //grounded = groundCheck.IsGrounded(gameObject);
             grounded = cc.isGrounded;
@@ -227,8 +235,8 @@ namespace RPG_Project
 
                 if (timeSinceGrounded != 0)
                     timeSinceGrounded = 0;
-                if (fallVelocity.y != 0)
-                    fallVelocity.y = 0;
+                if (velocity.y != 0)
+                    velocity.y = 0;
             }
             else
             {
@@ -236,9 +244,18 @@ namespace RPG_Project
 
                 // Increase downward y component of velocity
                 fallSpeed += gravity.y * Time.deltaTime;
-                fallVelocity += gravity * Time.deltaTime;
-                if (fallVelocity.sqrMagnitude > sqrTerminalSpeed)
-                    fallVelocity = terminalSpeed * fallVelocity.normalized;
+                velocity += gravity * Time.deltaTime;
+                if (velocity.sqrMagnitude > sqrTerminalSpeed)
+                    velocity = terminalSpeed * velocity.normalized;
+            }
+        }
+
+        // Source: https://medium.com/ironequal/unity-character-controller-vs-rigidbody-a1e243591483
+        public void Jump()
+        {
+            if (cc.isGrounded)
+            {
+                velocity.y += Mathf.Sqrt(-2f * jumpHeight * gravity.y);
             }
         }
         #endregion

@@ -17,6 +17,11 @@ namespace RPG_Project
         [SerializeField] Ability bottomLeftAbility;
         [SerializeField] Ability bottomRightAbility;
 
+        [Header("Special Actions")]
+        [SerializeField] Ability jumpAbility = new Ability("SpecialAction");
+        [SerializeField] Ability rollAbility = new Ability("SpecialAction");
+        [SerializeField] Ability guardAbility = new Ability("SpecialAction");
+
         [Header("Resources")]
         [SerializeField] int gunAmmo = 10;
 
@@ -36,6 +41,10 @@ namespace RPG_Project
         public Ability TopRightAbility => topRightAbility;
         public Ability BottomLeftAbility => bottomLeftAbility;
         public Ability BottomRightAbility => bottomRightAbility;
+
+        public Ability JumpAbility => jumpAbility;
+        public Ability RollAbility => rollAbility;
+        public Ability GuardAbility => guardAbility;
 
         public Ability CurrentAbility => currentAbility;
         public Weapon CurrentWeapon => currentAbility.action.weapon;
@@ -79,6 +88,21 @@ namespace RPG_Project
                 case 2: return bottomLeftAbility;
                 case 3: return bottomRightAbility;
                 default: return null;
+            }
+        }
+
+        public Ability GetSpecialAction(WeightClass weight)
+        {
+            switch (weight)
+            {
+                case WeightClass.Lightweight:
+                    return jumpAbility;
+                case WeightClass.Middleweight:
+                    return rollAbility;
+                case WeightClass.Heavyweight:
+                    return guardAbility;
+                default:
+                    return rollAbility;
             }
         }
     }

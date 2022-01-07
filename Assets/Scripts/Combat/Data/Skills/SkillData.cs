@@ -4,21 +4,17 @@ using UnityEngine;
 
 namespace RPG_Project
 {
+    //[CreateAssetMenu(fileName = "New Skill", menuName = "Combat/Skill")]
     public class SkillData : ScriptableObject
     {
         [Header("Skill Info")]
         public string skillName;
         public int id;
-        public float duration;
 
         [Header("Skill Resources")]
         public int staminaCost = 1;
-        public bool limitedUse = false;
+        [Range(1, 50)]
         public int uses = 1;
-
-        [Header("Skill Initiative")]
-        public int initiativeWindow = 1;
-        public int skillSpeed = 0;
 
         public virtual Skill GetSkill()
         {

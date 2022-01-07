@@ -33,7 +33,7 @@ namespace RPG_Project
 
         public override void LoadFromCharacter()
         {
-            print(324);
+            //print(324);
             resourcePoints = character.Health;
             resource._cooldown = resourcePoints.CurrentStatValue;
             resource.Count = resourcePoints.PointValue;
