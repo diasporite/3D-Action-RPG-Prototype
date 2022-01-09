@@ -81,6 +81,7 @@ namespace RPG_Project
             switch (key)
             {
                 case "j":
+                    //if (dir != Vector3.zero) Run();
                     Run();
                     break;
                 case "l":
@@ -99,7 +100,7 @@ namespace RPG_Project
                     UseAbility(3);
                     break;
                 default:
-                    if (dir != Vector3.zero) Move(dir.normalized);
+                    Move(dir.normalized);   // No dir != zero for fall checks
                     break;
             }
         }
@@ -112,6 +113,8 @@ namespace RPG_Project
 
             string key = Input.inputString;
             var dir = RawInputDirXz;
+
+            //if (dir == Vector3.zero) sm.ChangeState(MOVE);
 
             switch (key)
             {
@@ -131,7 +134,7 @@ namespace RPG_Project
                     UseAbility(3);
                     break;
                 default:
-                    if (dir != Vector3.zero) Move(dir.normalized);
+                    Move(dir.normalized);
                     break;
             }
         }
@@ -161,7 +164,7 @@ namespace RPG_Project
                     UseAbility(3);
                     break;
                 default:
-                    if (dir != Vector3.zero) Move(dir.normalized);
+                    //if (dir != Vector3.zero) Move(dir.normalized);
                     break;
             }
         }
@@ -173,8 +176,7 @@ namespace RPG_Project
             //string key = Input.inputString;
             var dir = RawInputDirXz;
 
-            if (Stamina.Full)
-                sm.ChangeState(MOVE);
+            if (Stamina.Full) sm.ChangeState(MOVE);
 
             if (dir != Vector3.zero) Move(dir.normalized);
         }

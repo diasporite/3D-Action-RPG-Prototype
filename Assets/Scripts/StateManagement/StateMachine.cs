@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RPG_Project
 {
@@ -57,14 +58,18 @@ namespace RPG_Project
 
         public void ChangeState(object id, params object[] args)
         {
-            if (currentState != null) currentState.Exit();
-
-            if (states.ContainsKey(id))
+            if (currentState != null)
             {
-                currentStateKey = id;
-                currentState = states[id];
-                currentState.Enter(args);
+                currentState.Exit();
+
+                if (states.ContainsKey(id))
+                {
+                    currentStateKey = id;
+                    currentState = states[id];
+                    currentState.Enter(args);
+                }
             }
+            else Debug.LogError("State machine does not contain the state " + id);
         }
 
         public void ClearStates()

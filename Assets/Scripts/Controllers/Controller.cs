@@ -181,6 +181,8 @@ namespace RPG_Project
         public virtual void RunCommand()
         {
             ResourceTick(Time.deltaTime);
+
+            if (stamina.Empty) sm.ChangeState(RECOVER);
         }
 
         public virtual void ActionCommand()
@@ -269,6 +271,16 @@ namespace RPG_Project
         public void AddCommand(BattleCommand action)
         {
             if (action != null) queue.AddAction(action);
+        }
+
+        public virtual void Die()
+        {
+            Destroy(gameObject);
+        }
+
+        public void LeaveStagger()
+        {
+            sm.ChangeState(MOVE);
         }
     }
 }

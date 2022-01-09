@@ -186,7 +186,7 @@ namespace RPG_Project
             if (grounded)
             {
                 if (fallDamageTime > 0)
-                    GetComponent<Health>().ChangeResourcePercent(-FallDamagePercent);
+                    GetComponent<Combatant>().ApplyFallDamage(FallDamagePercent);
 
                 if (timeSinceGrounded != 0)
                     timeSinceGrounded = 0;
@@ -201,7 +201,7 @@ namespace RPG_Project
 
                 // Increase downward y component of velocity
                 fallSpeed += gravity.y * dt;
-                velocity += gravity * dt;
+                velocity += gravity* dt;
                 if (velocity.sqrMagnitude > sqrTerminalSpeed)
                     velocity = terminalSpeed * velocity.normalized;
 

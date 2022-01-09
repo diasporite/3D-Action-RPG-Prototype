@@ -48,12 +48,26 @@ namespace RPG_Project
 
         public bool Full => count >= cooldown;
 
+        public Cooldown(float cooldown)
+        {
+            this.cooldown = cooldown;
+            speed = 1;
+            count = 0;
+        }
+
         public Cooldown(float cooldown, float speed)
         {
             this.cooldown = cooldown;
             this.speed = speed;
+            count = 0;
         }
 
+        public Cooldown(float cooldown, float speed, float init)
+        {
+            this.cooldown = cooldown;
+            this.speed = speed;
+            count = init;
+        }
         public void Tick(float dt)
         {
             count += speed * dt;

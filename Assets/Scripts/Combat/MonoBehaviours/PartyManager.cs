@@ -31,7 +31,8 @@ namespace RPG_Project
 
         private void Update()
         {
-            currentPos = CurrentPartyMember.transform.position;
+            if (CurrentPartyMember != null)
+                currentPos = CurrentPartyMember.transform.position;
         }
 
         public void ChangePartyMember(int index)

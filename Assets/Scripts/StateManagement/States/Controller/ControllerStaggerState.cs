@@ -29,7 +29,7 @@ namespace RPG_Project
 
             //player.Movement.StopRb();
 
-            anim.SetBool("Stagger", true);
+            anim.SetTrigger("Stagger");
         }
 
         public void ExecuteFrame()

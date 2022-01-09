@@ -41,6 +41,7 @@ namespace RPG_Project
             }
         }
 
+        public PointStat ResourcePoints => resourcePoints;
         public Cooldown _resource => resource;
 
         public bool Empty => resource.Empty;
@@ -98,10 +99,15 @@ namespace RPG_Project
                 statBar.value = resource.CooldownFraction;
         }
 
+        public int GetResourcePercent(float percent)
+        {
+            return Mathf.RoundToInt(percent * (float)resourcePoints.CurrentStatValue);
+        }
+
         public void ChangeResource(int amount)
         {
             resourcePoints.PointValue += amount;
-            resource.Count += amount;
+            resource.Count = resourcePoints.PointValue;
 
             UpdateUI();
         }

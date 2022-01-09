@@ -76,14 +76,23 @@ namespace RPG_Project
         {
             character.ChangeHealth(damage);
             health.ChangeResource(damage);
-            //if (health.Empty) csm.ChangeState();
+            if (health.Empty) csm.ChangeState(controller.DEATH);
         }
 
         void TakePoiseDamage(int damage)
         {
             character.ChangePoise(damage);
-            health.ChangeResource(damage);
+            poise.ChangeResource(damage);
             if (poise.Empty) csm.ChangeState(controller.STAGGER);
+        }
+
+        public void ApplyFallDamage(float percent)
+        {
+            var damage = Mathf.RoundToInt(0.01f * Mathf.Abs(percent) * 
+                (float)character.Health.CurrentStatValue);
+
+            TakePoiseDamage(-999);  // Guaranteed stagger
+            TakeHealthDamage(-damage);
         }
     }
 }
