@@ -10,6 +10,7 @@ namespace RPG_Project
         StateMachine csm;
 
         Animator anim;
+        ActionQueue queue;
 
         public ControllerDeathState(Controller controller)
         {
@@ -17,12 +18,15 @@ namespace RPG_Project
             csm = controller.Sm;
 
             anim = controller.Anim;
+            queue = controller.Queue;
         }
 
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
             anim.SetTrigger("Death");
+
+            queue.StopActionDeath();
         }
 
         public void ExecuteFrame()
