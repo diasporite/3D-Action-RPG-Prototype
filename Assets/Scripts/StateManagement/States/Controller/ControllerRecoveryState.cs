@@ -4,37 +4,37 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerRecoveryState : IState
+    public class ControllerRecoveryState : IState
     {
-        PlayerController player;
-        StateMachine psm;
+        Controller controller;
+        StateMachine csm;
 
         Movement movement;
 
         Animator anim;
 
-        public PlayerRecoveryState(PlayerController player)
+        public ControllerRecoveryState(Controller controller)
         {
-            this.player = player;
-            psm = player.Sm;
+            this.controller = controller;
+            csm = controller.Sm;
 
-            movement = player.Movement;
+            movement = controller.Movement;
 
-            anim = player.Anim;
+            anim = controller.Anim;
         }
 
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            player.Stamina.Run(false);
-            player.Movement.SetRunning(false);
+            controller.Stamina.Run(false);
+            controller.Movement.SetRunning(false);
 
             anim.SetBool("Recovery", true);
         }
 
         public void ExecuteFrame()
         {
-            Command();
+            controller.RecoveryCommand();
         }
 
         public void ExecuteFrameFixed()
@@ -55,11 +55,11 @@ namespace RPG_Project
 
         void Command()
         {
-            player.ResourceTick(Time.deltaTime);
+            controller.ResourceTick(Time.deltaTime);
 
-            if (player.Stamina.Full)
+            if (controller.Stamina.Full)
             {
-                psm.ChangeState(player.MOVE);
+                csm.ChangeState(controller.MOVE);
                 return;
             }
 
@@ -68,8 +68,8 @@ namespace RPG_Project
 
         void Move()
         {
-            var dir = player.RawInputDir;
-            player.Move(dir);
+            var dir = controller.RawInputDir;
+            controller.Move(dir);
         }
     }
 }

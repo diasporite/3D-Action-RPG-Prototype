@@ -4,35 +4,35 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerActionState : IState
+    public class ControllerActionState : IState
     {
-        PlayerController player;
-        StateMachine psm;
+        Controller controller;
+        StateMachine csm;
 
         ActionQueue queue;
         AbilityManager weapon;
 
-        public PlayerActionState(PlayerController player)
+        public ControllerActionState(Controller controller)
         {
-            this.player = player;
-            psm = player.Sm;
+            this.controller = controller;
+            csm = controller.Sm;
 
-            queue = player.Queue;
-            weapon = player.Ability;
+            queue = controller.Queue;
+            weapon = controller.Ability;
         }
 
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            player.Stamina.Regenerative = false;
-            player.Poise.Regenerative = false;
+            controller.Stamina.Regenerative = false;
+            controller.Poise.Regenerative = false;
 
             weapon.CanDisarm = false;
         }
 
         public void ExecuteFrame()
         {
-            Command();
+            controller.ActionCommand();
         }
 
         public void ExecuteFrameFixed()
@@ -47,8 +47,8 @@ namespace RPG_Project
 
         public void Exit()
         {
-            player.Stamina.Regenerative = true;
-            player.Poise.Regenerative = true;
+            controller.Stamina.Regenerative = true;
+            controller.Poise.Regenerative = true;
 
             weapon.CanDisarm = true;
         }
@@ -58,8 +58,8 @@ namespace RPG_Project
         {
             //if (!queue.Executing) psm.ChangeState(player.MOVE);
 
-            if (player.UseSkill()) return;
-            else if (player.SpecialAction()) return;
+            //if (controller.UseSkill()) return;
+            //else if (controller.SpecialAction()) return;
             //else player.MovePlayer();
         }
     }

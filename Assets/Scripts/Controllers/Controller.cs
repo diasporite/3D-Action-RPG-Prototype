@@ -75,6 +75,17 @@ namespace RPG_Project
             get
             {
                 inputDir.x = Input.GetAxisRaw("Horizontal");
+                inputDir.y = Input.GetAxisRaw("Vertical");
+
+                return inputDir;
+            }
+        }
+
+        public Vector3 RawInputDirXz
+        {
+            get
+            {
+                inputDir.x = Input.GetAxisRaw("Horizontal");
                 inputDir.z = Input.GetAxisRaw("Vertical");
 
                 return inputDir;
@@ -86,7 +97,18 @@ namespace RPG_Project
             get
             {
                 inputDir.x = Input.GetAxis("Horizontal");
-                inputDir.z = Input.GetAxis("Vertical");
+                inputDir.y = Input.GetAxis("Vertical");
+
+                return inputDir;
+            }
+        }
+
+        public Vector3 InputDirXz
+        {
+            get
+            {
+                inputDir.x = Input.GetAxis("Horizontal");
+                inputDir.y = Input.GetAxis("Vertical");
 
                 return inputDir;
             }
@@ -142,8 +164,45 @@ namespace RPG_Project
 
         protected virtual void InitSM()
         {
+            sm.AddState(MOVE, new ControllerMovementState(this));
+            sm.AddState(RUN, new ControllerRunningState(this));
+            sm.AddState(ACTION, new ControllerActionState(this));
+            sm.AddState(RECOVER, new ControllerRecoveryState(this));
+            sm.AddState(STAGGER, new ControllerStaggerState(this));
+            sm.AddState(DEATH, new ControllerDeathState(this));
+        }
+
+        #region StateCommands
+        public virtual void MovementCommand()
+        {
+            ResourceTick(Time.deltaTime);
+        }
+
+        public virtual void RunCommand()
+        {
+            ResourceTick(Time.deltaTime);
+        }
+
+        public virtual void ActionCommand()
+        {
 
         }
+
+        public virtual void RecoveryCommand()
+        {
+            ResourceTick(Time.deltaTime);
+        }
+
+        public virtual void StaggerCommand()
+        {
+
+        }
+
+        public virtual void DeathCommand()
+        {
+
+        }
+        #endregion
 
         public void Move(Vector3 dir)
         {
@@ -155,6 +214,28 @@ namespace RPG_Project
             sm.ChangeState(RUN);
         }
 
+        public void SpecialAction()
+        {
+            var weightclass = combatant.Character.Weightclass;
+            BattleCommand act;
+
+            switch (weightclass)
+            {
+                case WeightClass.Lightweight:
+                    act = new JumpCommand(this);
+                    AddCommand(act);
+                    break;
+                case WeightClass.Heavyweight:
+                    act = new GuardCommand(this);
+                    AddCommand(act);
+                    break;
+                default:
+                    act = new RollCommand(this);
+                    AddCommand(act);
+                    break;
+            }
+        }
+
         public void UseAbility(int index)
         {
             index = Mathf.Abs(index);
@@ -162,31 +243,6 @@ namespace RPG_Project
 
             var command = ability.GetAbility(index).GetCommand(this);
             if (command != null) queue.AddAction(command);
-        }
-
-        public void UseSpecialAction()
-        {
-            var weightclass = combatant.Character.Weightclass;
-            BattleCommand act;
-
-            if (Input.GetKeyDown("l"))
-            {
-                switch (weightclass)
-                {
-                    case WeightClass.Lightweight:
-                        act = new JumpCommand(this);
-                        AddCommand(act);
-                        break;
-                    case WeightClass.Heavyweight:
-                        act = new GuardCommand(this);
-                        AddCommand(act);
-                        break;
-                    default:
-                        act = new RollCommand(this);
-                        AddCommand(act);
-                        break;
-                }
-            }
         }
 
         public void ResourceTick(float dt)

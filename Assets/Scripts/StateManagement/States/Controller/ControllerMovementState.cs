@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerMovementState : IState
+    public class ControllerMovementState : IState
     {
-        PlayerController player;
-        StateMachine psm;
+        Controller controller;
+        StateMachine csm;
 
         Animator anim;
 
         Movement movement;
 
-        public PlayerMovementState(PlayerController player)
+        public ControllerMovementState(Controller controller)
         {
-            this.player = player;
-            psm = player.Sm;
+            this.controller = controller;
+            csm = controller.Sm;
 
-            anim = player.Anim;
+            anim = controller.Anim;
 
-            movement = player.Movement;
+            movement = controller.Movement;
         }
 
         #region InterfaceMethods
@@ -28,12 +28,12 @@ namespace RPG_Project
         {
             movement.SetRunning(false);
 
-            player.Hand = WeaponHand.Empty;
+            controller.Hand = WeaponHand.Empty;
         }
 
         public void ExecuteFrame()
         {
-            //Command();
+            controller.MovementCommand();
         }
 
         public void ExecuteFrameFixed()
@@ -64,9 +64,9 @@ namespace RPG_Project
 
         void Tick()
         {
-            player.Health.Tick(Time.deltaTime);
-            player.Stamina.Tick(Time.deltaTime);
-            player.Poise.Tick(Time.deltaTime);
+            controller.Health.Tick(Time.deltaTime);
+            controller.Stamina.Tick(Time.deltaTime);
+            controller.Poise.Tick(Time.deltaTime);
         }
     }
 }

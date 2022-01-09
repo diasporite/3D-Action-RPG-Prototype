@@ -4,28 +4,28 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerStaggerState : IState
+    public class ControllerStaggerState : IState
     {
-        PlayerController player;
-        StateMachine psm;
+        Controller controller;
+        StateMachine csm;
 
         Animator anim;
         ActionQueue queue;
 
-        public PlayerStaggerState(PlayerController player)
+        public ControllerStaggerState(Controller controller)
         {
-            this.player = player;
-            psm = player.Sm;
+            this.controller = controller;
+            csm = controller.Sm;
 
-            anim = player.Anim;
-            queue = player.Queue;
+            anim = controller.Anim;
+            queue = controller.Queue;
         }
 
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            player.Stamina.Regenerative = false;
-            player.Poise.Regenerative = false;
+            controller.Stamina.Regenerative = false;
+            controller.Poise.Regenerative = false;
 
             //player.Movement.StopRb();
 
@@ -34,7 +34,7 @@ namespace RPG_Project
 
         public void ExecuteFrame()
         {
-
+            controller.StaggerCommand();
         }
 
         public void ExecuteFrameFixed()
@@ -49,8 +49,8 @@ namespace RPG_Project
 
         public void Exit()
         {
-            player.Stamina.Regenerative = true;
-            player.Poise.Regenerative = true;
+            controller.Stamina.Regenerative = true;
+            controller.Poise.Regenerative = true;
         }
         #endregion
     }

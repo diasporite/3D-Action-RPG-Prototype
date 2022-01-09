@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.InputSystem;
@@ -60,31 +61,214 @@ namespace RPG_Project
 
         protected override void InitSM()
         {
-            sm.AddState(MOVE, new PlayerMovementState(this));
-            sm.AddState(RUN, new PlayerRunningState(this));
-            sm.AddState(RECOVER, new PlayerRecoveryState(this));
-            sm.AddState(STAGGER, new PlayerStaggerState(this));
-            sm.AddState(ACTION, new PlayerActionState(this));
+            base.InitSM();
         }
 
-        public bool UseSkill()
+        void InitInputDicts()
         {
-            // top left, top right, bottom left, bottom right
-            var inputs = new string[] { "y", "p", "u", "o" };
 
-            //if (Input.GetKeyDown("y") || Input.GetKeyDown("u") || 
-            //    Input.GetKeyDown("o") || Input.GetKeyDown("p"))
-            ////if (inputManager.upSkill.GetInput || inputManager.leftSkill.GetInput || 
-            ////    inputManager.rightSkill.GetInput || inputManager.downSkill.GetInput)
-            ////if (controls.Player.UseSkill.triggered)
-            //{
-            //    //var dir = controls.Player.UseSkill.ReadValue<Vector2>();
-            //    // Cast dir to 4 directions
-            //    AddCommand(0);
-            //    return true;
-            //}
-            return false;
         }
+
+        #region StateCommands
+        public override void MovementCommand()
+        {
+            base.MovementCommand(); //ResourceTick
+
+            string key = Input.inputString;
+            var dir = RawInputDirXz;
+
+            // Look for better solution
+            switch (key)
+            {
+                case "j":
+                    Run();
+                    break;
+                case "l":
+                    SpecialAction();
+                    break;
+                case "y":
+                    UseAbility(0);
+                    break;
+                case "p":
+                    UseAbility(1);
+                    break;
+                case "u":
+                    UseAbility(2);
+                    break;
+                case "o":
+                    UseAbility(3);
+                    break;
+                default:
+                    if (dir != Vector3.zero) Move(dir.normalized);
+                    break;
+            }
+        }
+
+        public override void RunCommand()
+        {
+            base.RunCommand();  //ResourceTick
+
+            if (Input.GetKeyUp("j")) sm.ChangeState(MOVE);
+
+            string key = Input.inputString;
+            var dir = RawInputDirXz;
+
+            switch (key)
+            {
+                case "l":
+                    SpecialAction();
+                    break;
+                case "y":
+                    UseAbility(0);
+                    break;
+                case "p":
+                    UseAbility(1);
+                    break;
+                case "u":
+                    UseAbility(2);
+                    break;
+                case "o":
+                    UseAbility(3);
+                    break;
+                default:
+                    if (dir != Vector3.zero) Move(dir.normalized);
+                    break;
+            }
+        }
+
+        public override void ActionCommand()
+        {
+            if (!queue.Executing) sm.ChangeState(MOVE);
+
+            string key = Input.inputString;
+            var dir = RawInputDirXz;
+
+            switch (key)
+            {
+                case "l":
+                    SpecialAction();
+                    break;
+                case "y":
+                    UseAbility(0);
+                    break;
+                case "p":
+                    UseAbility(1);
+                    break;
+                case "u":
+                    UseAbility(2);
+                    break;
+                case "o":
+                    UseAbility(3);
+                    break;
+                default:
+                    if (dir != Vector3.zero) Move(dir.normalized);
+                    break;
+            }
+        }
+
+        public override void RecoveryCommand()
+        {
+            base.RecoveryCommand(); //ResourceTick
+
+            //string key = Input.inputString;
+            var dir = RawInputDirXz;
+
+            if (Stamina.Full)
+                sm.ChangeState(MOVE);
+
+            if (dir != Vector3.zero) Move(dir.normalized);
+        }
+
+        public override void StaggerCommand()
+        {
+            base.StaggerCommand();
+        }
+
+        public override void DeathCommand()
+        {
+            base.DeathCommand();
+        }
+        #endregion
+
+        #region OldInputMethods
+        //public void MovePlayer2()
+        //{
+        //    //var dir = controls.Player.Movement.ReadValue<Vector2>();
+        //    var dir = RawInputDir;
+        //    //ds.x = dir.x;
+        //    //ds.z = dir.y;
+        //    //Move(ds);
+        //    Move(dir);
+        //}
+
+        //public bool Run2()
+        //{
+        //    if (Input.GetKey("j") /*&& !movement.Stationary && !stamina.Empty*/)
+        //    //if (controls.Player.Run.triggered)
+        //    {
+        //        sm.ChangeState(RUN);
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
+
+        //public bool UseSkill2()
+        //{
+        //    // top left, top right, bottom left, bottom right
+        //    var inputs = new string[] { "y", "p", "u", "o" };
+
+        //    //if (Input.GetKeyDown("y") || Input.GetKeyDown("u") || 
+        //    //    Input.GetKeyDown("o") || Input.GetKeyDown("p"))
+        //    ////if (inputManager.upSkill.GetInput || inputManager.leftSkill.GetInput || 
+        //    ////    inputManager.rightSkill.GetInput || inputManager.downSkill.GetInput)
+        //    ////if (controls.Player.UseSkill.triggered)
+        //    //{
+        //    //    //var dir = controls.Player.UseSkill.ReadValue<Vector2>();
+        //    //    // Cast dir to 4 directions
+        //    //    AddCommand(0);
+        //    //    return true;
+        //    //}
+
+        //    for (int i = 0; i < inputs.Length; i++)
+        //    {
+        //        if (Input.GetKeyDown(inputs[i]))
+        //        {
+        //            AddAbilityCommand(i);
+        //            return true;
+        //        }
+        //    }
+
+        //    return false;
+        //}
+
+        //public bool SpecialAction2()
+        //{
+        //    var weightclass = combatant.Character.Weightclass;
+        //    BattleCommand act;
+
+        //    if (Input.GetKeyDown("l"))
+        //    {
+        //        switch (weightclass)
+        //        {
+        //            case WeightClass.Lightweight:
+        //                act = new JumpCommand(this);
+        //                AddCommand(act);
+        //                return true;
+        //            case WeightClass.Heavyweight:
+        //                act = new GuardCommand(this);
+        //                AddCommand(act);
+        //                return true;
+        //            default:
+        //                act = new RollCommand(this);
+        //                AddCommand(act);
+        //                return true;
+        //        }
+        //    }
+
+        //    return false;
+        //}
+        #endregion
 
         #region NewInputSystem
         //public void OnMovement(InputAction.CallbackContext context)

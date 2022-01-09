@@ -4,19 +4,19 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerDeathState : IState
+    public class ControllerDeathState : IState
     {
-        PlayerController player;
-        StateMachine psm;
+        Controller controller;
+        StateMachine csm;
 
         Animator anim;
 
-        public PlayerDeathState(PlayerController player)
+        public ControllerDeathState(Controller controller)
         {
-            this.player = player;
-            psm = player.Sm;
+            this.controller = controller;
+            csm = controller.Sm;
 
-            anim = player.Anim;
+            anim = controller.Anim;
         }
 
         #region InterfaceMethods
@@ -27,7 +27,7 @@ namespace RPG_Project
 
         public void ExecuteFrame()
         {
-
+            controller.DeathCommand();
         }
 
         public void ExecuteFrameFixed()
