@@ -6,6 +6,7 @@ namespace RPG_Project
 {
     public class PartyManager : MonoBehaviour
     {
+        // Delegates for UI
         public OnCharacterChanged onCharacterChanged;
 
         public OnHealthChanged onHealthChanged;
@@ -15,10 +16,14 @@ namespace RPG_Project
         int partyCap = 8;
         int currentMember = 0;
         [SerializeField] List<Controller> party = new List<Controller>();
+        [SerializeField] Controller[] activeParty = new Controller[4];
 
         [SerializeField] Vector3 currentPos = new Vector3(0, 0, 0);
 
+        Health sharedHealth;
+
         public Controller CurrentPartyMember => party[currentMember];
+        public BattleChar CurrentCharacter => CurrentPartyMember.Combatant.Character;
 
         public Controller GetPartyMember(int index)
         {
@@ -27,6 +32,11 @@ namespace RPG_Project
             if (index < party.Count) return party[index];
 
             return null;
+        }
+
+        private void Awake()
+        {
+            sharedHealth = GetComponent<Health>();
         }
 
         private void Update()
@@ -38,13 +48,14 @@ namespace RPG_Project
         public void ChangePartyMember(int index)
         {
             index = Mathf.Abs(index);
-            if (index > party.Count)
-            {
-                CurrentPartyMember.gameObject.SetActive(false);
+            index = index % party.Count;
 
-                currentMember = index;
-                CurrentPartyMember.gameObject.SetActive(true);
-            }
+            CurrentPartyMember.gameObject.SetActive(false);
+
+            currentMember = index;
+            CurrentPartyMember.gameObject.SetActive(true);
+
+            onCharacterChanged.Invoke(CurrentCharacter);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace RPG_Project
         public string charName;
         public int id;
 
+        public Sprite portrait;
+
         [Header("Base Stats")]
         [Range(1, 99)]
         public int baseExp = 50;

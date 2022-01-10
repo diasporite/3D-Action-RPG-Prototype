@@ -48,7 +48,7 @@ namespace RPG_Project
         protected Combatant combatant;
         protected ActionQueue queue;
         protected AbilityManager ability;
-        //protected LockOn lockOn;
+        protected LockOn lockOn;
 
         protected Health health;
         protected Stamina stamina;
@@ -120,7 +120,7 @@ namespace RPG_Project
         public Combatant Combatant => combatant;
         public ActionQueue Queue => queue;
         public AbilityManager Ability => ability;
-        //public LockOn LockOn => lockOn;
+        public LockOn LockOn => lockOn;
 
         public Health Health => health;
         public Stamina Stamina => stamina;
@@ -136,7 +136,7 @@ namespace RPG_Project
             combatant = GetComponent<Combatant>();
             queue = GetComponent<ActionQueue>();
             ability = GetComponent<AbilityManager>();
-            //lockOn = GetComponent<LockOn>();
+            lockOn = GetComponent<LockOn>();
 
             health = GetComponent<Health>();
             stamina = GetComponent<Stamina>();

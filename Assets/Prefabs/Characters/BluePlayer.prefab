@@ -327,7 +327,7 @@ MonoBehaviour:
   jumpHeight: 3.5
   terminalSpeed: 40
   fallDamageThreshold: -6
-  damageSpeed: 80
+  damageSpeed: 10
 --- !u!114 &4012377324784288301
 MonoBehaviour:
   m_ObjectHideFlags: 0

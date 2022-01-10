@@ -24,9 +24,10 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            anim.SetTrigger("Death");
+            controller.Stamina.Regenerative = false;
+            controller.Poise.Regenerative = false;
 
-            queue.StopActionDeath();
+            anim.SetTrigger("Death");
         }
 
         public void ExecuteFrame()

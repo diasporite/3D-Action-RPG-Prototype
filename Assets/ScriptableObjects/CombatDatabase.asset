@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0dbf1b3054b3cc4c93769bf06e0349e, type: 3}
+  m_Name: CombatDatabase
+  m_EditorClassIdentifier: 
+  elements:
+  - {fileID: 11400000, guid: 6b5c705244c1b6746a314f7f01422c3e, type: 2}
+  - {fileID: 11400000, guid: df13c2219fe9fa54196f7c40de950188, type: 2}
+  - {fileID: 11400000, guid: f6bb9e766e976b04d85d30ac7a1c9b0a, type: 2}
+  - {fileID: 11400000, guid: 9c8e34c0bbe9153408a8d3960d4d5e4b, type: 2}
+  - {fileID: 11400000, guid: 98b41edaa69c14749b7219d86e1b7fa6, type: 2}
+  - {fileID: 11400000, guid: adfdd2da1aa276d4481a836b5df73574, type: 2}
+  critMultiplier: 1.5
+  weakMultiplier: 1.4
+  resistMultiplier: 0.7
+  stabMultiplier: 1.2
+  lightweightWalk: 7
+  lightweightRun: 10.5
+  middleweightWalk: 6
+  middleweightRun: 9
+  heavyweightWalk: 4.5
+  heavyweightRun: 6.75
+  staminaRegen: 12
+  staminaRun: -2
+  poiseRegen: 18
+  jumpSpCost: 6
+  rollSpCost: 9
+  guardSpCost: 12

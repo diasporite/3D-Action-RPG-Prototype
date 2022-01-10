@@ -20,7 +20,7 @@ namespace RPG_Project
 
         protected Animator anim;
 
-        protected CombatManager combat;
+        protected CombatDatabase combat;
 
         protected bool canProgress = false;
         protected bool complete = false;

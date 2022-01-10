@@ -30,8 +30,6 @@ namespace RPG_Project
             //player.Movement.StopRb();
 
             anim.SetTrigger("Stagger");
-
-            queue.StopActionStagger();
         }
 
         public void ExecuteFrame()

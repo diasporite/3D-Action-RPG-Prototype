@@ -40,7 +40,7 @@ namespace RPG_Project
         CharacterController cc;
         CapsuleCollider col;
 
-        CombatManager combat;
+        CombatDatabase combat;
 
         public float Speed
         {

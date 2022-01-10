@@ -12,14 +12,15 @@ namespace RPG_Project
 
         public BattleUI battleUi;
 
-        CombatManager combat;
+        public CombatDatabase combat;
+
         InputManager input;
 
         PartyManager party;
 
         public BattleUI BattleUi => battleUi;
 
-        public CombatManager Combat => combat;
+        public CombatDatabase Combat => combat;
         public InputManager Input => input;
 
         public PartyManager Party => party;
@@ -29,7 +30,8 @@ namespace RPG_Project
             if (instance == null) instance = this;
             else Destroy(gameObject);
 
-            combat = GetComponent<CombatManager>();
+            combat.InitDatabase();
+
             input = GetComponent<InputManager>();
 
             party = FindObjectOfType<PartyManager>();

@@ -4,8 +4,13 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class CombatManager : MonoBehaviour
+    [CreateAssetMenu(fileName = "Combat Database", menuName = "Combat/Database")]
+    public class CombatDatabase : ScriptableObject
     {
+        [Header("Elements")]
+        public ElementData[] elements;
+        Dictionary<ElementID, ElementData> elementDict;
+
         [Header("Damage Multipliers")]
         public float critMultiplier = 1.5f;
 
@@ -30,10 +35,22 @@ namespace RPG_Project
 
         public float poiseRegen = 18f;
 
-        [Header("Basic Action Costs")]
+        [Header("Special Action Costs")]
         public int jumpSpCost = 6;
         public int rollSpCost = 9;
         public int guardSpCost = 12;
+
+        public void InitDatabase()
+        {
+            if (elementDict == null)
+            {
+                elementDict = new Dictionary<ElementID, ElementData>();
+
+                foreach (var data in elements)
+                    if (!elementDict.ContainsKey(data.id))
+                        elementDict.Add(data.id, data);
+            }
+        }
 
         #region Stats
         // Placeholder
