@@ -169,7 +169,7 @@ namespace RPG_Project
             var atk = spAtLv[lv - 1];
             var def = spAtLv[lv - 1];
 
-            health = new PointStat(hp, hp, 999);
+            health = new PointStat(hp, hp, 3999);
             stamina = new PointStat(sp, sp, 999);
             poise = new PointStat(pp, pp, 999);
 

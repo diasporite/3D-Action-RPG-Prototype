@@ -8,13 +8,7 @@ namespace RPG_Project
 {
     public class PlayerController : Controller
     {
-        [SerializeField] PartyManager party;
-
         //public InputMaster controls;
-
-        Vector3 ds = new Vector3(0, 0, 0);
-
-        public PartyManager Party => party;
 
         protected override void Awake()
         {

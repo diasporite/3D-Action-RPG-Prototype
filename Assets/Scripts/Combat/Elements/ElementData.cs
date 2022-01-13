@@ -8,6 +8,7 @@ namespace RPG_Project
     public class ElementData : ScriptableObject
     {
         public ElementID id;
+        public Sprite emblem;
 
         public ElementID[] weaknesses;
         public ElementID[] resistances;

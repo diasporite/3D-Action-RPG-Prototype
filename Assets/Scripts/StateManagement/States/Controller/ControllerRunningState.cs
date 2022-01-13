@@ -24,6 +24,8 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
+            controller.Mode = ControllerMode.Run;
+
             movement.SetRunning(true);
             controller.Stamina.Run(true);
 

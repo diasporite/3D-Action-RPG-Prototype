@@ -30,20 +30,22 @@ namespace RPG_Project
         public BattleChar Character => character;
         public Skillset Skillset => skillset;
 
+        public Stamina Stamina => stamina;
+        public Poise Poise => poise;
+
         private void Awake()
         {
             controller = GetComponent<Controller>();
             csm = controller.Sm;
             party = GetComponentInParent<PartyManager>();
 
-            health = GetComponent<Health>();
             stamina = GetComponent<Stamina>();
             poise = GetComponent<Poise>();
         }
 
         private void Start()
         {
-            character = characterData.Character;
+            health = party.PartyHealth;
 
             //party.onHealthChanged +=
             //party.onPoiseChanged +=
@@ -72,9 +74,14 @@ namespace RPG_Project
             yield return null;
         }
 
+        public void InitCombatant()
+        {
+            character = characterData.Character;
+        }
+
         void TakeHealthDamage(int damage)
         {
-            character.ChangeHealth(damage);
+            //character.ChangeHealth(damage);
             health.ChangeResource(damage);
             if (health.Empty) csm.ChangeState(controller.DEATH);
         }

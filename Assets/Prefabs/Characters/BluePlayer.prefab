@@ -158,7 +158,6 @@ GameObject:
   - component: {fileID: 4012377324784288308}
   - component: {fileID: 4012377324784288301}
   - component: {fileID: 4494172850248752210}
-  - component: {fileID: 4012377324784288302}
   - component: {fileID: 6807183250271285781}
   - component: {fileID: 4012377324784288303}
   - component: {fileID: 4012377324784288304}
@@ -300,9 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  currentWeapon: 0
   currentState: 
-  party: {fileID: 0}
 --- !u!114 &4012377324784288308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,21 +595,6 @@ MonoBehaviour:
     healthDamage: 0
     poiseDamage: 0
     spCost: 0
---- !u!114 &4012377324784288302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012377324784288313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 920cb445b24ec124f8a21eacdcb3ccf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executing: 0
-  currentAction: 0
-  actions: []
 --- !u!114 &6807183250271285781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,7 +616,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4012377324784288313}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2759b605e98e7bd4d87db8a0ddf66019, type: 3}
   m_Name: 

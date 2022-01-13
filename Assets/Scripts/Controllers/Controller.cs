@@ -24,9 +24,13 @@ namespace RPG_Project
         Right = 2,
     }
 
-    [RequireComponent(typeof(Movement), typeof(Combatant), typeof(ActionQueue))]
+    [RequireComponent(typeof(Movement), typeof(Combatant))]
     public class Controller : MonoBehaviour
     {
+        // Delegates for actions
+        
+        
+        // State keys
         public readonly string MOVE = "move";
         public readonly string RUN = "run";
         public readonly string RECOVER = "recover";
@@ -36,17 +40,18 @@ namespace RPG_Project
         public readonly string DEATH = "death";
 
         [SerializeField] protected ControllerMode mode;
-        [SerializeField] protected WeaponHand currentWeapon;
 
         [SerializeField] protected string currentState;
 
         Vector3 inputDir = new Vector3(0, 0);
 
+        protected PartyManager party;
+        protected ActionQueue queue;
+
         protected Animator anim;
 
         protected Movement movement;
         protected Combatant combatant;
-        protected ActionQueue queue;
         protected AbilityManager ability;
         protected LockOn lockOn;
 
@@ -62,12 +67,6 @@ namespace RPG_Project
         {
             get => mode;
             set => mode = value;
-        }
-
-        public WeaponHand Hand
-        {
-            get => currentWeapon;
-            set => currentWeapon = value;
         }
 
         public Vector3 RawInputDir
@@ -114,31 +113,36 @@ namespace RPG_Project
             }
         }
 
+        public PartyManager Party => party;
+        public AbilityManager Ability => ability;
+
         public Animator Anim => anim;
 
         public Movement Movement => movement;
         public Combatant Combatant => combatant;
         public ActionQueue Queue => queue;
-        public AbilityManager Ability => ability;
         public LockOn LockOn => lockOn;
 
         public Health Health => health;
         public Stamina Stamina => stamina;
         public Poise Poise => poise;
 
+        public BattleChar Character => combatant.Character;
+
         public StateMachine Sm => sm;
 
         protected virtual void Awake()
         {
+            party = GetComponentInParent<PartyManager>();
+
             anim = GetComponent<Animator>();
 
             movement = GetComponent<Movement>();
             combatant = GetComponent<Combatant>();
-            queue = GetComponent<ActionQueue>();
             ability = GetComponent<AbilityManager>();
             lockOn = GetComponent<LockOn>();
 
-            health = GetComponent<Health>();
+            health = GetComponentInParent<Health>();
             stamina = GetComponent<Stamina>();
             poise = GetComponent<Poise>();
         }
@@ -146,6 +150,8 @@ namespace RPG_Project
         protected virtual void Start()
         {
             inputManager = GameManager.instance.Input;
+
+            queue = party.ActionQueue;
 
             InitSM();
         }
@@ -271,6 +277,21 @@ namespace RPG_Project
         public void AddCommand(BattleCommand action)
         {
             if (action != null) queue.AddAction(action);
+        }
+
+        public void NextAction()
+        {
+            party.ActionQueue.NextAction();
+        }
+
+        public void StopActionDeath()
+        {
+            party.ActionQueue.StopActionDeath();
+        }
+
+        public void StopActionStagger()
+        {
+            party.ActionQueue.StopActionStagger();
         }
 
         public virtual void Die()

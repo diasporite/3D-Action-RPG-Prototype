@@ -11,7 +11,8 @@ namespace RPG_Project
 
         int actionCap = 5;
 
-        Controller controller;
+        [SerializeField] PartyManager party;
+        [SerializeField] Controller controller;
         Animator anim;
 
         [SerializeField] int currentAction = 0;
@@ -21,10 +22,12 @@ namespace RPG_Project
 
         public bool Executing => executing;
 
+        public Controller Controller => party.CurrentPartyMember;
+        public Animator Anim => party.CurrentPartyMember.Anim;
+
         private void Awake()
         {
-            controller = GetComponent<Controller>();
-            anim = GetComponent<Animator>();
+            //party = GetComponent<PartyManager>();
         }
 
         public void AddAction(BattleCommand action)
@@ -45,6 +48,9 @@ namespace RPG_Project
         {
             executing = true;
 
+            controller = Controller;
+            anim = Anim;
+
             if (currentAction < actions.Count && !controller.Stamina.Empty)
             {
                 initialState = controller.Sm.GetCurrentKey.ToString();
@@ -56,6 +62,9 @@ namespace RPG_Project
         public void NextAction()
         {
             currentAction++;
+
+            controller = Controller;
+            anim = Anim;
 
             if (controller.Stamina.Empty)
             {
@@ -102,6 +111,9 @@ namespace RPG_Project
 
             executing = false;
 
+            controller = Controller;
+            anim = Anim;
+
             controller.Sm.ChangeState(controller.STAGGER);
             anim.SetBool("Stagger", true);
         }
@@ -113,6 +125,9 @@ namespace RPG_Project
             actions.Clear();
 
             executing = false;
+
+            controller = Controller;
+            anim = Anim;
 
             controller.Sm.ChangeState(controller.DEATH);
             anim.SetTrigger("Death");

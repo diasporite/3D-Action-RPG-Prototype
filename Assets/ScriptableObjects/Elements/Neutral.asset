@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Neutral
   m_EditorClassIdentifier: 
   id: 1
+  emblem: {fileID: 21300000, guid: 18f728c0470812840b05d856cf390fa0, type: 3}
   weaknesses: 
   resistances: 
   immunities: 

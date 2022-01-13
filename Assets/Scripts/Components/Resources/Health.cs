@@ -6,9 +6,17 @@ namespace RPG_Project
 {
     public class Health : Resource
     {
+        protected override void Awake()
+        {
+            party = GetComponent<PartyManager>();
+            combatant = GetComponent<Combatant>();
+
+            currentRegen = regenSpeed;
+        }
+
         protected override void Start()
         {
-            base.Start();
+            //base.Start();
 
             //party.onHealthChanged +=
         }
@@ -20,9 +28,7 @@ namespace RPG_Project
 
         protected override void UpdateUI()
         {
-            base.UpdateUI();
-            if (statText != null)
-                statText.text = "HP " + resourcePoints.PointValue + "/" + resourcePoints.CurrentStatValue;
+            party.InvokeHealthTick();
         }
 
         public override void SaveToCharacter()
@@ -37,6 +43,32 @@ namespace RPG_Project
             resourcePoints = character.Health;
             resource._cooldown = resourcePoints.CurrentStatValue;
             resource.Count = resourcePoints.PointValue;
+        }
+
+        public override void SaveToStat(PointStat stat)
+        {
+            base.SaveToStat(stat);
+        }
+
+        public override void LoadFromStat(PointStat stat)
+        {
+            base.LoadFromStat(stat);
+        }
+
+        public void InitResource()
+        {
+            var currentHp = resourcePoints.PointValue;
+            var hp = party.TotalHealth;
+
+            resourcePoints = new PointStat(100, 3999);
+
+            resourcePoints.StatValue = hp;
+            resourcePoints.PointValue = currentHp;
+
+            resource._cooldown = hp;
+            resource.Count = resourcePoints.PointValue;
+
+            UpdateUI();
         }
     }
 }

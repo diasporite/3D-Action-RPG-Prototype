@@ -162,7 +162,6 @@ GameObject:
   - component: {fileID: 6310017949408090990}
   - component: {fileID: 6310017949408090999}
   - component: {fileID: 6800996647118521608}
-  - component: {fileID: 6310017949408090996}
   - component: {fileID: 4487983358701202255}
   - component: {fileID: 6310017949408090997}
   - component: {fileID: 6310017949408090986}
@@ -305,8 +304,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  currentWeapon: 0
   currentState: 
+  attackTimer:
+    cooldown: 3
+    speed: 1
+    count: 0
 --- !u!114 &6310017949408090990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,21 +604,6 @@ MonoBehaviour:
     healthDamage: 0
     poiseDamage: 0
     spCost: 0
---- !u!114 &6310017949408090996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6310017949408090979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 920cb445b24ec124f8a21eacdcb3ccf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executing: 0
-  currentAction: 0
-  actions: []
 --- !u!114 &4487983358701202255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,7 +625,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6310017949408090979}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2759b605e98e7bd4d87db8a0ddf66019, type: 3}
   m_Name: 
@@ -1032,12 +1019,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d5a72631338d0e42add1d6dfb504ca4, type: 3}
---- !u!4 &4174118239824115226 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
-    type: 3}
-  m_PrefabInstance: {fileID: 7452573822873287880}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5381992470306978405 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3304641343523243693, guid: 9d5a72631338d0e42add1d6dfb504ca4,
@@ -1050,3 +1031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de25e70355d1eb44cb3e960abc524c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4174118239824115226 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
+    type: 3}
+  m_PrefabInstance: {fileID: 7452573822873287880}
+  m_PrefabAsset: {fileID: 0}

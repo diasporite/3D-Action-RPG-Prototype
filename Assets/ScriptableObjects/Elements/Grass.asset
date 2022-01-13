@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   id: 2
+  emblem: {fileID: 21300000, guid: 8ab7389fdb9089e4c9adb3f38dc853c3, type: 3}
   weaknesses: 03000000
   resistances: 0400000002000000
   immunities: 

@@ -27,6 +27,8 @@ namespace RPG_Project
 
                 if (statValue < 1) statValue = 1;
                 if (statValue > valueCap) statValue = valueCap;
+
+                currentStatValue = CurrentValue();
             }
         }
 

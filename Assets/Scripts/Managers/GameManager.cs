@@ -15,6 +15,7 @@ namespace RPG_Project
         public CombatDatabase combat;
 
         InputManager input;
+        UIManager ui;
 
         PartyManager party;
 
@@ -33,13 +34,28 @@ namespace RPG_Project
             combat.InitDatabase();
 
             input = GetComponent<InputManager>();
+            ui = FindObjectOfType<UIManager>();
 
             party = FindObjectOfType<PartyManager>();
+        }
+
+        private void Start()
+        {
+            party.InitParty();
+            ui.InitUI(party);
+
+            // Init both party and UI first
+            party.ChangePartyMember(0);
         }
 
         private void Update()
         {
             if (UnityEngine.Input.GetKeyDown("h")) PauseGame();
+        }
+
+        void InitGame()
+        {
+
         }
 
         void PauseGame()

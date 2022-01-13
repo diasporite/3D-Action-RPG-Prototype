@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Electric
   m_EditorClassIdentifier: 
   id: 5
+  emblem: {fileID: 21300000, guid: ccf610217aec6ca42a7f6ff53e2a731e, type: 3}
   weaknesses: 
   resistances: 05000000
   immunities: 

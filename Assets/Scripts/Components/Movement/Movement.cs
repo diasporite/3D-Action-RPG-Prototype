@@ -82,7 +82,7 @@ namespace RPG_Project
 
             GameManager.instance.Party.onCharacterChanged += SetSpeeds;
 
-            SetSpeeds(null);
+            SetSpeeds(GetComponent<Combatant>());
 
             velocity = Vector3.zero;
         }
@@ -97,8 +97,9 @@ namespace RPG_Project
             //GameManager.instance.Party.onCharacterChanged -= SetSpeeds;
         }
 
-        public void SetSpeeds(BattleChar character)
+        public void SetSpeeds(Combatant combatant)
         {
+            var character = combatant.Character;
             var weight = WeightClass.Middleweight;
 
             if (character != null)

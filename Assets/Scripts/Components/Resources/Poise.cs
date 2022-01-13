@@ -8,9 +8,7 @@ namespace RPG_Project
     {
         protected override void UpdateUI()
         {
-            base.UpdateUI();
-            if (statText != null)
-                statText.text = "PP " + resourcePoints.PointValue + "/" + resourcePoints.CurrentStatValue;
+            party.InvokePoiseTick();
         }
 
         public override void SaveToCharacter()

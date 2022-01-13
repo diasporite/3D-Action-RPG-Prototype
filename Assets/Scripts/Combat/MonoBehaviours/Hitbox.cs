@@ -34,6 +34,8 @@ namespace RPG_Project
         {
             active = value;
             col.enabled = active;
+
+            if (active) weaponHits.Clear();
         }
 
         public void SetController(Controller controller)
@@ -67,22 +69,19 @@ namespace RPG_Project
         {
             if (active)
             {
-                //var damageable = collision.gameObject.GetComponent<IDamageable>();
-
-                //// Also check that damageable isn't that of the weapon user
-                //if (damageable != null)
-                //{
-                //    if (!weaponHits.Contains(damageable))
-                //    {
-
-                //    }
-                //}
-
                 var obj = collider.gameObject;
-                print(obj);
+                //print(obj);
                 if (obj != null && obj != controller.gameObject)
                 {
-                    Destroy(obj);
+                    //Destroy(obj);
+
+                    var damageable = obj.GetComponent<IDamageable>();
+                    if (damageable != null && !weaponHits.Contains(damageable))
+                    {
+                        //print(34432);
+                        weaponHits.Add(damageable);
+                        damageable.OnDamage(100, controller.Combatant.Character);
+                    }
                 }
             }
         }

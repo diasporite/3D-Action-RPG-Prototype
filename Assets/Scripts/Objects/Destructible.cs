@@ -9,8 +9,11 @@ namespace RPG_Project
         public int hp = 100;
         public int def = 50;
 
-        public PointStat health { get; private set; }
-        public Stat defence { get; private set; }
+        //public PointStat health { get; private set; }
+        //public Stat defence { get; private set; }
+
+        public PointStat health;
+        public Stat defence;
 
         private void Awake()
         {
@@ -24,7 +27,7 @@ namespace RPG_Project
             //var damage = GameManager.instance.Combat.GetDamage(baseDamage, , defence);
 
             health.ChangeCurrentPoints(-damage);
-            if (health.CurrentStatValue <= 0) DestroyObject();
+            if (health.PointValue <= 0) DestroyObject();
         }
 
         public IEnumerator OnDamageCo(int baseDamage, BattleChar instigator)

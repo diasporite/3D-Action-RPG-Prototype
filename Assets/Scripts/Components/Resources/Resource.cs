@@ -7,19 +7,13 @@ namespace RPG_Project
 {
     public class Resource : MonoBehaviour
     {
-        [SerializeField] bool regenerative = true;
+        [SerializeField] protected bool regenerative = true;
 
-        //[SerializeField] int points = 100;
-        //[SerializeField] int initPoints = 0;
-
-        [SerializeField] float regenSpeed = 30;
-        [SerializeField] float currentRegen;
+        [SerializeField] protected float regenSpeed = 30;
+        [SerializeField] protected float currentRegen;
 
         [SerializeField] protected PointStat resourcePoints;
         [SerializeField] protected Cooldown resource = new Cooldown(100, 30);
-
-        [SerializeField] protected Slider statBar;
-        [SerializeField] protected Text statText;
 
         protected PartyManager party;
         protected Combatant combatant;
@@ -44,10 +38,14 @@ namespace RPG_Project
         public PointStat ResourcePoints => resourcePoints;
         public Cooldown _resource => resource;
 
+        public int ResourcePointValue => resourcePoints.PointValue;
+        public int ResourceStatValue => resourcePoints.CurrentStatValue;
+        public float ResourceFraction => resource.CooldownFraction;
+
         public bool Empty => resource.Empty;
         public bool Full => resource.Full;
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             party = GetComponentInParent<PartyManager>();
             combatant = GetComponent<Combatant>();
@@ -95,8 +93,7 @@ namespace RPG_Project
 
         protected virtual void UpdateUI()
         {
-            if (statBar != null)
-                statBar.value = resource.CooldownFraction;
+
         }
 
         public int GetResourcePercent(float percent)
@@ -141,6 +138,16 @@ namespace RPG_Project
         }
 
         public virtual void LoadFromCharacter()
+        {
+
+        }
+
+        public virtual void SaveToStat(PointStat stat)
+        {
+
+        }
+        
+        public virtual void LoadFromStat(PointStat stat)
         {
 
         }

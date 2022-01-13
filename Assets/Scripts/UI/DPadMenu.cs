@@ -4,26 +4,60 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-
     public class DPadMenu : MonoBehaviour
     {
-        public UIPanel menuSwitchPanel;
+        [SerializeField] PartyManager party;
+        ShortcutRegister shortcuts;
 
-        int currentMenu = 0;
-        [SerializeField] HUDMenu[] menus = new HUDMenu[3];
+        [SerializeField] HUDMenu activePartyMenu;
+        [SerializeField] HUDMenu regItemsMenu;
 
-        private void Awake()
+        private void OnDisable()
         {
-            menuSwitchPanel.InitPanel();
-            menuSwitchPanel.onButtonPress += SwitchMenu;
+            UnsubscribeFromDelegates();
         }
 
-        void SwitchMenu()
+        public void InitUI(PartyManager party)
         {
-            menus[currentMenu].gameObject.SetActive(false);
-            currentMenu++;
-            currentMenu = currentMenu % menus.Length;
-            menus[currentMenu].gameObject.SetActive(true);
+            this.party = party;
+            shortcuts = party.GetComponent<ShortcutRegister>();
+
+            SubscribeToDelegates();
+        }
+
+        void SubscribeToDelegates()
+        {
+            shortcuts.onShortcutSwitch += OpenMenu;
+        }
+
+        void UnsubscribeFromDelegates()
+        {
+            shortcuts.onShortcutSwitch -= OpenMenu;
+        }
+
+        void OpenMenu()
+        {
+            switch (shortcuts.Mode)
+            {
+                case ShortcutMode.ActiveParty:
+                    OpenActiveParty();
+                    break;
+                case ShortcutMode.RegisteredItems:
+                    OpenRegItems();
+                    break;
+            }
+        }
+
+        void OpenActiveParty()
+        {
+            activePartyMenu.gameObject.SetActive(true);
+            regItemsMenu.gameObject.SetActive(false);
+        }
+
+        void OpenRegItems()
+        {
+            regItemsMenu.gameObject.SetActive(true);
+            activePartyMenu.gameObject.SetActive(false);
         }
     }
 }

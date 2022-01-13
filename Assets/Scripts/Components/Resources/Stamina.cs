@@ -16,9 +16,7 @@ namespace RPG_Project
 
         protected override void UpdateUI()
         {
-            base.UpdateUI();
-            if (statText != null)
-                statText.text = "SP " + resourcePoints.PointValue + "/" + resourcePoints.CurrentStatValue;
+            party.InvokeStaminaTick();
         }
 
         public override void SaveToCharacter()
