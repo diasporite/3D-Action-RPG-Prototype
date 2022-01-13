@@ -35,6 +35,8 @@ namespace RPG_Project
 
             controller.Stamina.ChangeResource(-ability.SpCost);
             //controller.Poise.ChangeResource(-47);
+
+            ability.UseResource(1);
         }
 
         public override IEnumerator ExecuteCo()
@@ -45,6 +47,8 @@ namespace RPG_Project
 
             controller.Stamina.ChangeResource(-ability.SpCost);
             //controller.Poise.ChangeResource(-47);
+
+            ability.UseResource(1);
 
             // Continually track direction to target
             // Animation will move instigator in that direction

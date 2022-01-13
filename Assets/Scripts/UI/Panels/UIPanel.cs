@@ -6,13 +6,11 @@ using UnityEngine.Events;
 
 namespace RPG_Project
 {
-    //public delegate void OnButtonPress();
-
     public class UIPanel : MonoBehaviour
     {
-        protected bool hidden = false;
+        protected PartyManager party;
 
-        public InputButton button;
+        protected bool hidden = false;
 
         protected Image background;
         protected CanvasGroup vignette;
@@ -20,22 +18,15 @@ namespace RPG_Project
         protected Color selected = new Color(0.7f, 0.7f, 0.7f);
         protected Color notSelected = new Color(0.3f, 0.3f, 0.3f);
 
-        public OnButtonPress onButtonPress;
-
-        protected virtual void OnDestroy()
+        public virtual void InitUI(PartyManager party)
         {
-            onButtonPress -= SelectUI;
-        }
+            this.party = party;
 
-        public virtual void InitPanel()
-        {
             background = GetComponent<Image>();
             vignette = GetComponentInChildren<CanvasGroup>();
-
-            onButtonPress += SelectUI;
         }
 
-        public virtual void UpdateUI(bool init)
+        public virtual void UpdateUI()
         {
 
         }

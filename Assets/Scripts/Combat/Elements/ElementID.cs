@@ -13,5 +13,6 @@ namespace RPG_Project
         Fire = 3,
         Water = 4,
         Electric = 5,
+        Earth = 6,
     }
 }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4365297758841432619}
   - component: {fileID: 4365297758841432618}
   - component: {fileID: 3574979354709148482}
-  - component: {fileID: 2778502855517331917}
+  - component: {fileID: 2030968363865047451}
   m_Layer: 0
-  m_Name: SkillPanel
+  m_Name: AbilityPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
---- !u!114 &2778502855517331917
+--- !u!114 &2030968363865047451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 4365297758841432616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a2a182956a25a64d96665d859514e18, type: 3}
+  m_Script: {fileID: 11500000, guid: dc3ea6ec5f120f64997db7ef9084589a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button:
-    key: 
-    hold: 0
-    directional: 0
+  orientation: 4
+  ability:
+    trigger: 
+    action:
+      weapon: {fileID: 0}
+      animation: {fileID: 0}
+      numberOfHits: 1
+      spCost: 3
+    effect:
+      skillName: 
+      id: 0
+      staminaCost: 0
+      uses:
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
+    healthDamage: 0
+    poiseDamage: 0
+    spCost: 0
   element: {fileID: 5156677651889589153}
   weapon: {fileID: 8850796119403329944}
   skillName: {fileID: 4610039436680016938}

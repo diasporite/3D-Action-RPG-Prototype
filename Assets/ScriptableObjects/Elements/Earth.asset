@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a7a864bf9f1b6d498cde1ed785887d4, type: 3}
-  m_Name: Grass
+  m_Name: Earth
   m_EditorClassIdentifier: 
-  id: 2
-  emblem: {fileID: 21300000, guid: 8ab7389fdb9089e4c9adb3f38dc853c3, type: 3}
-  weaknesses: 03000000
-  resistances: 040000000200000006000000
-  immunities: 
+  id: 6
+  emblem: {fileID: 21300000, guid: a2221acf9ff7ab64ca66dae535c37c17, type: 3}
+  weaknesses: 0200000004000000
+  resistances: 0100000003000000
+  immunities: 05000000

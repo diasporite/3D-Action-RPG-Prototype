@@ -10,6 +10,7 @@ namespace RPG_Project
 
         public CharacterInfo charInfo;
         public DPadMenu shortcuts;
+        public CharacterAbilities charAbilities;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace RPG_Project
 
             charInfo.InitUI(party);
             shortcuts.InitUI(party);
+            charAbilities.InitUI(party);
         }
     }
 }

@@ -151,9 +151,7 @@ namespace RPG_Project
         {
             inputManager = GameManager.instance.Input;
 
-            queue = party.ActionQueue;
-
-            InitSM();
+            //InitController();
         }
 
         protected virtual void Update()
@@ -166,6 +164,16 @@ namespace RPG_Project
         protected virtual void OnDrawGizmos()
         {
             
+        }
+
+        public virtual void InitController()
+        {
+            queue = party.ActionQueue;
+
+            combatant.InitCombatant();
+            ability.InitAbilities();
+
+            InitSM();
         }
 
         protected virtual void InitSM()

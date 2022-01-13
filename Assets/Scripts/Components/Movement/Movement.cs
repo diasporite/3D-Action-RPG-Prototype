@@ -15,6 +15,7 @@ namespace RPG_Project
 
         [Header("Rotational speed")]
         [SerializeField] float turnTime = 0.1f;
+        [SerializeField] float lockOnCircleSpeed = 60;
         float turnVelocity = 0;
 
         [Header("Gravity")]
@@ -36,6 +37,7 @@ namespace RPG_Project
         Transform cam;
 
         Controller controller;
+        LockOn lockOn;
 
         CharacterController cc;
         CapsuleCollider col;
@@ -65,6 +67,7 @@ namespace RPG_Project
         private void Awake()
         {
             controller = GetComponent<Controller>();
+            lockOn = GetComponent<LockOn>();
 
             cc = GetComponent<CharacterController>();
             col = GetComponent<CapsuleCollider>();
@@ -159,20 +162,65 @@ namespace RPG_Project
         {
             if (!locked && dir != Vector3.zero)
             {
-                dir.Normalize();
+                //dir.Normalize();
 
-                var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-                var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, 
-                    ref turnVelocity, turnTime);
-                cc.transform.rotation = Quaternion.Euler(0, angle, 0);
+                //var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+                //var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, 
+                //    ref turnVelocity, turnTime);
+                //cc.transform.rotation = Quaternion.Euler(0, angle, 0);
 
-                var ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-                ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
+                //var ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+                //ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
 
-                cc.Move(currentSpeed * ds.normalized * dt);
+                //cc.Move(currentSpeed * ds.normalized * dt);
+
+                //if (lockOn.LockedOn) MovePositionPolar(dir, dt, lockOn.CurrentTargetPos);
+                if (lockOn.LockedOn) MovePositionCartesian(dir, dt);
+                else MovePositionCartesian(dir, dt);
+
+                //if (lockOn.LockedOn) transform.LookAt(lockOn.CurrentTarget.transform);
+                //if (lockOn.LockedOn) lockOn.LookAtTarget(transform);
             }
 
             FallPosition(dt);
+        }
+
+        void MovePositionCartesian(Vector3 dir, float dt)
+        {
+            dir.Normalize();
+
+            var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+            var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
+                ref turnVelocity, turnTime);
+            cc.transform.rotation = Quaternion.Euler(0, angle, 0);
+
+            var ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
+
+            cc.Move(currentSpeed * ds.normalized * dt);
+        }
+
+        void MovePositionPolar(Vector3 dir, float dt, Vector3 centre)
+        {
+            dir.Normalize();
+
+            var dr = centre - transform.position;
+            var r = dr.magnitude;
+            var dtheta = lockOnCircleSpeed * dt;
+
+            Vector3 ds = Vector3.zero;
+
+            ds.y = -Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
+
+            ds.x = dir.x * Mathf.Cos(dtheta * Mathf.Deg2Rad);
+            ds.z = dir.z * Mathf.Sin(dtheta * Mathf.Deg2Rad);
+
+            Debug.DrawRay(transform.position, 100f * dir, Color.red);
+            Debug.DrawRay(transform.position, 100f * ds, Color.blue);
+
+            cc.Move(currentSpeed * ds.normalized * dt);
+
+            lockOn.LookAtTarget(transform);
         }
 
         void FallPosition(float dt)

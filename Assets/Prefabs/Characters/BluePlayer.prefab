@@ -159,7 +159,6 @@ GameObject:
   - component: {fileID: 4012377324784288301}
   - component: {fileID: 4494172850248752210}
   - component: {fileID: 6807183250271285781}
-  - component: {fileID: 4012377324784288303}
   - component: {fileID: 4012377324784288304}
   - component: {fileID: 4012377324784288305}
   m_Layer: 0
@@ -341,7 +340,7 @@ MonoBehaviour:
   character:
     dead: 0
     charName: 0
-    id: 0
+    portrait: {fileID: 0}
     progression:
       lv: 0
       currentLvCap: 0
@@ -609,31 +608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchRadius: 10
   targets: []
---- !u!114 &4012377324784288303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012377324784288313}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2759b605e98e7bd4d87db8a0ddf66019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  regenerative: 0
-  regenSpeed: 30
-  currentRegen: 0
-  resourcePoints:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  resource:
-    cooldown: 100
-    speed: 30
-    count: 0
-  statBar: {fileID: 0}
-  statText: {fileID: 0}
 --- !u!114 &4012377324784288304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,8 +631,6 @@ MonoBehaviour:
     cooldown: 100
     speed: 30
     count: 0
-  statBar: {fileID: 0}
-  statText: {fileID: 0}
   inRecovery: 0
 --- !u!114 &4012377324784288305
 MonoBehaviour:
@@ -683,8 +655,6 @@ MonoBehaviour:
     cooldown: 100
     speed: 30
     count: 0
-  statBar: {fileID: 0}
-  statText: {fileID: 0}
 --- !u!1001 &527941948576359826
 PrefabInstance:
   m_ObjectHideFlags: 0

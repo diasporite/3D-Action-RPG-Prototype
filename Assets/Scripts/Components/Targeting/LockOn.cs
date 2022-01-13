@@ -6,30 +6,56 @@ namespace RPG_Project
 {
     public class LockOn : MonoBehaviour
     {
-        bool lockedOn;
+        public readonly string LOCKED = "locked";
+        public readonly string FREE = "free";
+
+        [SerializeField] string currentState;
+
         [SerializeField] float searchRadius = 5f;
 
-        int currentTarget = 0;
+        [SerializeField] int currentTarget = 0;
         [SerializeField] Target[] targets;
 
+        Controller controller;
         Target ownTarget;
 
         CameraController cam;
 
+        LayerMask targetMask;
+
+        public readonly StateMachine sm = new StateMachine();
+
+        public bool LockedOn { get; set; }
+
+        public Controller Controller => controller;
+
+        public Target CurrentTarget => targets[currentTarget];
+        public Vector3 CurrentTargetPos => CurrentTarget.transform.position;
+
+        public CameraController Cam => cam;
+
         private void Awake()
         {
+            controller = GetComponent<Controller>();
             ownTarget = GetComponentInChildren<Target>();
+            cam = Camera.main.GetComponent<CameraController>();
+
+            targetMask = LayerMask.GetMask("Targets");
         }
 
         private void Start()
         {
-            cam = Camera.main.GetComponent<CameraController>();
             cam.lockOn = this;
+
+            InitSM();
+
+            sm.ChangeState(FREE);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown("right shift")) ToggleLock();
+            sm.Update();
+            currentState = sm.GetCurrentKey.ToString();
         }
 
         private void OnDrawGizmos()
@@ -38,21 +64,25 @@ namespace RPG_Project
             Gizmos.DrawWireSphere(transform.position, searchRadius);
         }
 
-        public void ToggleLock()
+        void InitSM()
         {
-            print("toggle");
-            FindTargets();
+            sm.AddState(LOCKED, new LockOnTargetState(this));
+            sm.AddState(FREE, new LockOnFreeState(this));
+        }
 
-            if (targets != null && targets.Length > 0)
+        public void LockOntoTarget()
+        {
+            if (Input.GetKeyDown("m"))
             {
-                cam.LockedTargets = targets;
-                if ((string)cam.Sm.GetCurrentKey != cam.LOCKED) cam.Sm.ChangeState(cam.LOCKED);
+                FindTargets();
+                if (targets.Length > 0) sm.ChangeState(LOCKED);
             }
-            else
-            {
-                cam.LockedTargets = null;
-                cam.Sm.ChangeState(cam.UNLOCKED);
-            }
+        }
+
+        public void UnlockFromTarget()
+        {
+            if (CurrentTarget == null || Input.GetKeyDown("m"))
+                sm.ChangeState(FREE);
         }
 
         public void FindTargets()
@@ -65,11 +95,25 @@ namespace RPG_Project
                 foreach(var hit in hits)
                 {
                     var target = hit.GetComponentInChildren<Target>();
-                    if (target != null) foundTargets.ToArray();
+                    if (target != null && target != ownTarget && !foundTargets.Contains(target))
+                        foundTargets.Add(target);
                 }
             }
 
             targets = foundTargets.ToArray();
+        }
+
+        public void CheckTargets()
+        {
+            if (targets.Length <= 0) sm.ChangeState(FREE);
+        }
+
+        public void LookAtTarget(Transform subject)
+        {
+            var lookPos = CurrentTarget.transform.position;
+            lookPos.y = subject.position.y;
+
+            subject.LookAt(lookPos);
         }
     }
 }

@@ -8,8 +8,6 @@ namespace RPG_Project
     {
         Hitbox hitbox;
 
-        public override Hitbox Hitbox => hitbox;
-
         protected override void Awake()
         {
             hitbox = GetComponentInChildren<Hitbox>();

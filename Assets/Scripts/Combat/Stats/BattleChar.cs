@@ -35,7 +35,7 @@ namespace RPG_Project
 
         [Header("Info")]
         [SerializeField] string charName;
-        [SerializeField] int id;
+        [SerializeField] Sprite portrait;
 
         [SerializeField] Typing typing = new Typing();
 
@@ -66,7 +66,6 @@ namespace RPG_Project
 
         #region Getters/Setters
         public string CharName => charName;
-        public int Id => id;
         public bool Dead => dead;
 
         public Progression Progression => progression;
@@ -126,25 +125,19 @@ namespace RPG_Project
         public BattleChar(CharData data)
         {
             charName = data.charName;
-            id = data.id;
 
             InitChar(data);
         }
 
-        public BattleChar(int id, bool random)
+        public BattleChar(bool random)
         {
-            this.id = id;
-            charName = id.ToString();
-
             if (random)
                 InitChar(Random.Range(50, 200), Random.Range(10, 50), 
                 Random.Range(55, 165));
         }
 
-        public BattleChar(int id, int hp, int atk, int def)
+        public BattleChar(int hp, int atk, int def)
         {
-            this.id = id;
-            charName = id.ToString();
             InitChar(hp, atk, def);
         }
 
@@ -179,6 +172,8 @@ namespace RPG_Project
 
         void InitChar(CharData data)
         {
+            portrait = data.portrait;
+
             progression = new Progression(data.baseExp);
             rewards = new Rewards(data.baseExpReward, data.baseExpReward);
 

@@ -13,9 +13,11 @@ namespace RPG_Project
         [SerializeField] BattleChar character;
         [SerializeField] Skillset skillset = new Skillset();
 
+        PartyManager party;
         Controller controller;
         StateMachine csm;
-        PartyManager party;
+
+        AbilityManager abilities;
 
         Health health;
         Stamina stamina;
@@ -30,14 +32,18 @@ namespace RPG_Project
         public BattleChar Character => character;
         public Skillset Skillset => skillset;
 
+        public AbilityManager Abilities => abilities;
+
         public Stamina Stamina => stamina;
         public Poise Poise => poise;
 
         private void Awake()
         {
+            party = GetComponentInParent<PartyManager>();
             controller = GetComponent<Controller>();
             csm = controller.Sm;
-            party = GetComponentInParent<PartyManager>();
+
+            abilities = GetComponent<AbilityManager>();
 
             stamina = GetComponent<Stamina>();
             poise = GetComponent<Poise>();

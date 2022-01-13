@@ -9,7 +9,8 @@ namespace RPG_Project
     {
         [Header("Skill Info")]
         public string skillName;
-        public int id;
+
+        public ElementID element;
 
         [Header("Skill Resources")]
         public int staminaCost = 1;

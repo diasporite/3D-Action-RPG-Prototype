@@ -12,17 +12,11 @@ namespace RPG_Project
         int currentText = 0;
         string[] panelText = new string[] { "Items", "1st Party" };
 
-        public override void InitPanel()
+        public override void InitUI(PartyManager party)
         {
-            base.InitPanel();
-            onButtonPress += ChangeText;
+            base.InitUI(party);
 
             text = GetComponentInChildren<Text>();
-        }
-
-        private void Update()
-        {
-            if (button.GetInput) onButtonPress.Invoke();
         }
 
         void ChangeText()

@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace RPG_Project
 {
+    public enum AbilityOrientation
+    {
+        Special = 0,
+        TopLeft = 1,
+        TopRight = 2,
+        BottomLeft = 3,
+        BottomRight = 4,
+    }
+
     public class AbilityManager : MonoBehaviour
     {
         bool canDisarm = true;
@@ -27,6 +36,8 @@ namespace RPG_Project
 
         [SerializeField] Ability currentAbility;
 
+        Dictionary<AbilityOrientation, Ability> abilityDict = new Dictionary<AbilityOrientation, Ability>();
+
         Controller controller;
         StateMachine csm;
         Animator anim;
@@ -49,19 +60,40 @@ namespace RPG_Project
         public Ability CurrentAbility => currentAbility;
         public Weapon CurrentWeapon => currentAbility.action.weapon;
 
-        private void Start()
+        public Ability GetAbility(AbilityOrientation ability)
+        {
+            return abilityDict[ability];
+        }
+
+        private void Awake()
         {
             controller = GetComponent<Controller>();
+        }
+
+        private void Start()
+        { 
             csm = controller.Sm;
             anim = controller.Anim;
 
             foreach (var weapon in weapons)
                 weapon.InitWeapon(controller);
 
+            InitAbilities();
+        }
+
+        public void InitAbilities()
+        {
             topLeftAbility.InitAbility("TopLeft");
             topRightAbility.InitAbility("TopRight");
             bottomLeftAbility.InitAbility("BottomLeft");
             bottomRightAbility.InitAbility("BottomRight");
+
+            abilityDict.Clear();
+
+            abilityDict.Add(AbilityOrientation.TopLeft, topLeftAbility);
+            abilityDict.Add(AbilityOrientation.TopRight, topRightAbility);
+            abilityDict.Add(AbilityOrientation.BottomLeft, bottomLeftAbility);
+            abilityDict.Add(AbilityOrientation.BottomRight, bottomRightAbility);
 
             currentAbility = bottomRightAbility;
         }

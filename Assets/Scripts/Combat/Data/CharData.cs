@@ -9,9 +9,11 @@ namespace RPG_Project
     {
         [Header("Char Info")]
         public string charName;
-        public int id;
 
         public Sprite portrait;
+
+        public ElementID element1;
+        public ElementID element2;
 
         [Header("Base Stats")]
         [Range(1, 99)]

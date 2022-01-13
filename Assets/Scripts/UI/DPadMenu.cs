@@ -4,33 +4,26 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class DPadMenu : MonoBehaviour
+    public class DPadMenu : UIElement
     {
-        [SerializeField] PartyManager party;
         ShortcutRegister shortcuts;
 
         [SerializeField] HUDMenu activePartyMenu;
         [SerializeField] HUDMenu regItemsMenu;
 
-        private void OnDisable()
+        public override void InitUI(PartyManager party)
         {
-            UnsubscribeFromDelegates();
-        }
+            base.InitUI(party);
 
-        public void InitUI(PartyManager party)
-        {
-            this.party = party;
             shortcuts = party.GetComponent<ShortcutRegister>();
-
-            SubscribeToDelegates();
         }
 
-        void SubscribeToDelegates()
+        protected override void SubscribeToDelegates()
         {
             shortcuts.onShortcutSwitch += OpenMenu;
         }
 
-        void UnsubscribeFromDelegates()
+        protected override void UnsubscribeFromDelegates()
         {
             shortcuts.onShortcutSwitch -= OpenMenu;
         }

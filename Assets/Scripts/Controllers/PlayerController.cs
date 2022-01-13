@@ -21,9 +21,9 @@ namespace RPG_Project
 
         protected override void Start()
         {
-            base.Start();
+            //base.Start();
 
-            sm.ChangeState(MOVE);
+            //sm.ChangeState(MOVE);
         }
 
         protected override void Update()
@@ -50,17 +50,14 @@ namespace RPG_Project
         protected override void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, 2f * transform.forward);
+            //Gizmos.DrawRay(transform.position, 15f * transform.forward);
         }
 
-        protected override void InitSM()
+        public override void InitController()
         {
-            base.InitSM();
-        }
+            base.InitController();
 
-        void InitInputDicts()
-        {
-
+            sm.ChangeState(MOVE);
         }
 
         #region StateCommands

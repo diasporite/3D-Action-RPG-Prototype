@@ -8,30 +8,26 @@ namespace RPG_Project
 {
     public class CharPanel : UIPanel
     {
-        PartyManager party;
         Controller character;
         [SerializeField] int characterIndex;
 
         [SerializeField] Image portrait;
-        [SerializeField] Slider spBar;
-        [SerializeField] Slider ppBar;
+        [SerializeField] ResourceUI spBar;
+        [SerializeField] ResourceUI ppBar;
 
-        public override void InitPanel()
+        public override void InitUI(PartyManager party)
         {
-            base.InitPanel();
-
-            if (party == null) party = FindObjectOfType<PartyManager>();
-            character = party.GetPartyMember(characterIndex);
+            base.InitUI(party);
 
             if (character != null)
             {
                 ShowUI(true);
-                UpdateUI(true);
+                UpdateUI();
             }
             else ShowUI(false);
         }
 
-        public override void UpdateUI(bool init)
+        public override void UpdateUI()
         {
             //if (init) Get character's portrait
             //spBar.value = character.Stamina._resource.CooldownFraction;
@@ -42,6 +38,7 @@ namespace RPG_Project
         {
             base.ShowUI(value);
 
+            if (value) UpdateUI();
             //portrait.gameObject.SetActive(value);
             //spBar.gameObject.SetActive(value);
             //ppBar.gameObject.SetActive(value);

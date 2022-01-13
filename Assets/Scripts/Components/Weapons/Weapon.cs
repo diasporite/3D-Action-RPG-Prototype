@@ -8,7 +8,7 @@ namespace RPG_Project
     {
         protected Controller owner;
 
-        public virtual Hitbox Hitbox { get; }
+        [SerializeField] WeaponID id;
 
         protected virtual void Awake()
         {

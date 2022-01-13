@@ -7,13 +7,13 @@ namespace RPG_Project
     [System.Serializable]
     public class InputButton
     {
+        public event OnButtonPress onButtonPress;
+
         [SerializeField] string key;
         [SerializeField] bool hold;
 
         [SerializeField] bool directional;
         Vector3 dir = new Vector3(0, 0);
-
-        public OnButtonPress onButtonPress;
 
         public string _key => key;
 

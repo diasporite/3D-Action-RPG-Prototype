@@ -10,16 +10,12 @@ namespace RPG_Project
 
         public bool Paused { get; private set; }
 
-        public BattleUI battleUi;
-
         public CombatDatabase combat;
 
         InputManager input;
         UIManager ui;
 
         PartyManager party;
-
-        public BattleUI BattleUi => battleUi;
 
         public CombatDatabase Combat => combat;
         public InputManager Input => input;

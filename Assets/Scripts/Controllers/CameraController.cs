@@ -32,7 +32,7 @@ namespace RPG_Project
 
         public Vector3 lastViewedPosition;
 
-        public Target[] LockedTargets { get; set; }
+        public Target LockedTarget { get; set; }
         public LockOn lockOn { get; set; }
 
         [Header("Unity Tutorial")]

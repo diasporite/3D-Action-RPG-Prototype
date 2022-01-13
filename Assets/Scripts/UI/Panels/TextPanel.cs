@@ -9,9 +9,10 @@ namespace RPG_Project
     {
         Text text;
 
-        public override void InitPanel()
+        public override void InitUI(PartyManager party)
         {
-            base.InitPanel();
+            base.InitUI(party);
+
             text = GetComponentInChildren<Text>();
         }
 

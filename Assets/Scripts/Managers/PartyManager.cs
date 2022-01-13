@@ -117,7 +117,7 @@ namespace RPG_Project
             {
                 if (party.Count < partyCap)
                 {
-                    member.Combatant.InitCombatant();
+                    member.InitController();
                     party.Add(member);
                 }
             }

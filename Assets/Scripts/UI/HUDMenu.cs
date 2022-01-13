@@ -6,19 +6,14 @@ namespace RPG_Project
 {
     public class HUDMenu : MonoBehaviour
     {
+        PartyManager party;
         [SerializeField] UIPanel[] panels = new UIPanel[4];
 
-        private void Awake()
+        public void InitUI(PartyManager party)
         {
+            this.party = party;
             panels = GetComponentsInChildren<UIPanel>();
-            foreach (var p in panels) p.InitPanel();
-        }
-
-        private void Update()
-        {
-            foreach (var p in panels)
-                if (p.button.GetInput)
-                    p.onButtonPress.Invoke();
+            foreach (var p in panels) p.InitUI(party);
         }
     }
 }

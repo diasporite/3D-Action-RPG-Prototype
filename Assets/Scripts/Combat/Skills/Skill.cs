@@ -9,7 +9,6 @@ namespace RPG_Project
     {
         [Header("Skill Info")]
         [SerializeField] protected string skillName;
-        [SerializeField] protected int id;
 
         [SerializeField] protected int staminaCost = 5;
 
@@ -30,7 +29,6 @@ namespace RPG_Project
         public Skill(SkillData data)
         {
             skillName = data.skillName;
-            id = data.id;
 
             staminaCost = data.staminaCost;
 

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace RPG_Project
 {
-    public class CharacterInfo : MonoBehaviour
+    public class CharacterInfo : UIElement
     {
-        [SerializeField] PartyManager player;
+        //[SerializeField] PartyManager player;
 
         [Header("UI")]
         [SerializeField] Text characterName;
@@ -16,14 +16,9 @@ namespace RPG_Project
         [SerializeField] ResourceUI charStamina;
         [SerializeField] ResourceUI charPoise;
 
-        private void OnDisable()
+        public override void InitUI(PartyManager player)
         {
-            UnsubscribeFromDelegates();
-        }
-
-        public void InitUI(PartyManager player)
-        {
-            this.player = player;
+            base.InitUI(player);
 
             partyHealth.InitUI(player);
             charStamina.InitUI(player);
@@ -32,24 +27,24 @@ namespace RPG_Project
             SubscribeToDelegates();
         }
 
-        void SubscribeToDelegates()
+        protected override void SubscribeToDelegates()
         {
-            player.onCharacterChanged += SetCharName;
-            player.onCharacterChanged += UpdateCharacter;
+            party.onCharacterChanged += SetCharName;
+            party.onCharacterChanged += UpdateCharacter;
 
-            player.onHealthTick += UpdateHealth;
-            player.onStaminaTick += UpdateStamina;
-            player.onPoiseTick += UpdatePoise;
+            party.onHealthTick += UpdateHealth;
+            party.onStaminaTick += UpdateStamina;
+            party.onPoiseTick += UpdatePoise;
         }
 
-        void UnsubscribeFromDelegates()
+        protected override void UnsubscribeFromDelegates()
         {
-            player.onCharacterChanged -= SetCharName;
-            player.onCharacterChanged -= UpdateCharacter;
+            party.onCharacterChanged -= SetCharName;
+            party.onCharacterChanged -= UpdateCharacter;
 
-            player.onHealthTick -= UpdateHealth;
-            player.onStaminaTick -= UpdateStamina;
-            player.onPoiseTick -= UpdatePoise;
+            party.onHealthTick -= UpdateHealth;
+            party.onStaminaTick -= UpdateStamina;
+            party.onPoiseTick -= UpdatePoise;
         }
 
         void SetCharName(Combatant combatant)
@@ -59,16 +54,16 @@ namespace RPG_Project
 
         void UpdateCharacter(Combatant combatant)
         {
-            partyHealth.UpdateCharacter(player.PartyHealth);
+            partyHealth.UpdateCharacter(party.PartyHealth);
             charStamina.UpdateCharacter(combatant.Stamina);
             charPoise.UpdateCharacter(combatant.Poise);
         }
 
         void UpdateActiveParty()
         {
-            partyHealth.UpdateCharacter(player.PartyHealth);
-            charStamina.UpdateCharacter(player.CurrentPartyMember.Stamina);
-            charPoise.UpdateCharacter(player.CurrentPartyMember.Poise);
+            partyHealth.UpdateCharacter(party.PartyHealth);
+            charStamina.UpdateCharacter(party.CurrentPartyMember.Stamina);
+            charPoise.UpdateCharacter(party.CurrentPartyMember.Poise);
         }
 
         void UpdateUI()

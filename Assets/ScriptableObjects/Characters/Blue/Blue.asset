@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Blue
   m_EditorClassIdentifier: 
   charName: Blue
-  id: 0
   portrait: {fileID: 21300000, guid: ca33758d936df414a965aeb665ab05a3, type: 3}
+  element1: 4
+  element2: 1
   baseExp: 50
   baseExpReward: 50
   baseHp: 50
