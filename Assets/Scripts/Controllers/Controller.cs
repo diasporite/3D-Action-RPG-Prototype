@@ -61,8 +61,6 @@ namespace RPG_Project
 
         protected StateMachine sm = new StateMachine();
 
-        protected InputManager inputManager;
-
         public ControllerMode Mode
         {
             get => mode;
@@ -140,7 +138,6 @@ namespace RPG_Project
             movement = GetComponent<Movement>();
             combatant = GetComponent<Combatant>();
             ability = GetComponent<AbilityManager>();
-            lockOn = GetComponent<LockOn>();
 
             health = GetComponentInParent<Health>();
             stamina = GetComponent<Stamina>();
@@ -149,8 +146,6 @@ namespace RPG_Project
 
         protected virtual void Start()
         {
-            inputManager = GameManager.instance.Input;
-
             //InitController();
         }
 
@@ -169,6 +164,7 @@ namespace RPG_Project
         public virtual void InitController()
         {
             queue = party.ActionQueue;
+            lockOn = party.LockOn;
 
             combatant.InitCombatant();
             ability.InitAbilities();
@@ -257,7 +253,7 @@ namespace RPG_Project
             index = Mathf.Abs(index);
             index = index % 4;
 
-            var command = ability.GetAbility(index).GetCommand(this);
+            var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget);
             if (command != null) queue.AddAction(command);
         }
 
@@ -277,7 +273,7 @@ namespace RPG_Project
 
         public void AddAbilityCommand(int index)
         {
-            var command = ability.GetAbility(index).GetCommand(this);
+            var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget);
             if (command != null) queue.AddAction(command);
             //queue.AddAction(new AttackCommand(this, transform.forward));
         }

@@ -15,6 +15,8 @@ namespace RPG_Project
         {
             base.InitUI(party);
 
+            SubscribeToDelegates();
+
             UpdateAbilities(party.CurrentPartyMember.Combatant);
         }
 

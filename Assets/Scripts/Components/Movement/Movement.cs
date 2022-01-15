@@ -15,7 +15,6 @@ namespace RPG_Project
 
         [Header("Rotational speed")]
         [SerializeField] float turnTime = 0.1f;
-        [SerializeField] float lockOnCircleSpeed = 60;
         float turnVelocity = 0;
 
         [Header("Gravity")]
@@ -67,7 +66,6 @@ namespace RPG_Project
         private void Awake()
         {
             controller = GetComponent<Controller>();
-            lockOn = GetComponent<LockOn>();
 
             cc = GetComponent<CharacterController>();
             col = GetComponent<CapsuleCollider>();
@@ -82,6 +80,8 @@ namespace RPG_Project
         private void Start()
         {
             combat = GameManager.instance.Combat;
+
+            lockOn = controller.Party.LockOn;
 
             GameManager.instance.Party.onCharacterChanged += SetSpeeds;
 
@@ -165,7 +165,7 @@ namespace RPG_Project
                 //dir.Normalize();
 
                 //var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-                //var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, 
+                //var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
                 //    ref turnVelocity, turnTime);
                 //cc.transform.rotation = Quaternion.Euler(0, angle, 0);
 
@@ -174,8 +174,7 @@ namespace RPG_Project
 
                 //cc.Move(currentSpeed * ds.normalized * dt);
 
-                //if (lockOn.LockedOn) MovePositionPolar(dir, dt, lockOn.CurrentTargetPos);
-                if (lockOn.LockedOn) MovePositionCartesian(dir, dt);
+                if (lockOn.LockedOn) MovePositionPolar(dir, dt, lockOn.CurrentTargetPos);
                 else MovePositionCartesian(dir, dt);
 
                 //if (lockOn.LockedOn) transform.LookAt(lockOn.CurrentTarget.transform);
@@ -204,19 +203,11 @@ namespace RPG_Project
         {
             dir.Normalize();
 
-            var dr = centre - transform.position;
-            var r = dr.magnitude;
-            var dtheta = lockOnCircleSpeed * dt;
+            var dsr = dir.z * transform.forward;
+            var dsy = -transform.up * Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
+            var dst = dir.x * transform.right;
 
-            Vector3 ds = Vector3.zero;
-
-            ds.y = -Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
-
-            ds.x = dir.x * Mathf.Cos(dtheta * Mathf.Deg2Rad);
-            ds.z = dir.z * Mathf.Sin(dtheta * Mathf.Deg2Rad);
-
-            Debug.DrawRay(transform.position, 100f * dir, Color.red);
-            Debug.DrawRay(transform.position, 100f * ds, Color.blue);
+            var ds = dsr + dsy + dst;
 
             cc.Move(currentSpeed * ds.normalized * dt);
 

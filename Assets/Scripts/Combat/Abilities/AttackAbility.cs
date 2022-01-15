@@ -24,9 +24,9 @@ namespace RPG_Project
             CalculateDamage();
         }
 
-        public override BattleCommand GetCommand(Controller controller)
+        public override BattleCommand GetCommand(Controller controller, Vector3 dir)
         {
-            return new AttackCommand(this, controller, controller.transform.forward, trigger);
+            return new AttackCommand(this, controller, dir, trigger);
         }
 
         public void CalculateDamage()

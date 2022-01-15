@@ -8,27 +8,21 @@ namespace RPG_Project
     {
         public PartyManager playerParty;
 
-        public CharacterInfo charInfo;
-        public DPadMenu shortcuts;
-        public CharacterAbilities charAbilities;
+        public BattleUI battleUi;
 
-        private void Awake()
-        {
-
-        }
-
-        private void Start()
-        {
-
-        }
+        //public CharacterInfo charInfo;
+        //public DPadMenu shortcuts;
+        //public CharacterAbilities charAbilities;
 
         public void InitUI(PartyManager party)
         {
             playerParty = party;
 
-            charInfo.InitUI(party);
-            shortcuts.InitUI(party);
-            charAbilities.InitUI(party);
+            battleUi.InitUI(playerParty);
+
+            //charInfo.InitUI(party);
+            //shortcuts.InitUI(party);
+            //charAbilities.InitUI(party);
         }
     }
 }

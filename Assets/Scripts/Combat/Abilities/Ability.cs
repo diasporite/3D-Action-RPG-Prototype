@@ -44,9 +44,9 @@ namespace RPG_Project
         }
         #endregion
 
-        public virtual BattleCommand GetCommand(Controller controller)
+        public virtual BattleCommand GetCommand(Controller controller, Vector3 dir)
         {
-            return new AttackCommand(this, controller, controller.transform.forward, trigger);
+            return new AttackCommand(this, controller, dir, trigger);
         }
 
         public virtual void InitAbility(string trigger)

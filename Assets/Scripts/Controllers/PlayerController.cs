@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.InputSystem;
@@ -9,6 +8,10 @@ namespace RPG_Project
     public class PlayerController : Controller
     {
         //public InputMaster controls;
+
+        [Header("Input")]
+        [SerializeField] string key;
+        [SerializeField] Vector3 dir;
 
         protected override void Awake()
         {
@@ -65,8 +68,7 @@ namespace RPG_Project
         {
             base.MovementCommand(); //ResourceTick
 
-            string key = Input.inputString;
-            var dir = RawInputDirXz;
+            GetInput();
 
             // Look for better solution
             switch (key)
@@ -102,8 +104,7 @@ namespace RPG_Project
 
             if (Input.GetKeyUp("j")) sm.ChangeState(MOVE);
 
-            string key = Input.inputString;
-            var dir = RawInputDirXz;
+            GetInput();
 
             //if (dir == Vector3.zero) sm.ChangeState(MOVE);
 
@@ -134,8 +135,7 @@ namespace RPG_Project
         {
             if (!queue.Executing) sm.ChangeState(MOVE);
 
-            string key = Input.inputString;
-            var dir = RawInputDirXz;
+            GetInput();
 
             switch (key)
             {
@@ -182,6 +182,12 @@ namespace RPG_Project
             base.DeathCommand();
         }
         #endregion
+
+        void GetInput()
+        {
+            key = Input.inputString;
+            dir = RawInputDirXz;
+        }
 
         #region OldInputMethods
         //public void MovePlayer2()

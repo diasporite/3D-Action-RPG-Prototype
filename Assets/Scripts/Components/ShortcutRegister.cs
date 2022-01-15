@@ -60,6 +60,7 @@ namespace RPG_Project
         {
             if (Input.GetKeyDown("i"))
             {
+                print(1);
                 switch (mode)
                 {
                     case ShortcutMode.ActiveParty:
@@ -70,7 +71,7 @@ namespace RPG_Project
                         break;
                 }
 
-                onShortcutSwitch?.Invoke();
+                onShortcutSwitch?.Invoke(mode);
             }
         }
 

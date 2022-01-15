@@ -9,17 +9,21 @@ namespace RPG_Project
     {
         [SerializeField] string trigger;
 
-        public AttackCommand(Controller controller, Vector3 dir, string trigger) : base(controller, dir)
-        {
-            anim = controller.Anim;
+        LockOn lockOn;
 
-            actionName = "attack";
-            this.trigger = trigger;
-        }
+        //public AttackCommand(Controller controller, Vector3 dir, string trigger) : base(controller, dir)
+        //{
+        //    anim = controller.Anim;
+
+        //    actionName = "attack";
+        //    this.trigger = trigger;
+        //}
 
         public AttackCommand(Ability ability, Controller controller, Vector3 dir, string trigger) : base(controller, dir)
         {
             anim = controller.Anim;
+
+            lockOn = controller.LockOn;
 
             this.ability = ability;
 
@@ -30,6 +34,11 @@ namespace RPG_Project
         public override void Execute()
         {
             controller.Mode = ControllerMode.Action;
+
+            controller.Ability.SetCurrentAbility(ability);
+
+            //controller.transform.LookAt(controller.transform.position - dir);
+            if (lockOn.LockedOn) controller.LockOn.LookAtTarget();
 
             anim.SetTrigger(trigger);
 

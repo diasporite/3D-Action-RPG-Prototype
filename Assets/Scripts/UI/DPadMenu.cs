@@ -16,6 +16,8 @@ namespace RPG_Project
             base.InitUI(party);
 
             shortcuts = party.GetComponent<ShortcutRegister>();
+
+            SubscribeToDelegates();
         }
 
         protected override void SubscribeToDelegates()
@@ -28,9 +30,9 @@ namespace RPG_Project
             shortcuts.onShortcutSwitch -= OpenMenu;
         }
 
-        void OpenMenu()
+        void OpenMenu(ShortcutMode mode)
         {
-            switch (shortcuts.Mode)
+            switch (mode)
             {
                 case ShortcutMode.ActiveParty:
                     OpenActiveParty();

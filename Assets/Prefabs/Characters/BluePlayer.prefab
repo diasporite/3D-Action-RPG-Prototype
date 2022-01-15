@@ -158,7 +158,6 @@ GameObject:
   - component: {fileID: 4012377324784288308}
   - component: {fileID: 4012377324784288301}
   - component: {fileID: 4494172850248752210}
-  - component: {fileID: 6807183250271285781}
   - component: {fileID: 4012377324784288304}
   - component: {fileID: 4012377324784288305}
   m_Layer: 0
@@ -299,6 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   currentState: 
+  key: 
+  dir: {x: 0, y: 0, z: 0}
 --- !u!114 &4012377324784288308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +380,6 @@ MonoBehaviour:
   skillset:
     tlSkill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -389,7 +389,6 @@ MonoBehaviour:
       poiseDps: 0
     trSkill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -399,7 +398,6 @@ MonoBehaviour:
       poiseDps: 0
     blSkill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -409,7 +407,6 @@ MonoBehaviour:
       poiseDps: 0
     brSkill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -438,91 +435,83 @@ MonoBehaviour:
     action:
       weapon: {fileID: 3066900411084317503}
       animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
+      weaponId: 0
       numberOfHits: 3
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
-      healthDps: 50
-      poiseDps: 30
-    healthDamage: 0
-    poiseDamage: 0
+      healthDps: 0
+      poiseDps: 0
     spCost: 0
   topRightAbility:
     trigger: 
     action:
       weapon: {fileID: 3066900411084317503}
       animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
+      weaponId: 2
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
-      healthDps: 50
-      poiseDps: 30
-    healthDamage: 0
-    poiseDamage: 0
+      healthDps: 0
+      poiseDps: 0
     spCost: 0
   bottomLeftAbility:
     trigger: 
     action:
       weapon: {fileID: 6758360262487538939}
       animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
+      weaponId: 0
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
-      healthDps: 50
-      poiseDps: 30
-    healthDamage: 0
-    poiseDamage: 0
+      healthDps: 0
+      poiseDps: 0
     spCost: 0
   bottomRightAbility:
     trigger: 
     action:
       weapon: {fileID: 6758360262487538939}
       animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
+      weaponId: 0
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
-      staminaCost: 7
+      staminaCost: 0
       uses:
-        statValue: 12
-        currentStatValue: 12
-        pointValue: 12
-      healthDps: 50
-      poiseDps: 30
-    healthDamage: 0
-    poiseDamage: 0
+        statValue: 0
+        currentStatValue: 0
+        pointValue: 0
+      healthDps: 0
+      poiseDps: 0
     spCost: 0
   jumpAbility:
     trigger: SpecialAction
     action:
       weapon: {fileID: 0}
       animation: {fileID: 0}
+      weaponId: 0
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -530,19 +519,17 @@ MonoBehaviour:
         pointValue: 0
       healthDps: 0
       poiseDps: 0
-    healthDamage: 0
-    poiseDamage: 0
     spCost: 0
   rollAbility:
     trigger: SpecialAction
     action:
       weapon: {fileID: 0}
       animation: {fileID: 0}
+      weaponId: 0
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -550,19 +537,17 @@ MonoBehaviour:
         pointValue: 0
       healthDps: 0
       poiseDps: 0
-    healthDamage: 0
-    poiseDamage: 0
     spCost: 0
   guardAbility:
     trigger: SpecialAction
     action:
       weapon: {fileID: 0}
       animation: {fileID: 0}
+      weaponId: 0
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -570,8 +555,6 @@ MonoBehaviour:
         pointValue: 0
       healthDps: 0
       poiseDps: 0
-    healthDamage: 0
-    poiseDamage: 0
     spCost: 0
   gunAmmo: 10
   currentAbility:
@@ -579,11 +562,11 @@ MonoBehaviour:
     action:
       weapon: {fileID: 0}
       animation: {fileID: 0}
+      weaponId: 0
       numberOfHits: 1
       spCost: 3
-    effect:
+    skill:
       skillName: 
-      id: 0
       staminaCost: 0
       uses:
         statValue: 0
@@ -591,23 +574,7 @@ MonoBehaviour:
         pointValue: 0
       healthDps: 0
       poiseDps: 0
-    healthDamage: 0
-    poiseDamage: 0
     spCost: 0
---- !u!114 &6807183250271285781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012377324784288313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4c5a2572c162146a1678c426697d8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  searchRadius: 10
-  targets: []
 --- !u!114 &4012377324784288304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +629,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4012377324784288309}
     m_Modifications:
+    - target: {fileID: 6390393181372813979, guid: 9d5a72631338d0e42add1d6dfb504ca4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
         type: 3}
       propertyPath: m_RootOrder

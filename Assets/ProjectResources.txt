@@ -11,3 +11,6 @@ NOTES
 BUGS
 - Animation events not firing (fixed)
   - Check that the full animation is played out before transitioning into another
+- Camera jitter when locked
+  - Look at lerping
+    - https://forum.unity.com/threads/camera-jitter-problem.115224/

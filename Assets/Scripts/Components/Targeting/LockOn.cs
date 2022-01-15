@@ -14,10 +14,9 @@ namespace RPG_Project
         [SerializeField] float searchRadius = 5f;
 
         [SerializeField] int currentTarget = 0;
-        [SerializeField] Target[] targets;
+        [SerializeField] Target[] targets = new Target[] { };
 
-        Controller controller;
-        Target ownTarget;
+        PartyManager party;
 
         CameraController cam;
 
@@ -27,17 +26,44 @@ namespace RPG_Project
 
         public bool LockedOn { get; set; }
 
-        public Controller Controller => controller;
+        public Controller Controller => party.CurrentPartyMember;
 
-        public Target CurrentTarget => targets[currentTarget];
+        public Target OwnTarget => Controller.GetComponentInChildren<Target>();
+
+        public Target CurrentTarget
+        {
+            get
+            {
+                if (targets.Length > 0) return targets[currentTarget];
+                return null;
+            }
+        }
+
         public Vector3 CurrentTargetPos => CurrentTarget.transform.position;
+
+        public Vector3 DirToTarget
+        {
+            get
+            {
+                var ds = Vector3.zero;
+                var y = transform.position.y;
+
+                if (CurrentTarget != null)
+                {
+                    ds = CurrentTargetPos - transform.position;
+                    ds.y = 0;
+                    return ds;
+                }
+                return transform.forward;
+            }
+        }
 
         public CameraController Cam => cam;
 
         private void Awake()
         {
-            controller = GetComponent<Controller>();
-            ownTarget = GetComponentInChildren<Target>();
+            party = GetComponent<PartyManager>();
+
             cam = Camera.main.GetComponent<CameraController>();
 
             targetMask = LayerMask.GetMask("Targets");
@@ -88,14 +114,14 @@ namespace RPG_Project
         public void FindTargets()
         {
             List<Target> foundTargets = new List<Target>();
-            var hits = Physics.OverlapSphere(transform.position, searchRadius);
+            var hits = Physics.OverlapSphere(Controller.transform.position, searchRadius);
 
             if (hits != null)
             {
                 foreach(var hit in hits)
                 {
                     var target = hit.GetComponentInChildren<Target>();
-                    if (target != null && target != ownTarget && !foundTargets.Contains(target))
+                    if (target != null && target != OwnTarget && !foundTargets.Contains(target))
                         foundTargets.Add(target);
                 }
             }
@@ -106,6 +132,15 @@ namespace RPG_Project
         public void CheckTargets()
         {
             if (targets.Length <= 0) sm.ChangeState(FREE);
+        }
+
+        public void LookAtTarget()
+        {
+            var lookPos = CurrentTarget.transform.position;
+            lookPos.y = Controller.transform.position.y;
+
+            Controller.transform.LookAt(lookPos);
+            //Controller.transform.rotation = Quaternion.Euler(0, Controller.transform.eulerAngles.y, 0);
         }
 
         public void LookAtTarget(Transform subject)

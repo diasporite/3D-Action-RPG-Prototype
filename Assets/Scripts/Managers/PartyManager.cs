@@ -28,6 +28,8 @@ namespace RPG_Project
 
         Health partyHealth;
         ActionQueue actionQueue;
+        ShortcutRegister shortcuts;
+        LockOn lockOn;
 
         public List<Controller> Party => party;
         public Controller[] ActiveParty => activeParty;
@@ -37,6 +39,8 @@ namespace RPG_Project
 
         public Health PartyHealth => partyHealth;
         public ActionQueue ActionQueue => actionQueue;
+        public ShortcutRegister Shortcuts => shortcuts;
+        public LockOn LockOn => lockOn;
 
         public int TotalHealth
         {
@@ -74,6 +78,8 @@ namespace RPG_Project
         {
             partyHealth = GetComponent<Health>();
             actionQueue = GetComponent<ActionQueue>();
+            shortcuts = GetComponent<ShortcutRegister>();
+            lockOn = GetComponent<LockOn>();
         }
 
         private void Update()

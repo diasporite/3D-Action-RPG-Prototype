@@ -15,6 +15,8 @@ namespace RPG_Project
 
     public class AbilityManager : MonoBehaviour
     {
+        public event OnAmmoUse onAmmoUse;
+
         bool canDisarm = true;
 
         [Header("Weapons")]
@@ -33,6 +35,7 @@ namespace RPG_Project
 
         [Header("Resources")]
         [SerializeField] int gunAmmo = 10;
+        [SerializeField] PointStat ammunition;
 
         [SerializeField] Ability currentAbility;
 
@@ -41,6 +44,7 @@ namespace RPG_Project
         Controller controller;
         StateMachine csm;
         Animator anim;
+        LockOn lockOn;
 
         public bool CanDisarm
         {
@@ -74,9 +78,12 @@ namespace RPG_Project
         { 
             csm = controller.Sm;
             anim = controller.Anim;
+            lockOn = controller.LockOn;
 
             foreach (var weapon in weapons)
                 weapon.InitWeapon(controller);
+
+            ammunition = new PointStat(gunAmmo, gunAmmo, 99);
 
             InitAbilities();
         }
@@ -95,7 +102,19 @@ namespace RPG_Project
             abilityDict.Add(AbilityOrientation.BottomLeft, bottomLeftAbility);
             abilityDict.Add(AbilityOrientation.BottomRight, bottomRightAbility);
 
-            currentAbility = bottomRightAbility;
+            currentAbility = topRightAbility;
+        }
+
+        public void SetCurrentAbility(Ability ability)
+        {
+            currentAbility = ability;
+        }
+
+        public void ChangeGunAmmo(int amount)
+        {
+            ammunition.PointValue += amount;
+
+            onAmmoUse?.Invoke();
         }
 
         public void ActivateWeapon()

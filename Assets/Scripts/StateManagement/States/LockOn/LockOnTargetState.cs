@@ -30,6 +30,8 @@ namespace RPG_Project
 
             cam.LockedTarget = lockOn.CurrentTarget;
             cam.Sm.ChangeState(cam.LOCKED);
+
+            lockOn.LookAtTarget();
         }
 
         public void ExecuteFrame()

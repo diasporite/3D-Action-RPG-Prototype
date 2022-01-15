@@ -2,8 +2,9 @@
 {
     public enum WeaponID
     {
-        Fists = 0,
+        None = 0,
         Sword = 1,
         Rifle = 2,
+        Fists = 3,
     }
 }

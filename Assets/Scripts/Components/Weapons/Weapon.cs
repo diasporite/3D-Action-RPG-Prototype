@@ -7,6 +7,7 @@ namespace RPG_Project
     public class Weapon : MonoBehaviour
     {
         protected Controller owner;
+        protected AbilityManager ability;
 
         [SerializeField] WeaponID id;
 
@@ -18,6 +19,7 @@ namespace RPG_Project
         public virtual void InitWeapon(Controller owner)
         {
             this.owner = owner;
+            ability = owner.Ability;
         }
 
         public virtual void ActivateWeapon()

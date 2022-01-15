@@ -10,15 +10,16 @@ namespace RPG_Project
 
         public bool Paused { get; private set; }
 
+        [SerializeField] float inGameTime = 0;
+        [SerializeField] float realTime = 0;
+
         public CombatDatabase combat;
 
-        InputManager input;
         UIManager ui;
 
         PartyManager party;
 
         public CombatDatabase Combat => combat;
-        public InputManager Input => input;
 
         public PartyManager Party => party;
 
@@ -29,7 +30,6 @@ namespace RPG_Project
 
             combat.InitDatabase();
 
-            input = GetComponent<InputManager>();
             ui = FindObjectOfType<UIManager>();
 
             party = FindObjectOfType<PartyManager>();
@@ -42,11 +42,17 @@ namespace RPG_Project
 
             // Init both party and UI first
             party.ChangePartyMember(0);
+
+            inGameTime = 0;
+            realTime = 0;
         }
 
         private void Update()
         {
             if (UnityEngine.Input.GetKeyDown("h")) PauseGame();
+
+            inGameTime += Time.deltaTime;
+            realTime += Time.unscaledDeltaTime;
         }
 
         void InitGame()
