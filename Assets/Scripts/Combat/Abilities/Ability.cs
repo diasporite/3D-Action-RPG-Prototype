@@ -10,7 +10,7 @@ namespace RPG_Project
     {
         [SerializeField] protected string trigger;
 
-        public Action action;
+        public CombatAction action;
         public Skill skill;
 
         [SerializeField] protected int spCost;
@@ -30,13 +30,13 @@ namespace RPG_Project
             this.trigger = trigger;
         }
 
-        public Ability(Action action, Skill skill)
+        public Ability(CombatAction action, Skill skill)
         {
             this.action = action;
             this.skill = skill;
         }
 
-        public Ability(string trigger, Action action, Skill skill)
+        public Ability(string trigger, CombatAction action, Skill skill)
         {
             this.trigger = trigger;
             this.action = action;

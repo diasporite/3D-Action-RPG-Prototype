@@ -27,9 +27,6 @@ namespace RPG_Project
     [RequireComponent(typeof(Movement), typeof(Combatant))]
     public class Controller : MonoBehaviour
     {
-        // Delegates for actions
-        
-        
         // State keys
         public readonly string MOVE = "move";
         public readonly string RUN = "run";
@@ -39,23 +36,26 @@ namespace RPG_Project
         public readonly string STAGGER = "stagger";
         public readonly string DEATH = "death";
 
-        [SerializeField] protected ControllerMode mode;
+        [Header("Inputs")]
+        [SerializeField] InputMode inputMode;
+        [SerializeField] Vector3 inputDir = new Vector3(0, 0);
 
+        [Header("Info")]
+        [SerializeField] protected ControllerMode mode;
         [SerializeField] protected string currentState;
 
-        Vector3 inputDir = new Vector3(0, 0);
-
         protected PartyManager party;
+        protected Health health;
         protected ActionQueue queue;
+        protected LockOn lockOn;
+        protected InputController inputController;
 
         protected Animator anim;
 
         protected Movement movement;
         protected Combatant combatant;
         protected AbilityManager ability;
-        protected LockOn lockOn;
 
-        protected Health health;
         protected Stamina stamina;
         protected Poise poise;
 
@@ -112,16 +112,17 @@ namespace RPG_Project
         }
 
         public PartyManager Party => party;
-        public AbilityManager Ability => ability;
+        public Health Health => health;
+        public ActionQueue Queue => queue;
+        public LockOn LockOn => lockOn;
+        public InputController InputController => inputController;
 
         public Animator Anim => anim;
 
         public Movement Movement => movement;
         public Combatant Combatant => combatant;
-        public ActionQueue Queue => queue;
-        public LockOn LockOn => lockOn;
+        public AbilityManager Ability => ability;
 
-        public Health Health => health;
         public Stamina Stamina => stamina;
         public Poise Poise => poise;
 
@@ -151,9 +152,21 @@ namespace RPG_Project
 
         protected virtual void Update()
         {
+            GetInputs();
+
             sm.Update();
 
             currentState = sm.GetCurrentKey.ToString();
+        }
+
+        private void OnEnable()
+        {
+            SubscribeToDelegates();
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeFromDelegates();
         }
 
         protected virtual void OnDrawGizmos()
@@ -165,6 +178,7 @@ namespace RPG_Project
         {
             queue = party.ActionQueue;
             lockOn = party.LockOn;
+            inputController = party.InputController;
 
             combatant.InitCombatant();
             ability.InitAbilities();
@@ -180,12 +194,63 @@ namespace RPG_Project
             sm.AddState(RECOVER, new ControllerRecoveryState(this));
             sm.AddState(STAGGER, new ControllerStaggerState(this));
             sm.AddState(DEATH, new ControllerDeathState(this));
+
+            sm.ChangeState(MOVE);
+        }
+
+        protected virtual void SubscribeToDelegates()
+        {
+
+        }
+
+        protected virtual void UnsubscribeFromDelegates()
+        {
+
+        }
+
+        void GetInputs()
+        {
+            inputMode = InputController.GetInput();
+            inputDir = InputController.GetOutputDir();
         }
 
         #region StateCommands
         public virtual void MovementCommand()
         {
             ResourceTick(Time.deltaTime);
+
+            switch (inputMode)
+            {
+                case InputMode.Run:
+                    Run();
+                    break;
+                case InputMode.Defend:
+                    SpecialAction();
+                    break;
+                case InputMode.TLAbility:
+                    UseAbility(0);
+                    break;
+                case InputMode.TRAbility:
+                    UseAbility(1);
+                    break;
+                case InputMode.BLAbility:
+                    UseAbility(2);
+                    break;
+                case InputMode.BRAbility:
+                    UseAbility(3);
+                    break;
+                default:
+                    Move(inputDir);
+                    break;
+            }
+
+            //if (Input.GetKey("j")) Run();
+            //else if (Input.GetKeyDown("l")) SpecialAction();
+            //else if (Input.GetKeyDown("y")) UseAbility(0);
+            //else if (Input.GetKeyDown("p")) UseAbility(1);
+            //else if (Input.GetKeyDown("u")) UseAbility(2);
+            //else if (Input.GetKeyDown("o")) UseAbility(3);
+            //else Move(inputDir);
         }
 
         public virtual void RunCommand()
@@ -193,16 +258,72 @@ namespace RPG_Project
             ResourceTick(Time.deltaTime);
 
             if (stamina.Empty) sm.ChangeState(RECOVER);
+
+            switch (inputMode)
+            {
+                case InputMode.Walk:
+                    sm.ChangeState(MOVE);
+                    break;
+                case InputMode.Defend:
+                    SpecialAction();
+                    break;
+                case InputMode.TLAbility:
+                    UseAbility(0);
+                    break;
+                case InputMode.TRAbility:
+                    UseAbility(1);
+                    break;
+                case InputMode.BLAbility:
+                    UseAbility(2);
+                    break;
+                case InputMode.BRAbility:
+                    UseAbility(3);
+                    break;
+                default:
+                    Move(inputDir);
+                    break;
+            }
+
+            //if (!Input.GetKey("j")) sm.ChangeState(MOVE);
+            //else if (Input.GetKeyDown("l")) SpecialAction();
+            //else if (Input.GetKeyDown("y")) UseAbility(0);
+            //else if (Input.GetKeyDown("p")) UseAbility(1);
+            //else if (Input.GetKeyDown("u")) UseAbility(2);
+            //else if (Input.GetKeyDown("o")) UseAbility(3);
+            //else Move(inputDir);
         }
 
         public virtual void ActionCommand()
         {
-
+            switch (inputMode)
+            {
+                case InputMode.Defend:
+                    SpecialAction();
+                    break;
+                case InputMode.TLAbility:
+                    UseAbility(0);
+                    break;
+                case InputMode.TRAbility:
+                    UseAbility(1);
+                    break;
+                case InputMode.BLAbility:
+                    UseAbility(2);
+                    break;
+                case InputMode.BRAbility:
+                    UseAbility(3);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public virtual void RecoveryCommand()
         {
             ResourceTick(Time.deltaTime);
+
+            if (Stamina.Full) sm.ChangeState(MOVE);
+
+            Move(inputDir.normalized);
         }
 
         public virtual void StaggerCommand()

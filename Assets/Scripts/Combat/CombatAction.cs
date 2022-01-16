@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RPG_Project
 {
     [System.Serializable]
-    public class Action
+    public class CombatAction
     {
         public Weapon weapon;
         public AnimationClip animation;

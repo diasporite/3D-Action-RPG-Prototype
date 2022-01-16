@@ -17,8 +17,6 @@ namespace RPG_Project
         {
             base.Awake();
 
-            party = GetComponentInParent<PartyManager>();
-
             //controls = new InputMaster();
         }
 
@@ -32,12 +30,6 @@ namespace RPG_Project
         protected override void Update()
         {
             base.Update();
-
-            // Take damage debug
-            if (Input.GetKeyDown("space"))
-            {
-
-            }
         }
 
         private void OnEnable()
@@ -59,8 +51,6 @@ namespace RPG_Project
         public override void InitController()
         {
             base.InitController();
-
-            sm.ChangeState(MOVE);
         }
 
         #region StateCommands
@@ -68,108 +58,110 @@ namespace RPG_Project
         {
             base.MovementCommand(); //ResourceTick
 
-            GetInput();
+            //GetInput();
 
-            // Look for better solution
-            switch (key)
-            {
-                case "j":
-                    //if (dir != Vector3.zero) Run();
-                    Run();
-                    break;
-                case "l":
-                    SpecialAction();
-                    break;
-                case "y":
-                    UseAbility(0);
-                    break;
-                case "p":
-                    UseAbility(1);
-                    break;
-                case "u":
-                    UseAbility(2);
-                    break;
-                case "o":
-                    UseAbility(3);
-                    break;
-                default:
-                    Move(dir.normalized);   // No dir != zero for fall checks
-                    break;
-            }
+            //// Look for better solution
+            //switch (key)
+            //{
+            //    case "j":
+            //        //if (dir != Vector3.zero) Run();
+            //        Run();
+            //        break;
+            //    case "l":
+            //        SpecialAction();
+            //        break;
+            //    case "y":
+            //        UseAbility(0);
+            //        break;
+            //    case "p":
+            //        UseAbility(1);
+            //        break;
+            //    case "u":
+            //        UseAbility(2);
+            //        break;
+            //    case "o":
+            //        UseAbility(3);
+            //        break;
+            //    default:
+            //        Move(dir.normalized);   // No dir != zero for fall checks
+            //        break;
+            //}
         }
 
         public override void RunCommand()
         {
             base.RunCommand();  //ResourceTick
 
-            if (Input.GetKeyUp("j")) sm.ChangeState(MOVE);
+            //if (Input.GetKeyUp("j")) sm.ChangeState(MOVE);
 
-            GetInput();
+            //GetInput();
 
-            //if (dir == Vector3.zero) sm.ChangeState(MOVE);
+            ////if (dir == Vector3.zero) sm.ChangeState(MOVE);
 
-            switch (key)
-            {
-                case "l":
-                    SpecialAction();
-                    break;
-                case "y":
-                    UseAbility(0);
-                    break;
-                case "p":
-                    UseAbility(1);
-                    break;
-                case "u":
-                    UseAbility(2);
-                    break;
-                case "o":
-                    UseAbility(3);
-                    break;
-                default:
-                    Move(dir.normalized);
-                    break;
-            }
+            //switch (key)
+            //{
+            //    case "l":
+            //        SpecialAction();
+            //        break;
+            //    case "y":
+            //        UseAbility(0);
+            //        break;
+            //    case "p":
+            //        UseAbility(1);
+            //        break;
+            //    case "u":
+            //        UseAbility(2);
+            //        break;
+            //    case "o":
+            //        UseAbility(3);
+            //        break;
+            //    default:
+            //        Move(dir.normalized);
+            //        break;
+            //}
         }
 
         public override void ActionCommand()
         {
-            if (!queue.Executing) sm.ChangeState(MOVE);
+            base.ActionCommand();
 
-            GetInput();
+            //if (!queue.Executing) sm.ChangeState(MOVE);
 
-            switch (key)
-            {
-                case "l":
-                    SpecialAction();
-                    break;
-                case "y":
-                    UseAbility(0);
-                    break;
-                case "p":
-                    UseAbility(1);
-                    break;
-                case "u":
-                    UseAbility(2);
-                    break;
-                case "o":
-                    UseAbility(3);
-                    break;
-                default:
-                    //if (dir != Vector3.zero) Move(dir.normalized);
-                    break;
-            }
+            //GetInput();
+
+            //switch (key)
+            //{
+            //    case "l":
+            //        SpecialAction();
+            //        break;
+            //    case "y":
+            //        UseAbility(0);
+            //        break;
+            //    case "p":
+            //        UseAbility(1);
+            //        break;
+            //    case "u":
+            //        UseAbility(2);
+            //        break;
+            //    case "o":
+            //        UseAbility(3);
+            //        break;
+            //    default:
+            //        //if (dir != Vector3.zero) Move(dir.normalized);
+            //        break;
+            //}
         }
 
         public override void RecoveryCommand()
         {
             base.RecoveryCommand(); //ResourceTick
 
-            //string key = Input.inputString;
-            var dir = RawInputDirXz;
+            ////string key = Input.inputString;
+            //var dir = RawInputDirXz;
 
-            if (Stamina.Full) sm.ChangeState(MOVE);
+            //if (Stamina.Full) sm.ChangeState(MOVE);
 
-            if (dir != Vector3.zero) Move(dir.normalized);
+            //Move(dir.normalized);
         }
 
         public override void StaggerCommand()

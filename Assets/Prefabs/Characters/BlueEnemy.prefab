@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 6310017949408090998}
   - component: {fileID: 6310017949408090978}
   - component: {fileID: 8647373983505508149}
-  - component: {fileID: 6293510061475405210}
+  - component: {fileID: 5623614228800662011}
   - component: {fileID: 6310017949408090990}
   - component: {fileID: 6310017949408090999}
   - component: {fileID: 6800996647118521608}
@@ -289,7 +289,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6293510061475405210
+--- !u!114 &5623614228800662011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,15 +298,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6310017949408090979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c50fc8f43c91f544a88b251b0cc3e0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a38d9744e71a434299aa9ea253cfdc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputMode: 0
+  inputDir: {x: 0, y: 0, z: 0}
   mode: 0
   currentState: 
-  attackTimer:
-    cooldown: 3
-    speed: 1
-    count: 0
 --- !u!114 &6310017949408090990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +562,10 @@ MonoBehaviour:
       poiseDps: 0
     spCost: 0
   gunAmmo: 10
+  ammunition:
+    statValue: 0
+    currentStatValue: 0
+    pointValue: 0
   currentAbility:
     trigger: 
     action:

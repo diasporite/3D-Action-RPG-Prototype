@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace RPG_Project
 
     public class AbilityManager : MonoBehaviour
     {
-        public event OnAmmoUse onAmmoUse;
+        public event Action onAmmoUse;
 
         bool canDisarm = true;
 

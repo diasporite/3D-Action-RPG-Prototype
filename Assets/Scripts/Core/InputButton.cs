@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace RPG_Project
     [System.Serializable]
     public class InputButton
     {
-        public event OnButtonPress onButtonPress;
+        public event Action onButtonPress;
 
         [SerializeField] string key;
         [SerializeField] bool hold;
@@ -15,7 +16,11 @@ namespace RPG_Project
         [SerializeField] bool directional;
         Vector3 dir = new Vector3(0, 0);
 
-        public string _key => key;
+        public string Key
+        {
+            get => key;
+            set => key = value;
+        }
 
         public bool GetInput
         {
@@ -56,7 +61,7 @@ namespace RPG_Project
         public void Invoke()
         {
             if (GetInput)
-                onButtonPress.Invoke();
+                onButtonPress?.Invoke();
         }
     }
 }

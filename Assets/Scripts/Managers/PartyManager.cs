@@ -11,9 +11,13 @@ namespace RPG_Project
         public event OnCharacterChanged onCharacterChanged;
 
         // Read up on C# actions
-        public event OnHealthTick onHealthTick;
-        public event OnStaminaTick onStaminaTick;
-        public event OnPoiseTick onPoiseTick;
+        //public event OnHealthTick onHealthTick;
+        //public event OnStaminaTick onStaminaTick;
+        //public event OnPoiseTick onPoiseTick;
+
+        public event Action onHealthTick;
+        public event Action onStaminaTick;
+        public event Action onPoiseTick;
 
         public event OnHealthChanged onHealthChanged;
         public event OnStaminaChanged onStaminaChanged;
@@ -30,6 +34,7 @@ namespace RPG_Project
         ActionQueue actionQueue;
         ShortcutRegister shortcuts;
         LockOn lockOn;
+        InputController inputController;
 
         public List<Controller> Party => party;
         public Controller[] ActiveParty => activeParty;
@@ -41,6 +46,7 @@ namespace RPG_Project
         public ActionQueue ActionQueue => actionQueue;
         public ShortcutRegister Shortcuts => shortcuts;
         public LockOn LockOn => lockOn;
+        public InputController InputController => inputController;
 
         public int TotalHealth
         {
@@ -80,12 +86,16 @@ namespace RPG_Project
             actionQueue = GetComponent<ActionQueue>();
             shortcuts = GetComponent<ShortcutRegister>();
             lockOn = GetComponent<LockOn>();
+            inputController = GetComponent<InputController>();
         }
 
         private void Update()
         {
             if (CurrentPartyMember != null)
+            {
                 currentPos = CurrentPartyMember.transform.position;
+                transform.position = currentPos;
+            }
         }
 
         // Events can only be invoked from within the class they are located in

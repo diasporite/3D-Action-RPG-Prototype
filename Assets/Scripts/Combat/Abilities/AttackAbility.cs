@@ -11,7 +11,7 @@ namespace RPG_Project
         [SerializeField] int poiseDamage;
 
         #region Constructors
-        public AttackAbility(Action action, Skill skill) : base(action, skill)
+        public AttackAbility(CombatAction action, Skill skill) : base(action, skill)
         {
 
         }
