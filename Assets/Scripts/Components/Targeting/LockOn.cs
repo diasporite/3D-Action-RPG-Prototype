@@ -14,7 +14,7 @@ namespace RPG_Project
         [SerializeField] float searchRadius = 5f;
 
         [SerializeField] int currentTarget = 0;
-        [SerializeField] Target[] targets = new Target[] { };
+        [SerializeField] List<Target> targets = new List<Target>();
 
         PartyManager party;
 
@@ -34,7 +34,7 @@ namespace RPG_Project
         {
             get
             {
-                if (targets.Length > 0) return targets[currentTarget];
+                if (targets.Count > 0) return targets[currentTarget];
                 return null;
             }
         }
@@ -101,41 +101,69 @@ namespace RPG_Project
             if (Input.GetKeyDown("m"))
             {
                 FindTargets();
-                if (targets.Length > 0) sm.ChangeState(LOCKED);
+                if (targets.Count > 0) sm.ChangeState(LOCKED);
             }
         }
 
         public void UnlockFromTarget()
         {
-            if (CurrentTarget == null || Input.GetKeyDown("m"))
+            if (targets.Count <= 0 || Input.GetKeyDown("m"))
                 sm.ChangeState(FREE);
         }
 
         public void FindTargets()
         {
-            List<Target> foundTargets = new List<Target>();
+            foreach (var t in targets.ToArray())
+            {
+                if (t == null) targets.Remove(t);
+                else
+                {
+                    var dist = Vector3.Distance(transform.position, t.transform.position);
+                    if (dist > searchRadius) targets.Remove(t);
+                }
+            }
+
             var hits = Physics.OverlapSphere(Controller.transform.position, searchRadius);
 
             if (hits != null)
             {
-                foreach(var hit in hits)
+                foreach (var hit in hits)
                 {
                     var target = hit.GetComponentInChildren<Target>();
-                    if (target != null && target != OwnTarget && !foundTargets.Contains(target))
-                        foundTargets.Add(target);
+                    if (target != null && target != OwnTarget)
+                        if (!targets.Contains(target))
+                            targets.Add(target);
                 }
             }
 
-            targets = foundTargets.ToArray();
+            if (currentTarget > targets.Count) currentTarget = targets.Count - 1;
         }
 
         public void CheckTargets()
         {
-            if (targets.Length <= 0) sm.ChangeState(FREE);
+            if (targets.Count <= 0) sm.ChangeState(FREE);
+        }
+
+        public void SelectTarget()
+        {
+            if (Input.GetKeyDown("left")) currentTarget--;
+            else if (Input.GetKeyDown("right")) currentTarget++;
+
+            if (currentTarget < 0) currentTarget = targets.Count - 1;
+            if (currentTarget >= targets.Count) currentTarget = 0;
+
+            if (targets.Count > 0)
+            {
+                cam.LockedTarget = CurrentTarget;
+                cam.target = CurrentTarget.transform;
+                LookAtTarget(CurrentTarget.transform);
+            }
         }
 
         public void LookAtTarget()
         {
+            if (CurrentTarget == null) return;
+
             var lookPos = CurrentTarget.transform.position;
             lookPos.y = Controller.transform.position.y;
 

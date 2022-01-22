@@ -11,6 +11,7 @@ namespace RPG_Project
         public string charName;
 
         public Sprite portrait;
+        public Controller controller;
 
         public ElementID element1;
         public ElementID element2;

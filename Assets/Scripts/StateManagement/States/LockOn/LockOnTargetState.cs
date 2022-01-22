@@ -40,6 +40,7 @@ namespace RPG_Project
 
             lockOn.FindTargets();
             lockOn.CheckTargets();
+            lockOn.SelectTarget();
         }
 
         public void ExecuteFrameFixed()

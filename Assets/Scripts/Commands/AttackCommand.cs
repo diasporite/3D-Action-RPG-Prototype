@@ -60,7 +60,8 @@ namespace RPG_Project
             ability.UseResource(1);
 
             // Continually track direction to target
-            // Animation will move instigator in that direction
+            // Animation will rotate instigator in that direction
+            if (lockOn.LockedOn) controller.LockOn.LookAtTarget();
 
             yield return new WaitForSeconds(ability.action.animation.length);
 

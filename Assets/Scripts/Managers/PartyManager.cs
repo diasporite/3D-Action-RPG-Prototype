@@ -19,6 +19,8 @@ namespace RPG_Project
         public event Action onStaminaTick;
         public event Action onPoiseTick;
 
+        public event Action onDeath;
+
         public event OnHealthChanged onHealthChanged;
         public event OnStaminaChanged onStaminaChanged;
         public event OnPoiseChanged onPoiseChanged;
@@ -120,6 +122,11 @@ namespace RPG_Project
         {
             onPoiseTick?.Invoke();
         }
+
+        public void InvokeDeath()
+        {
+            onDeath?.Invoke();
+        }
         #endregion
 
         public void InitParty()
@@ -128,7 +135,7 @@ namespace RPG_Project
             activeParty = new Controller[4];
 
             Controller[] partyMembers = GetComponentsInChildren<Controller>();
-            print(partyMembers.Length);
+
             foreach (var member in partyMembers)
             {
                 if (party.Count < partyCap)
@@ -142,6 +149,11 @@ namespace RPG_Project
                 if (i < party.Count) activeParty[i] = party[i];
 
             partyHealth.InitResource();
+        }
+
+        public void AddPartyMember(Controller member)
+        {
+            if (party.Count < partyCap) party.Add(member);
         }
 
         public void ChangePartyMember(int index)

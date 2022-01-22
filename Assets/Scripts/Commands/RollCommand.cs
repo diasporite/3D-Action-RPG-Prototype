@@ -13,6 +13,8 @@ namespace RPG_Project
 
         public RollCommand(Controller controller, Vector3 dir) : base(controller, dir)
         {
+            if (dir == Vector3.zero) dir = controller.transform.forward;
+
             actionName = "roll";
         }
 

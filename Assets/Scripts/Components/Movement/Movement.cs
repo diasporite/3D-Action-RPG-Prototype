@@ -8,6 +8,8 @@ namespace RPG_Project
     {
         bool locked = false;
 
+        [SerializeField] Vector3 ds;
+
         [Header("Linear speed")]
         [SerializeField] float walkSpeed = 3;
         [SerializeField] float runningSpeed = 6;
@@ -42,6 +44,8 @@ namespace RPG_Project
         CapsuleCollider col;
 
         CombatDatabase combat;
+
+        public Vector3 Ds => ds;
 
         public float Speed
         {
@@ -193,7 +197,7 @@ namespace RPG_Project
                 ref turnVelocity, turnTime);
             cc.transform.rotation = Quaternion.Euler(0, angle, 0);
 
-            var ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
             ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
 
             cc.Move(currentSpeed * ds.normalized * dt);
@@ -207,7 +211,7 @@ namespace RPG_Project
             var dsy = -transform.up * Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
             var dst = dir.x * transform.right;
 
-            var ds = dsr + dsy + dst;
+            ds = dsr + dsy + dst;
 
             cc.Move(currentSpeed * ds.normalized * dt);
 

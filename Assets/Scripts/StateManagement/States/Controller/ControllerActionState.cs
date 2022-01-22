@@ -11,6 +11,7 @@ namespace RPG_Project
 
         ActionQueue queue;
         AbilityManager weapon;
+        LockOn lockOn;
 
         public ControllerActionState(Controller controller)
         {
@@ -19,6 +20,7 @@ namespace RPG_Project
 
             queue = controller.Queue;
             weapon = controller.Ability;
+            lockOn = controller.LockOn;
         }
 
         #region InterfaceMethods

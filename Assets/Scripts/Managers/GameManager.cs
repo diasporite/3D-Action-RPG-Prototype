@@ -13,6 +13,7 @@ namespace RPG_Project
         [SerializeField] float inGameTime = 0;
         [SerializeField] float realTime = 0;
 
+        public CharDatabase characters;
         public CombatDatabase combat;
 
         UIManager ui;
@@ -32,7 +33,7 @@ namespace RPG_Project
 
             ui = FindObjectOfType<UIManager>();
 
-            party = FindObjectOfType<PartyManager>();
+            party = FindObjectOfType<PlayerInputController>().GetComponent<PartyManager>();
         }
 
         private void Start()

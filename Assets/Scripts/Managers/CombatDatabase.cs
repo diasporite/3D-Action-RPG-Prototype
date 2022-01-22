@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    [CreateAssetMenu(fileName = "Combat Database", menuName = "Combat/Database")]
+    [CreateAssetMenu(fileName = "CombatDatabase", menuName = "Combat/Database/Combat")]
     public class CombatDatabase : ScriptableObject
     {
         [Header("Elements")]
         public ElementData[] elements;
-        Dictionary<ElementID, ElementData> elementDict;
+        Dictionary<ElementID, ElementData> elementDict = new Dictionary<ElementID, ElementData>();
 
         [Header("Damage Multipliers")]
         public float critMultiplier = 1.5f;
@@ -40,16 +40,18 @@ namespace RPG_Project
         public int rollSpCost = 9;
         public int guardSpCost = 12;
 
+        public ElementData GetElement(ElementID id)
+        {
+            return elementDict[id];
+        }
+
         public void InitDatabase()
         {
-            if (elementDict == null)
-            {
-                elementDict = new Dictionary<ElementID, ElementData>();
+            elementDict.Clear();
 
-                foreach (var data in elements)
-                    if (!elementDict.ContainsKey(data.id))
-                        elementDict.Add(data.id, data);
-            }
+            foreach (var data in elements)
+                if (!elementDict.ContainsKey(data.id))
+                    elementDict.Add(data.id, data);
         }
 
         #region Stats
@@ -109,6 +111,64 @@ namespace RPG_Project
             if (damage < 1) damage = 1;
             return damage;
         }
+
+        public int GetDamage(int baseDamage, ElementData element, Combatant instigator, Combatant target)
+        {
+            if (IsImmune(element, target.Character)) return 1;
+
+            var offense = instigator.Character.Attack;
+            var defence = instigator.Character.Defence;
+
+            var instPos = instigator.transform.position;
+            var targetPos = target.transform.position;
+
+            float multiplier = 1;
+
+            var damage = baseDamage + offense.CurrentStatValue - defence.CurrentStatValue;
+
+            if (BackstabCritical(instPos, targetPos)) multiplier *= critMultiplier;
+            if (StabBonus(element, instigator.Character)) multiplier *= stabMultiplier;
+
+            multiplier *= ElementMultiplier(element, target.Character);
+
+            damage = Mathf.RoundToInt(damage * multiplier);
+
+            if (damage < 1) damage = 1;
+            if (damage > 999) damage = 999;
+
+            return damage;
+        }
         #endregion
+
+        bool BackstabCritical(Vector3 instPos, Vector3 targetPos)
+        {
+            var ds = targetPos - instPos;
+
+            return false;
+        }
+
+        bool StabBonus(ElementData element, BattleChar insigator)
+        {
+            return element == insigator.Element1 || element == insigator.Element2;
+        }
+
+        bool IsImmune(ElementData element, BattleChar target)
+        {
+            return target.Element1.IsImmune(element);
+        }
+
+        float ElementMultiplier(ElementData element, BattleChar target)
+        {
+            var modifier1 = 1f;
+            var modifier2 = 1f;
+
+            if (target.Element1.IsResist(element)) modifier1 *= resistMultiplier;
+            else if (target.Element1.IsWeak(element)) modifier1 *= weakMultiplier;
+
+            if (target.Element2.IsResist(element)) modifier2 *= resistMultiplier;
+            else if (target.Element2.IsWeak(element)) modifier2 *= weakMultiplier;
+
+            return modifier1 * modifier2;
+        }
     }
 }

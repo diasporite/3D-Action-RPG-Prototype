@@ -48,6 +48,8 @@ namespace RPG_Project
             this.controller = controller;
             this.dir = dir;
 
+            anim = controller.Anim;
+
             combat = GameManager.instance.Combat;
 
             canProgress = false;

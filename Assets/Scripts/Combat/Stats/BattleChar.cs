@@ -37,7 +37,9 @@ namespace RPG_Project
         [SerializeField] string charName;
         [SerializeField] Sprite portrait;
 
-        [SerializeField] Typing typing = new Typing();
+        //[SerializeField] Typing typing = new Typing();
+        [SerializeField] ElementData element1;
+        [SerializeField] ElementData element2;
 
         [Header("Progression")]
         [SerializeField] Progression progression;
@@ -71,7 +73,10 @@ namespace RPG_Project
         public Progression Progression => progression;
         public Rewards Rewards => rewards;
 
-        public Typing Typing => typing;
+        //public Typing Typing => typing;
+
+        public ElementData Element1 => element1;
+        public ElementData Element2 => element2;
 
         public PointStat Health => health;
         public PointStat Stamina => stamina;
@@ -173,6 +178,9 @@ namespace RPG_Project
         void InitChar(CharData data)
         {
             portrait = data.portrait;
+
+            element1 = GameManager.instance.Combat.GetElement(data.element1);
+            element2 = GameManager.instance.combat.GetElement(data.element2);
 
             progression = new Progression(data.baseExp);
             rewards = new Rewards(data.baseExpReward, data.baseExpReward);

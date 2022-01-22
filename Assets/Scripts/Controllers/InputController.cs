@@ -24,20 +24,32 @@ namespace RPG_Project
     {
         protected PartyManager party;
 
-        protected Vector3 dir = new Vector3(0, 0);
+        protected List<InputMode> inputs = new List<InputMode>();
 
-        private void Awake()
+        protected Vector3 dir1 = new Vector3(0, 0);
+        protected Vector3 dir2 = new Vector3(0, 0);
+
+        protected virtual void Awake()
         {
             party = GetComponent<PartyManager>();
         }
 
         public virtual InputMode GetInput()
         {
-            return InputMode.None;
+            inputs.Clear();
+
+            inputs.Add(InputMode.None);
+
+            return inputs[0];
         }
 
         // Output dir refers to movement dir (xz plane)
-        public virtual Vector3 GetOutputDir()
+        public virtual Vector3 GetOutputDir1()
+        {
+            return Vector3.zero;
+        }
+
+        public virtual Vector3 GetOutputDir2()
         {
             return Vector3.zero;
         }

@@ -39,12 +39,17 @@ namespace RPG_Project
             return InputMode.None;
         }
 
-        public override Vector3 GetOutputDir()
+        public override Vector3 GetOutputDir1()
         {
-            dir.x = Input.GetAxisRaw("Horizontal");
-            dir.z = Input.GetAxisRaw("Vertical");
+            dir1.x = Input.GetAxisRaw("Horizontal");
+            dir1.z = Input.GetAxisRaw("Vertical");
 
-            return dir;
+            return dir1;
+        }
+
+        public override Vector3 GetOutputDir2()
+        {
+            return base.GetOutputDir2();
         }
     }
 }

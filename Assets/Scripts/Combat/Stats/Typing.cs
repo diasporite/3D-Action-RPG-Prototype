@@ -7,75 +7,62 @@ namespace RPG_Project
     [Serializable]
     public class Typing
     {
-        //[SerializeField] TypeID type1 = TypeID.Typeless;
-        //[SerializeField] TypeID type2 = TypeID.Typeless;
+        [SerializeField] ElementID element1 = ElementID.Typeless;
+        [SerializeField] ElementID element2 = ElementID.Typeless;
 
-        //[SerializeField] List<TypeID> additionalResistances = new List<TypeID>();
-        //[SerializeField] List<TypeID> additionalWeakness = new List<TypeID>();
-        //[SerializeField] List<TypeID> additionalImmunities = new List<TypeID>();
+        [SerializeField] List<ElementID> additionalResistances = new List<ElementID>();
+        [SerializeField] List<ElementID> additionalWeakness = new List<ElementID>();
+        [SerializeField] List<ElementID> additionalImmunities = new List<ElementID>();
 
-        //[SerializeField] LayerMask walkableTerrain;
+        [SerializeField] LayerMask walkableTerrain;
 
-        //float weaknessMultiplier;
-        //float resistanceMultiplier;
+        float weaknessMultiplier;
+        float resistanceMultiplier;
 
         //TypeDatabase database;
 
-        //public TypeID _type1 => type1;
-        //public TypeID _type2 => type2;
+        public ElementID Element1 => element1;
+        public ElementID Element2 => element2;
 
-        //public LayerMask _walkableTerrain => walkableTerrain;
+        public LayerMask _walkableTerrain => walkableTerrain;
 
-        //public override string ToString()
-        //{
-        //    var str1 = "";
-        //    var str2 = "";
+        public override string ToString()
+        {
+            var str1 = "";
+            var str2 = "";
 
-        //    if (type1 != TypeID.Typeless) str1 = type1.ToString();
-        //    if (type2 != TypeID.Typeless) str2 = type2.ToString();
+            if (element1 != ElementID.Typeless) str1 = element1.ToString();
+            if (element2 != ElementID.Typeless) str2 = element2.ToString();
 
-        //    if (str1 == "" && str2 != "") return type2.ToString();
-        //    if (str1 != "" && str2 == "") return type1.ToString();
+            if (str1 == "" && str2 != "") return element2.ToString();
+            if (str1 != "" && str2 == "") return element1.ToString();
 
-        //    return str1 + "/" + str2;
-        //}
+            return str1 + "/" + str2;
+        }
 
-        //public Typing(TypeID type1, TypeID type2)
-        //{
-        //    this.type1 = type1;
-        //    this.type2 = type2;
+        public void AddWeakness(ElementID id)
+        {
+            if (!additionalWeakness.Contains(id)) additionalWeakness.Add(id);
+        }
 
-        //    weaknessMultiplier = GameManager.instance._combat._weaknessMultiplier;
-        //    resistanceMultiplier = GameManager.instance._combat._resistanceMultiplier;
+        public void AddResistance(ElementID id)
+        {
+            if (!additionalResistances.Contains(id)) additionalResistances.Add(id);
+        }
 
-        //    database = GameManager.instance._typeDatabase;
+        public void AddImmunity(ElementID id)
+        {
+            if (!additionalImmunities.Contains(id)) additionalImmunities.Add(id);
+        }
 
-        //    walkableTerrain = database.GetType(type1)._walkableLayers + database.GetType(type2)._walkableLayers;
-        //}
+        public float Effectiveness(ElementID attacking)
+        {
+            return 1f;
+        }
 
-        //public void AddWeakness(TypeID id)
-        //{
-        //    if (!additionalWeakness.Contains(id)) additionalWeakness.Add(id);
-        //}
-
-        //public void AddResistance(TypeID id)
-        //{
-        //    if (!additionalResistances.Contains(id)) additionalResistances.Add(id);
-        //}
-
-        //public void AddImmunity(TypeID id)
-        //{
-        //    if (!additionalImmunities.Contains(id)) additionalImmunities.Add(id);
-        //}
-
-        //public float Effectiveness(TypeID attacking)
-        //{
-        //    return 1;
-        //}
-
-        //public float TypeModifier(TypeID attacking)
-        //{
-        //    return 1;
-        //}
+        public float TypeModifier(ElementID attacking)
+        {
+            return 1f;
+        }
     }
 }

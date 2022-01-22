@@ -211,7 +211,7 @@ namespace RPG_Project
         void GetInputs()
         {
             inputMode = InputController.GetInput();
-            inputDir = InputController.GetOutputDir();
+            inputDir = InputController.GetOutputDir1();
         }
 
         #region StateCommands
@@ -295,6 +295,8 @@ namespace RPG_Project
 
         public virtual void ActionCommand()
         {
+            if (lockOn.LockedOn) lockOn.LookAtTarget();
+
             switch (inputMode)
             {
                 case InputMode.Defend:
@@ -363,7 +365,7 @@ namespace RPG_Project
                     AddCommand(act);
                     break;
                 default:
-                    act = new RollCommand(this);
+                    act = new RollCommand(this, inputDir);
                     AddCommand(act);
                     break;
             }
@@ -421,6 +423,7 @@ namespace RPG_Project
 
         public virtual void Die()
         {
+            party.InvokeDeath();
             Destroy(gameObject);
         }
 
