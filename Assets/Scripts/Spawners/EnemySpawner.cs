@@ -10,11 +10,13 @@ namespace RPG_Project
         [SerializeField] int partySize = 1;
         [SerializeField] SpawnerData[] data;
 
-        List<Controller> spawns = new List<Controller>();
+        [SerializeField] List<Controller> spawns = new List<Controller>();
 
         private void Start()
         {
             InitSpawns();
+
+            SpawnCharacter();
         }
 
         public override void InitSpawns()
@@ -23,7 +25,8 @@ namespace RPG_Project
 
             foreach (var d in data)
                 for (int i = 0; i < d.Weight; i++)
-                    spawns.Add(d.Controller);
+                    if (d.Controller != null)
+                        spawns.Add(d.Controller);
         }
 
         public override void SpawnCharacter()
@@ -34,8 +37,13 @@ namespace RPG_Project
 
                 var obj = Instantiate(spawns[j].gameObject, transform.position, 
                     Quaternion.identity) as GameObject;
-                party.AddPartyMember(obj.GetComponent<Controller>());
+                var controller = obj.GetComponent<Controller>();
+                obj.transform.SetParent(transform);
+                controller.InitController();
+                party.AddPartyMember(controller);
             }
+
+            party.InitParty();
         }
     }
 }

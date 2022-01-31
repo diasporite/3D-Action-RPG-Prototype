@@ -17,7 +17,7 @@ namespace RPG_Project
 
             SubscribeToDelegates();
 
-            UpdateAbilities(party.CurrentPartyMember.Combatant);
+            UpdateAbilities(party.CurrentCombatant);
         }
 
         protected override void SubscribeToDelegates()

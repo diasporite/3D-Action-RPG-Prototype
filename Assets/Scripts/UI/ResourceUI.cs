@@ -26,9 +26,12 @@ namespace RPG_Project
 
         public void UpdateUI()
         {
-            bar.value = resource.ResourceFraction;
-            text.text = textHeader.Trim() + " " + 
-                resource.ResourcePointValue + "/" + resource.ResourceStatValue;
+            if (resource != null)
+            {
+                bar.value = resource.ResourceFraction;
+                text.text = textHeader.Trim() + " " +
+                    resource.ResourcePointValue + "/" + resource.ResourceStatValue;
+            }
         }
 
         public void UpdateCharacter(Resource resource)

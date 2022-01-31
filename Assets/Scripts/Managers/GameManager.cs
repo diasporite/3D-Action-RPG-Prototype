@@ -22,6 +22,8 @@ namespace RPG_Project
 
         public CombatDatabase Combat => combat;
 
+        public UIManager Ui => ui;
+
         public PartyManager Party => party;
 
         private void Awake()
@@ -29,6 +31,7 @@ namespace RPG_Project
             if (instance == null) instance = this;
             else Destroy(gameObject);
 
+            characters.InitDatabase();
             combat.InitDatabase();
 
             ui = FindObjectOfType<UIManager>();
@@ -38,19 +41,13 @@ namespace RPG_Project
 
         private void Start()
         {
-            party.InitParty();
-            ui.InitUI(party);
-
-            // Init both party and UI first
-            party.ChangePartyMember(0);
-
             inGameTime = 0;
             realTime = 0;
         }
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown("h")) PauseGame();
+            if (Input.GetKeyDown("g")) PauseGame();
 
             inGameTime += Time.deltaTime;
             realTime += Time.unscaledDeltaTime;

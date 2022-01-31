@@ -26,6 +26,18 @@ namespace RPG_Project
             //party.onHealthChanged -=
         }
 
+        public override void InitResource()
+        {
+            var hp = party.TotalHealth;
+
+            resourcePoints = new PointStat(hp, hp, 3999);
+
+            resource._cooldown = hp;
+            resource.Count = resourcePoints.PointValue;
+
+            UpdateUI();
+        }
+
         protected override void UpdateUI()
         {
             party.InvokeHealthTick();
@@ -53,22 +65,6 @@ namespace RPG_Project
         public override void LoadFromStat(PointStat stat)
         {
             base.LoadFromStat(stat);
-        }
-
-        public void InitResource()
-        {
-            var currentHp = resourcePoints.PointValue;
-            var hp = party.TotalHealth;
-
-            resourcePoints = new PointStat(100, 3999);
-
-            resourcePoints.StatValue = hp;
-            resourcePoints.PointValue = currentHp;
-
-            resource._cooldown = hp;
-            resource.Count = resourcePoints.PointValue;
-
-            UpdateUI();
         }
     }
 }

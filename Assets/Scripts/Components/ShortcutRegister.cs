@@ -32,7 +32,7 @@ namespace RPG_Project
 
         private void Start()
         {
-            activeParty = party.ActiveParty;
+            activeParty = party.ActiveParty.ToArray();
         }
 
         private void Update()
@@ -48,7 +48,7 @@ namespace RPG_Project
 
         public void InitActiveParty()
         {
-            activeParty = party.ActiveParty;
+            activeParty = party.ActiveParty.ToArray();
         }
 
         public void InitRegisteredItems()

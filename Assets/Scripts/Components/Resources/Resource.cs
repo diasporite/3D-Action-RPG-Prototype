@@ -47,10 +47,6 @@ namespace RPG_Project
 
         protected virtual void Awake()
         {
-            party = GetComponentInParent<PartyManager>();
-            combatant = GetComponent<Combatant>();
-
-            currentRegen = regenSpeed;
             //resourcePoints = new PointStat(points, initPoints, points);
             //resource = new Cooldown(points, regenSpeed);
 
@@ -60,11 +56,11 @@ namespace RPG_Project
 
         protected virtual void Start()
         {
-            character = combatant.Character;
+        //    if (combatant != null) character = combatant.Character;
 
-            LoadFromCharacter();
+        //    LoadFromCharacter();
 
-            UpdateUI();
+        //    UpdateUI();
         }
 
         private void Update()
@@ -73,6 +69,25 @@ namespace RPG_Project
         }
 
         protected virtual void OnDestroy()
+        {
+
+        }
+
+        public virtual void InitResource()
+        {
+            party = GetComponentInParent<PartyManager>();
+            combatant = GetComponent<Combatant>();
+
+            currentRegen = regenSpeed;
+
+            character = combatant.Character;
+
+            LoadFromCharacter();
+
+            UpdateUI();
+        }
+
+        protected virtual void UpdateUI()
         {
 
         }
@@ -89,11 +104,6 @@ namespace RPG_Project
 
                 UpdateUI();
             }
-        }
-
-        protected virtual void UpdateUI()
-        {
-
         }
 
         public int GetResourcePercent(float percent)

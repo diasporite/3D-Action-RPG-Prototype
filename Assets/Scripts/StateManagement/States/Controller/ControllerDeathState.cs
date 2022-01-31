@@ -12,6 +12,9 @@ namespace RPG_Project
         Animator anim;
         ActionQueue queue;
 
+        float deathTime = 1;
+        Cooldown death;
+
         public ControllerDeathState(Controller controller)
         {
             this.controller = controller;
@@ -28,11 +31,17 @@ namespace RPG_Project
             controller.Poise.Regenerative = false;
 
             anim.SetTrigger("Death");
+
+            deathTime = anim.GetCurrentAnimatorStateInfo(0).length;
+            Debug.Log(deathTime + "s");
+            death = new Cooldown(deathTime);
         }
 
         public void ExecuteFrame()
         {
             controller.DeathCommand();
+            death.Tick(Time.deltaTime);
+            if (death.Full) controller.Die();
         }
 
         public void ExecuteFrameFixed()

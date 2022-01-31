@@ -56,9 +56,10 @@ namespace RPG_Project
 
         private void Start()
         {
-            ahead = new GameObject("Ahead");
-            mr = follow.GetComponent<MeshRenderer>();
+            //ahead = new GameObject("Ahead");
+            //mr = follow.GetComponent<MeshRenderer>();
 
+            
             camPos = follow.transform.position + camDist * defaultCamOffset.normalized;
 
             sm.AddState(UNLOCKED, new CameraUnlockedState(this));
@@ -150,6 +151,11 @@ namespace RPG_Project
 
                 lastViewedPosition = target.position;
             }
+        }
+
+        public void UpdateFollow(Combatant combatant)
+        {
+            follow = combatant.transform;
         }
     }
 }

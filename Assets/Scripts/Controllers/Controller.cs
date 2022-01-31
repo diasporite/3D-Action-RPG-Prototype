@@ -132,17 +132,7 @@ namespace RPG_Project
 
         protected virtual void Awake()
         {
-            party = GetComponentInParent<PartyManager>();
 
-            anim = GetComponent<Animator>();
-
-            movement = GetComponent<Movement>();
-            combatant = GetComponent<Combatant>();
-            ability = GetComponent<AbilityManager>();
-
-            health = GetComponentInParent<Health>();
-            stamina = GetComponent<Stamina>();
-            poise = GetComponent<Poise>();
         }
 
         protected virtual void Start()
@@ -176,12 +166,29 @@ namespace RPG_Project
 
         public virtual void InitController()
         {
+            party = GetComponentInParent<PartyManager>();
+            health = GetComponentInParent<Health>();
+
+            anim = GetComponent<Animator>();
+
+            movement = GetComponent<Movement>();
+            combatant = GetComponent<Combatant>();
+            ability = GetComponent<AbilityManager>();
+
+            stamina = GetComponent<Stamina>();
+            poise = GetComponent<Poise>();
+
             queue = party.ActionQueue;
             lockOn = party.LockOn;
             inputController = party.InputController;
 
             combatant.InitCombatant();
+            movement.InitMovement();
             ability.InitAbilities();
+
+            health.InitResource();
+            stamina.InitResource();
+            poise.InitResource();
 
             InitSM();
         }
@@ -421,8 +428,9 @@ namespace RPG_Project
             party.ActionQueue.StopActionStagger();
         }
 
-        public virtual void Die()
+        public void Die()
         {
+            print(89);
             party.InvokeDeath();
             Destroy(gameObject);
         }

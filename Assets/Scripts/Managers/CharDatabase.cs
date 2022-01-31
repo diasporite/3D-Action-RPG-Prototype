@@ -15,7 +15,7 @@ namespace RPG_Project
             if (charDict.ContainsKey(name))
                 return charDict[name].controller;
 
-            Debug.Log("No character called " + name + " exists.");
+            Debug.LogError("No character called " + name + " exists.");
             return null;
         }
 

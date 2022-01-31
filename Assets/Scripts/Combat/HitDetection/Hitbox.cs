@@ -22,7 +22,7 @@ namespace RPG_Project
 
         private void Start()
         {
-            hittables = LayerMask.GetMask("Enemies", "Destructibles");
+            hittables = LayerMask.GetMask("Combatants", "Destructibles");
         }
 
         private void Update()
@@ -70,9 +70,10 @@ namespace RPG_Project
             if (active)
             {
                 var obj = collider.gameObject;
-                //print(obj);
+
                 if (obj != null && obj != controller.gameObject)
                 {
+                    print(obj);
                     //Destroy(obj);
 
                     var damageable = obj.GetComponent<IDamageable>();

@@ -83,15 +83,15 @@ namespace RPG_Project
 
         private void Start()
         {
-            combat = GameManager.instance.Combat;
+            //combat = GameManager.instance.Combat;
 
-            lockOn = controller.Party.LockOn;
+            //lockOn = controller.Party.LockOn;
 
-            GameManager.instance.Party.onCharacterChanged += SetSpeeds;
+            //GameManager.instance.Party.onCharacterChanged += SetSpeeds;
 
-            SetSpeeds(GetComponent<Combatant>());
+            //SetSpeeds(GetComponent<Combatant>());
 
-            velocity = Vector3.zero;
+            //velocity = Vector3.zero;
         }
 
         private void Update()
@@ -99,13 +99,29 @@ namespace RPG_Project
             //if (Input.GetKeyDown("space")) Jump();
         }
 
-        private void OnDestroy()
+        public void InitMovement()
         {
-            //GameManager.instance.Party.onCharacterChanged -= SetSpeeds;
+            //controller = GetComponent<Controller>();
+
+            //cc = GetComponent<CharacterController>();
+            //col = GetComponent<CapsuleCollider>();
+
+            //groundCheck = GetComponentInChildren<GroundCheck>();
+
+            //cam = Camera.main.transform;
+            combat = GameManager.instance.Combat;
+            lockOn = controller.Party.LockOn;
+
+            sqrTerminalSpeed = terminalSpeed * terminalSpeed;
+
+            SetSpeeds(GetComponent<Combatant>());
+
+            velocity = Vector3.zero;
         }
 
         public void SetSpeeds(Combatant combatant)
         {
+            //print(gameObject.name + " " + (combatant == null).ToString());
             var character = combatant.Character;
             var weight = WeightClass.Middleweight;
 

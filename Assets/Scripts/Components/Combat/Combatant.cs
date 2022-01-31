@@ -39,20 +39,11 @@ namespace RPG_Project
 
         private void Awake()
         {
-            party = GetComponentInParent<PartyManager>();
-            controller = GetComponent<Controller>();
-            csm = controller.Sm;
 
-            abilities = GetComponent<AbilityManager>();
-
-            stamina = GetComponent<Stamina>();
-            poise = GetComponent<Poise>();
         }
 
         private void Start()
         {
-            health = party.PartyHealth;
-
             //party.onHealthChanged +=
             //party.onPoiseChanged +=
         }
@@ -67,9 +58,8 @@ namespace RPG_Project
         {
             var healthDamage = GameManager.instance.Combat.GetDamage(baseDamage, instigator.Attack, Character.Defence);
             var poiseDamage = GameManager.instance.Combat.GetDamage(Mathf.RoundToInt(0.4f * baseDamage), instigator.Attack, Character.Defence);
-            
-            TakePoiseDamage(poiseDamage);
-            TakeHealthDamage(healthDamage);
+
+            TakeDamage(healthDamage, poiseDamage);
 
             //party.onPoiseChanged.Invoke(poiseDamage);
             //party.onHealthChanged.Invoke(healthDamage);
@@ -82,21 +72,41 @@ namespace RPG_Project
 
         public void InitCombatant()
         {
+            party = GetComponentInParent<PartyManager>();
+            controller = GetComponent<Controller>();
+            csm = controller.Sm;
+
+            abilities = GetComponent<AbilityManager>();
+
+            stamina = GetComponent<Stamina>();
+            poise = GetComponent<Poise>();
+
             character = characterData.Character;
+            health = party.PartyHealth;
         }
 
         void TakeHealthDamage(int damage)
         {
             //character.ChangeHealth(damage);
-            health.ChangeResource(damage);
+            health.ChangeResource(-damage);
             if (health.Empty) csm.ChangeState(controller.DEATH);
         }
 
         void TakePoiseDamage(int damage)
         {
-            character.ChangePoise(damage);
-            poise.ChangeResource(damage);
+            character.ChangePoise(-damage);
+            poise.ChangeResource(-damage);
             if (poise.Empty) csm.ChangeState(controller.STAGGER);
+        }
+
+        void TakeDamage(int healthDamage, int poiseDamage)
+        {
+            health.ChangeResource(-healthDamage);
+            character.ChangePoise(-poiseDamage);
+            poise.ChangeResource(-poiseDamage);
+
+            if (health.Empty) csm.ChangeState(controller.DEATH);
+            else if (poise.Empty) csm.ChangeState(controller.STAGGER);
         }
 
         public void ApplyFallDamage(float percent)

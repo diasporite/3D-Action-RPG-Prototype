@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace RPG_Project
 {
     public class LockOn : MonoBehaviour
     {
+        public event Action onLock;
+
         public readonly string LOCKED = "locked";
         public readonly string FREE = "free";
 
@@ -71,17 +74,14 @@ namespace RPG_Project
 
         private void Start()
         {
-            cam.lockOn = this;
 
-            InitSM();
-
-            sm.ChangeState(FREE);
         }
 
         private void Update()
         {
             sm.Update();
-            currentState = sm.GetCurrentKey.ToString();
+
+            if (sm.GetCurrentKey != null) currentState = sm.GetCurrentKey.ToString();
         }
 
         private void OnDrawGizmos()
@@ -94,6 +94,16 @@ namespace RPG_Project
         {
             sm.AddState(LOCKED, new LockOnTargetState(this));
             sm.AddState(FREE, new LockOnFreeState(this));
+        }
+
+        public void InitLockOn()
+        {
+            cam.lockOn = this;
+            cam.UpdateFollow(party.CurrentPartyMember.GetComponent<Combatant>());
+
+            InitSM();
+
+            sm.ChangeState(FREE);
         }
 
         public void LockOntoTarget()

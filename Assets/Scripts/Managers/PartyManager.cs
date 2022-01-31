@@ -28,9 +28,10 @@ namespace RPG_Project
         protected int partyCap = 8;
         [SerializeField] int currentMember = 0;
         [SerializeField] List<Controller> party = new List<Controller>();
-        [SerializeField] Controller[] activeParty = new Controller[4];
+        [SerializeField] List<Controller> activeParty = new List<Controller>();
 
         [SerializeField] Vector3 currentPos = new Vector3(0, 0, 0);
+        [SerializeField] Controller currentPartyMember;
 
         Health partyHealth;
         ActionQueue actionQueue;
@@ -39,10 +40,11 @@ namespace RPG_Project
         InputController inputController;
 
         public List<Controller> Party => party;
-        public Controller[] ActiveParty => activeParty;
+        public List<Controller> ActiveParty => activeParty;
 
         public Controller CurrentPartyMember => activeParty[currentMember];
         public BattleChar CurrentCharacter => CurrentPartyMember.Combatant.Character;
+        public Combatant CurrentCombatant => CurrentPartyMember.Combatant;
 
         public Health PartyHealth => partyHealth;
         public ActionQueue ActionQueue => actionQueue;
@@ -131,34 +133,17 @@ namespace RPG_Project
 
         public void InitParty()
         {
-            party.Clear();
-            activeParty = new Controller[4];
-
-            Controller[] partyMembers = GetComponentsInChildren<Controller>();
-
-            foreach (var member in partyMembers)
-            {
-                if (party.Count < partyCap)
-                {
-                    member.InitController();
-                    party.Add(member);
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-                if (i < party.Count) activeParty[i] = party[i];
-
             partyHealth.InitResource();
         }
 
         public void AddPartyMember(Controller member)
         {
-            if (party.Count < partyCap) party.Add(member);
+            if (activeParty.Count < partyCap) activeParty.Add(member);
         }
 
         public void ChangePartyMember(int index)
         {
-            if (party.Count <= 0) return;
+            if (activeParty.Count <= 0) return;
 
             index = Mathf.Abs(index);
             index = index % party.Count;
@@ -168,7 +153,7 @@ namespace RPG_Project
             currentMember = index;
             //CurrentPartyMember.gameObject.SetActive(true);
 
-            for(int i = 0; i < party.Count; i++)
+            for(int i = 0; i < activeParty.Count; i++)
             {
                 if (i == currentMember)
                 {
@@ -178,12 +163,20 @@ namespace RPG_Project
                 else activeParty[i].gameObject.SetActive(false);
             }
 
-            onCharacterChanged?.Invoke(CurrentPartyMember.Combatant);
+            currentPartyMember = CurrentPartyMember;
+            onCharacterChanged?.Invoke(CurrentCombatant);
         }
 
         public void ChangePartyComp()
         {
 
+        }
+
+        public void GetActiveParty()
+        {
+            for (int i = 0; i < 4; i++)
+                if (i < party.Count)
+                    activeParty[i] = party[i];
         }
     }
 }
