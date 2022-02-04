@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class EnemyChaseState : IState
+    public class AIAttackState : IState
     {
         AIController ai;
         StateMachine sm;
 
-        public EnemyChaseState(AIController ai)
+        Controller controller;
+
+        public AIAttackState(AIController ai)
         {
             this.ai = ai;
             sm = ai.sm;
@@ -23,7 +25,16 @@ namespace RPG_Project
 
         public void ExecuteFrame()
         {
+            controller = ai.Party.CurrentPartyMember;
 
+            ai.CalculateDistance();
+
+            if (ai.SqrDist <= ai.SqrChaseDist)
+            {
+                if (ai.SqrDist > ai.SqrAttackDist)
+                    sm.ChangeState(AIState.Chase);
+            }
+            else sm.ChangeState(AIState.Idle);
         }
 
         public void ExecuteFrameFixed()

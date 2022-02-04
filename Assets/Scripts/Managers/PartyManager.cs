@@ -19,6 +19,7 @@ namespace RPG_Project
         public event Action onStaminaTick;
         public event Action onPoiseTick;
 
+        public event Action<int> onDamage;
         public event Action onDeath;
 
         public event OnHealthChanged onHealthChanged;
@@ -38,11 +39,21 @@ namespace RPG_Project
         ShortcutRegister shortcuts;
         LockOn lockOn;
         InputController inputController;
+        AIController ai;
 
         public List<Controller> Party => party;
         public List<Controller> ActiveParty => activeParty;
 
-        public Controller CurrentPartyMember => activeParty[currentMember];
+        public Controller CurrentPartyMember
+        {
+            get
+            {
+                if (currentMember < activeParty.Count)
+                    return activeParty[currentMember];
+                return null;
+            }
+        }
+                
         public BattleChar CurrentCharacter => CurrentPartyMember.Combatant.Character;
         public Combatant CurrentCombatant => CurrentPartyMember.Combatant;
 
@@ -51,6 +62,7 @@ namespace RPG_Project
         public ShortcutRegister Shortcuts => shortcuts;
         public LockOn LockOn => lockOn;
         public InputController InputController => inputController;
+        public AIController AIController => ai;
 
         public int TotalHealth
         {
@@ -91,6 +103,7 @@ namespace RPG_Project
             shortcuts = GetComponent<ShortcutRegister>();
             lockOn = GetComponent<LockOn>();
             inputController = GetComponent<InputController>();
+            ai = GetComponent<AIController>();
         }
 
         private void Update()
@@ -125,6 +138,11 @@ namespace RPG_Project
             onPoiseTick?.Invoke();
         }
 
+        public void InvokeDamage(int damage)
+        {
+            onDamage?.Invoke(damage);
+        }
+
         public void InvokeDeath()
         {
             onDeath?.Invoke();
@@ -139,6 +157,11 @@ namespace RPG_Project
         public void AddPartyMember(Controller member)
         {
             if (activeParty.Count < partyCap) activeParty.Add(member);
+        }
+
+        public void RemovePartyMember(Controller member)
+        {
+            if (activeParty.Contains(member)) activeParty.Remove(member);
         }
 
         public void ChangePartyMember(int index)

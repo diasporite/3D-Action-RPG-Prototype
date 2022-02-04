@@ -115,7 +115,6 @@ namespace RPG_Project
             anim = Anim;
 
             controller.Sm.ChangeState(controller.STAGGER);
-            anim.SetBool("Stagger", true);
         }
 
         public void StopActionDeath()
@@ -130,7 +129,6 @@ namespace RPG_Project
             anim = Anim;
 
             controller.Sm.ChangeState(controller.DEATH);
-            anim.SetTrigger("Death");
         }
 
         IEnumerator ActionChain()

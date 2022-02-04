@@ -6,8 +6,8 @@ namespace RPG_Project
 {
     public class BasicActions : UIElement
     {
-        public TextPanel shortcutPanel;
-        public TextPanel runPanel;
+        //public TextPanel shortcutPanel;
+        //public TextPanel runPanel;
         public TextPanel defencePanel;
         public TextPanel actionPanel;
 
@@ -15,8 +15,8 @@ namespace RPG_Project
         {
             base.InitUI(party);
 
-            shortcutPanel.InitUI(party);
-            runPanel.InitUI(party);
+            //shortcutPanel.InitUI(party);
+            //runPanel.InitUI(party);
             defencePanel.InitUI(party);
             actionPanel.InitUI(party);
 
@@ -26,30 +26,11 @@ namespace RPG_Project
         protected override void SubscribeToDelegates()
         {
             party.onCharacterChanged += UpdateDefence;
-
-            party.Shortcuts.onShortcutSwitch += UpdateShortcut;
         }
 
         protected override void UnsubscribeFromDelegates()
         {
             party.onCharacterChanged -= UpdateDefence;
-
-            party.Shortcuts.onShortcutSwitch -= UpdateShortcut;
-        }
-
-        public void UpdateShortcut(ShortcutMode mode)
-        {
-            shortcutPanel.SelectUI();
-
-            switch (mode)
-            {
-                case ShortcutMode.ActiveParty:
-                    shortcutPanel.SetText("Items");
-                    break;
-                case ShortcutMode.RegisteredItems:
-                    shortcutPanel.SetText("Party");
-                    break;
-            }
         }
 
         public void UpdateDefence(Combatant combatant)

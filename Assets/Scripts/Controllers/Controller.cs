@@ -17,13 +17,6 @@ namespace RPG_Project
         Death = 8,
     }
 
-    public enum WeaponHand
-    {
-        Empty = 0,
-        Left = 1,
-        Right = 2,
-    }
-
     [RequireComponent(typeof(Movement), typeof(Combatant))]
     public class Controller : MonoBehaviour
     {
@@ -49,6 +42,7 @@ namespace RPG_Project
         protected ActionQueue queue;
         protected LockOn lockOn;
         protected InputController inputController;
+        protected AIController ai;
 
         protected Animator anim;
 
@@ -58,6 +52,8 @@ namespace RPG_Project
 
         protected Stamina stamina;
         protected Poise poise;
+
+        protected CharacterHealth charHealth;
 
         protected StateMachine sm = new StateMachine();
 
@@ -164,10 +160,11 @@ namespace RPG_Project
             
         }
 
-        public virtual void InitController()
+        public virtual void InitController(bool player)
         {
             party = GetComponentInParent<PartyManager>();
             health = GetComponentInParent<Health>();
+            ai = GetComponentInParent<AIController>();
 
             anim = GetComponent<Animator>();
 
@@ -177,6 +174,12 @@ namespace RPG_Project
 
             stamina = GetComponent<Stamina>();
             poise = GetComponent<Poise>();
+
+            if (!player)
+            {
+                charHealth = GetComponentInChildren<CharacterHealth>();
+                charHealth.InitUI(this);
+            }
 
             queue = party.ActionQueue;
             lockOn = party.LockOn;
@@ -217,6 +220,8 @@ namespace RPG_Project
 
         void GetInputs()
         {
+            if (ai != null) ai.UpdateSM();
+
             inputMode = InputController.GetInput();
             inputDir = InputController.GetOutputDir1();
         }
@@ -431,6 +436,7 @@ namespace RPG_Project
         public void Die()
         {
             print(89);
+            party.RemovePartyMember(this);
             party.InvokeDeath();
             Destroy(gameObject);
         }

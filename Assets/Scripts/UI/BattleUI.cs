@@ -18,7 +18,7 @@ namespace RPG_Project
             party = player;
 
             charInfo.InitUI(party);
-            shortcuts.InitUI(party);
+            //shortcuts.InitUI(party);
             charAbilities.InitUI(party);
             basicActions.InitUI(party);
         }

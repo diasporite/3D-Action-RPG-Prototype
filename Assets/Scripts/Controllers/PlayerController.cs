@@ -48,9 +48,9 @@ namespace RPG_Project
             //Gizmos.DrawRay(transform.position, 15f * transform.forward);
         }
 
-        public override void InitController()
+        public override void InitController(bool player)
         {
-            base.InitController();
+            base.InitController(true);
         }
 
         #region StateCommands

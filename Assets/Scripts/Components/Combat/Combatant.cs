@@ -89,24 +89,27 @@ namespace RPG_Project
         {
             //character.ChangeHealth(damage);
             health.ChangeResource(-damage);
-            if (health.Empty) csm.ChangeState(controller.DEATH);
+            if (health.Empty) party.ActionQueue.StopActionDeath();
         }
 
         void TakePoiseDamage(int damage)
         {
             character.ChangePoise(-damage);
             poise.ChangeResource(-damage);
-            if (poise.Empty) csm.ChangeState(controller.STAGGER);
+            if (poise.Empty) party.ActionQueue.StopActionStagger();
         }
 
         void TakeDamage(int healthDamage, int poiseDamage)
         {
             health.ChangeResource(-healthDamage);
+
             character.ChangePoise(-poiseDamage);
             poise.ChangeResource(-poiseDamage);
 
-            if (health.Empty) csm.ChangeState(controller.DEATH);
-            else if (poise.Empty) csm.ChangeState(controller.STAGGER);
+            party.InvokeDamage(-healthDamage);
+
+            if (health.Empty) party.ActionQueue.StopActionDeath();
+            else if (poise.Empty) party.ActionQueue.StopActionStagger();
         }
 
         public void ApplyFallDamage(float percent)
@@ -114,8 +117,10 @@ namespace RPG_Project
             var damage = Mathf.RoundToInt(0.01f * Mathf.Abs(percent) * 
                 (float)character.Health.CurrentStatValue);
 
-            TakePoiseDamage(-999);  // Guaranteed stagger
-            TakeHealthDamage(-damage);
+            //TakePoiseDamage(-999);  // Guaranteed stagger
+            //TakeHealthDamage(-damage);
+
+            TakeDamage(damage, 999);
         }
     }
 }

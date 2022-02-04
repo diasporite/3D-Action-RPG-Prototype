@@ -123,6 +123,8 @@ namespace RPG_Project
 
         public void FindTargets()
         {
+            if (Controller == null) return;
+
             foreach (var t in targets.ToArray())
             {
                 if (t == null) targets.Remove(t);
