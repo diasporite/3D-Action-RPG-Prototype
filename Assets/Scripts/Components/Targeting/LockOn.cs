@@ -21,7 +21,7 @@ namespace RPG_Project
 
         PartyManager party;
 
-        CameraController cam;
+        ThirdPersonCameraController cam;
 
         LayerMask targetMask;
 
@@ -61,13 +61,13 @@ namespace RPG_Project
             }
         }
 
-        public CameraController Cam => cam;
+        public ThirdPersonCameraController Cam => cam;
 
         private void Awake()
         {
             party = GetComponent<PartyManager>();
 
-            cam = Camera.main.GetComponent<CameraController>();
+            cam = Camera.main.GetComponent<ThirdPersonCameraController>();
 
             targetMask = LayerMask.GetMask("Targets");
         }
@@ -106,7 +106,7 @@ namespace RPG_Project
             sm.ChangeState(FREE);
         }
 
-        public void LockOntoTarget()
+        public virtual void LockOntoTarget()
         {
             if (Input.GetKeyDown("m"))
             {
@@ -115,7 +115,7 @@ namespace RPG_Project
             }
         }
 
-        public void UnlockFromTarget()
+        public virtual void UnlockFromTarget()
         {
             if (targets.Count <= 0 || Input.GetKeyDown("m"))
                 sm.ChangeState(FREE);

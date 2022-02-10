@@ -6,10 +6,10 @@ namespace RPG_Project
 {
     public class CameraUnlockedState : IState
     {
-        CameraController camera;
+        ThirdPersonCameraController camera;
         StateMachine csm;
 
-        public CameraUnlockedState(CameraController camera)
+        public CameraUnlockedState(ThirdPersonCameraController camera)
         {
             this.camera = camera;
             csm = camera.Sm;

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3300493368550835747}
   - component: {fileID: 3300493368550835746}
   - component: {fileID: 3300493368550835757}
-  - component: {fileID: 3300493368550835756}
   - component: {fileID: 3300493368550835750}
   - component: {fileID: 3300493368550835759}
   - component: {fileID: 3964566145213977552}
@@ -109,22 +108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   party: {fileID: 0}
---- !u!114 &3300493368550835756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3300493368550835758}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4c5a2572c162146a1678c426697d8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 
-  searchRadius: 12
-  currentTarget: 0
-  targets: []
 --- !u!114 &3300493368550835750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +132,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e088c8019ab386640a49135bd21063b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   target: {fileID: 0}
+  dirToTarget: {x: 0, y: 0, z: 0}
+  chaseDist: 8
+  attackDist: 2
+  attackCooldown:
+    cooldown: 1
+    speed: 1
+    count: 0
 --- !u!114 &3964566145213977552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partySize: 1
   data:
-  - charName: 
+  - charName: Blue
     weight: 1
   spawns: []

@@ -7,6 +7,7 @@ PROJECT RESOURCES
   - https://www.youtube.com/watch?v=6ztY9-IX3Qg
 
 NOTES
+- Separate LockOn into PlayerLock and EnemyLock
 
 BUGS
 - Animation events not firing (fixed)
@@ -14,3 +15,5 @@ BUGS
 - Camera jitter when locked
   - Look at lerping
     - https://forum.unity.com/threads/camera-jitter-problem.115224/
+- Camera rotation affects AI movement (fixed)
+  - Rework Movement component

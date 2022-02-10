@@ -34,7 +34,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwordSwing
+  m_Name: BottomRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -432,7 +432,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwordThrust
+  m_Name: BottomLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -458,7 +458,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: Controller
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Run
@@ -609,7 +609,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RifleRapidFire
+  m_Name: TopLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -762,7 +762,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RifleShoot
+  m_Name: TopRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

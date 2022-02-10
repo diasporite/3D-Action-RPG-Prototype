@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace RPG_Project
 {
     // Resource: https://learn.unity.com/tutorial/controlling-unity-camera-behaviour
-    public class CameraController : MonoBehaviour
+    public class ThirdPersonCameraController : MonoBehaviour
     {
         public readonly string UNLOCKED = "unlocked";
         public readonly string LOCKED = "locked";
@@ -14,12 +14,14 @@ namespace RPG_Project
         public Controller player;
         public Transform target;
 
-        [Header("Original Simple Solution")]
+        [Header("Original Solution")]
         public Image reticle;
 
         public float speed = 120;
-        [Range(3, 10)]
+        [Range(3f, 10f)]
         public float camDist = 10;
+        [Range(0f, 5f)]
+        public float camHeight = 2.5f;
         public float thetaXz = 10;
         public float thetaY = 180;
         public float xzMax = 45;
@@ -59,7 +61,6 @@ namespace RPG_Project
             //ahead = new GameObject("Ahead");
             //mr = follow.GetComponent<MeshRenderer>();
 
-            
             camPos = follow.transform.position + camDist * defaultCamOffset.normalized;
 
             sm.AddState(UNLOCKED, new CameraUnlockedState(this));
@@ -118,7 +119,7 @@ namespace RPG_Project
             if (follow != null)
             {
                 camPos.x = follow.position.x + camDist * Mathf.Sin(thetaY * Mathf.Deg2Rad);
-                camPos.y = follow.position.y + camDist * Mathf.Sin(thetaXz * Mathf.Deg2Rad);
+                camPos.y = follow.position.y + camDist * Mathf.Sin(thetaXz * Mathf.Deg2Rad) + camHeight;
                 camPos.z = follow.position.z + camDist * Mathf.Cos(thetaY * Mathf.Deg2Rad);
 
                 transform.position = camPos;
@@ -141,6 +142,7 @@ namespace RPG_Project
                 //camPos.z = 1.5f * ds.z;
 
                 camPos = follow.position - 4.5f * ds.normalized;
+                camPos.y = follow.position.y + camHeight;
 
                 //camPos += targetPlayerOffset;
                 var look = Vector3.Lerp(follow.position, target.position, 0.5f);

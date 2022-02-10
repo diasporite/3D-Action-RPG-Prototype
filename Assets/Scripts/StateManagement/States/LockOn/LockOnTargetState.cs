@@ -11,7 +11,7 @@ namespace RPG_Project
 
         Controller controller;
 
-        CameraController cam;
+        ThirdPersonCameraController cam;
 
         public LockOnTargetState(LockOn lockOn)
         {

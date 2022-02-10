@@ -6,6 +6,7 @@ namespace RPG_Project
     [RequireComponent(typeof(CharacterController), typeof(GroundCheck))]
     public class Movement : MonoBehaviour
     {
+        bool isPlayer = false;
         bool locked = false;
 
         [SerializeField] Vector3 ds;
@@ -99,7 +100,7 @@ namespace RPG_Project
             //if (Input.GetKeyDown("space")) Jump();
         }
 
-        public void InitMovement()
+        public void InitMovement(bool isPlayer)
         {
             //controller = GetComponent<Controller>();
 
@@ -111,6 +112,8 @@ namespace RPG_Project
             //cam = Camera.main.transform;
             combat = GameManager.instance.Combat;
             lockOn = controller.Party.LockOn;
+
+            this.isPlayer = isPlayer;
 
             sqrTerminalSpeed = terminalSpeed * terminalSpeed;
 
@@ -206,9 +209,12 @@ namespace RPG_Project
 
         void MovePositionCartesian(Vector3 dir, float dt)
         {
+            float targetAngle = 0;
+
             dir.Normalize();
 
-            var targetAngle = cam.eulerAngles.y + Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+            targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+            if (isPlayer) targetAngle += cam.eulerAngles.y;
             var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
                 ref turnVelocity, turnTime);
             cc.transform.rotation = Quaternion.Euler(0, angle, 0);

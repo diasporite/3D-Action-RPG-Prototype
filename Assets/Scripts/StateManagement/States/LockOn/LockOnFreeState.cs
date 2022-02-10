@@ -9,7 +9,7 @@ namespace RPG_Project
         LockOn lockOn;
         StateMachine sm;
 
-        CameraController cam;
+        ThirdPersonCameraController cam;
 
         public LockOnFreeState(LockOn lockOn)
         {

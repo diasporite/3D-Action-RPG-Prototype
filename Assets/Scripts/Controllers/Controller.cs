@@ -186,7 +186,7 @@ namespace RPG_Project
             inputController = party.InputController;
 
             combatant.InitCombatant();
-            movement.InitMovement();
+            movement.InitMovement(player);
             ability.InitAbilities();
 
             health.InitResource();

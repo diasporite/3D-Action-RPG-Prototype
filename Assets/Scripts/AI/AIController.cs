@@ -47,6 +47,21 @@ namespace RPG_Project
             }
         }
 
+        // Accounts for camera rotation
+        public Vector3 AbsPlaneDirToTarget
+        {
+            get
+            {
+                var dir = PlaneDirToTarget;
+                var forward = party.CurrentCombatant.transform.forward;
+
+                dir.y = 0;
+                forward.y = 0;
+
+                return party.CurrentCombatant.transform.rotation * dir;
+            }
+        }
+
         public Cooldown AttackCooldown => attackCooldown;
 
         public float SqrChaseDist => sqrChaseDist;
@@ -75,6 +90,15 @@ namespace RPG_Project
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackDist);
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawRay(transform.position, PlaneDirToTarget);
+
+            if (party.CurrentCombatant != null)
+            {
+                Gizmos.color = Color.white;
+                Gizmos.DrawRay(transform.position, party.CurrentCombatant.transform.forward);
+            }
         }
 
         protected void InitSM()

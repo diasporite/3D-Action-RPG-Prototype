@@ -19,7 +19,8 @@ namespace RPG_Project
         {
             if (ai.State == AIState.Attack)
             {
-                ai.AttackCooldown.Tick(Time.deltaTime);
+                if (!party.ActionQueue.Executing)
+                    ai.AttackCooldown.Tick(Time.deltaTime);
 
                 if (ai.AttackCooldown.Full)
                 {
@@ -47,8 +48,10 @@ namespace RPG_Project
             switch (ai.State)
             {
                 case AIState.Chase:
+                    //return ai.AbsPlaneDirToTarget;
                     return ai.PlaneDirToTarget;
                 case AIState.Attack:
+                    //return ai.AbsPlaneDirToTarget;
                     return ai.PlaneDirToTarget;
                 default:
                     return Vector3.zero;

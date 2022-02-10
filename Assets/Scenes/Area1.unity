@@ -442,7 +442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &89323090
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6633,7 +6633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -10}
+  m_LocalPosition: {x: 0, y: 4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 346290730}
@@ -6657,6 +6657,7 @@ MonoBehaviour:
   reticle: {fileID: 187493641}
   speed: 120
   camDist: 6
+  camHeight: 2.5
   thetaXz: 24
   thetaY: 180
   xzMax: 45
@@ -8324,11 +8325,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyParty
-      objectReference: {fileID: 0}
-    - target: {fileID: 3964566145213977552, guid: faa53ec8a6ab1e74fbec455e9cb6bba9,
-        type: 3}
-      propertyPath: data.Array.data[0].charName
-      value: Blue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa53ec8a6ab1e74fbec455e9cb6bba9, type: 3}
@@ -11281,12 +11277,12 @@ PrefabInstance:
     - target: {fileID: 6126759914887007423, guid: ad9bd0330e62a3b46b2c68f6f85db5d8,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 6126759914887007423, guid: ad9bd0330e62a3b46b2c68f6f85db5d8,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad9bd0330e62a3b46b2c68f6f85db5d8, type: 3}
