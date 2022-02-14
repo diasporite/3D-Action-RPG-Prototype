@@ -6,29 +6,33 @@ namespace RPG_Project
 {
     public class MeleeWeapon : Weapon
     {
-        Hitbox hitbox;
+        [SerializeField] Hitbox hitbox;
 
         protected override void Awake()
         {
-            hitbox = GetComponentInChildren<Hitbox>();
+            //hitbox = GetComponentInChildren<Hitbox>();
         }
 
-        public override void InitWeapon(Controller owner)
+        public override void InitWeapon(Controller owner, LayerMask hittables)
         {
-            base.InitWeapon(owner);
+            base.InitWeapon(owner, hittables);
 
-            hitbox.SetController(owner);
+            hitbox.Init(owner, hittables);
+
+            hitbox.gameObject.SetActive(false);
         }
 
         public override void ActivateWeapon()
         {
-            hitbox.SetActive(true);
+            hitbox.gameObject.SetActive(true);
+            //hitbox.SetActive(true);
             print("act");
         }
 
         public override void DeactivateWeapon()
         {
-            hitbox.SetActive(false);
+            hitbox.gameObject.SetActive(false);
+            //hitbox.SetActive(false);
             print("deact");
         }
     }

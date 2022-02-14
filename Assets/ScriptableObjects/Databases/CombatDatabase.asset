@@ -23,15 +23,15 @@ MonoBehaviour:
   weakMultiplier: 1.4
   resistMultiplier: 0.7
   stabMultiplier: 1.2
-  lightweightWalk: 7
-  lightweightRun: 10
-  middleweightWalk: 6
-  middleweightRun: 9
-  heavyweightWalk: 5
-  heavyweightRun: 8
-  staminaRegen: 8
-  staminaRun: -1
+  lightweightWalk: 4.5
+  lightweightRun: 7
+  middleweightWalk: 4
+  middleweightRun: 6
+  heavyweightWalk: 3.5
+  heavyweightRun: 5
+  staminaRegen: 25
+  staminaRun: -12
   poiseRegen: 18
-  jumpSpCost: 6
-  rollSpCost: 9
-  guardSpCost: 12
+  jumpSpCost: 20
+  rollSpCost: 40
+  guardSpCost: 60

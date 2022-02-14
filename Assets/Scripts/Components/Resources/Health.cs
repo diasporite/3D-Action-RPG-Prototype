@@ -34,6 +34,7 @@ namespace RPG_Project
 
             resource._cooldown = hp;
             resource.Count = resourcePoints.PointValue;
+            resource.Speed = currentRegen;
 
             UpdateUI();
         }

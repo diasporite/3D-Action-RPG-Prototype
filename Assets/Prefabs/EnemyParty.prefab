@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 3300493368550835745}
   - component: {fileID: 3300493368550835744}
   - component: {fileID: 3300493368550835747}
+  - component: {fileID: 383677594866285050}
   - component: {fileID: 3300493368550835746}
   - component: {fileID: 3300493368550835757}
+  - component: {fileID: 7315728190684247851}
   - component: {fileID: 3300493368550835750}
   - component: {fileID: 3300493368550835759}
   - component: {fileID: 3964566145213977552}
@@ -66,8 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2759b605e98e7bd4d87db8a0ddf66019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regenerative: 0
-  regenSpeed: 30
+  regenerative: 1
+  regenSpeed: 0.6
   currentRegen: 0
   resourcePoints:
     statValue: 400
@@ -77,6 +79,30 @@ MonoBehaviour:
     cooldown: 100
     speed: 30
     count: 0
+--- !u!114 &383677594866285050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300493368550835758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0bb5d89a001554d993f1cdfa313230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regenerative: 1
+  regenSpeed: 30
+  currentRegen: 0
+  resourcePoints:
+    statValue: 0
+    currentStatValue: 0
+    pointValue: 0
+  resource:
+    cooldown: 100
+    speed: 30
+    count: 0
+  inRecovery: 0
 --- !u!114 &3300493368550835746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +134,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   party: {fileID: 0}
+--- !u!114 &7315728190684247851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300493368550835758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 112d2d5175a000a4f9e1ec15183eaad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 
+  searchRadius: 5
+  currentTarget: 0
+  targets: []
 --- !u!114 &3300493368550835750
 MonoBehaviour:
   m_ObjectHideFlags: 0

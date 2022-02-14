@@ -69,11 +69,11 @@ namespace RPG_Project
             {
                 case StatType.Health:
                     for (int i = 0; i < statAtLv.Length; i++)
-                        statAtLv[i] = ConvertToStatValue(1.3f * (i + 1) * baseStat + 80, 999);
+                        statAtLv[i] = ConvertToStatValue(1.15f * (i + 1) * baseStat + 140, 999);
                     break;
                 case StatType.Stamina:
                     for (int i = 0; i < statAtLv.Length; i++)
-                        statAtLv[i] = ConvertToStatValue(0.07f * (i + 1) * baseStat + 20, 99);
+                        statAtLv[i] = ConvertToStatValue(0.4f * (i + 1) * baseStat + 105, 999);
                     break;
                 case StatType.Poise:
                     for (int i = 0; i < statAtLv.Length; i++)

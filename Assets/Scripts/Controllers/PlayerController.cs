@@ -48,9 +48,9 @@ namespace RPG_Project
             //Gizmos.DrawRay(transform.position, 15f * transform.forward);
         }
 
-        public override void InitController(bool player)
+        public override void InitController(bool player, LayerMask hittables)
         {
-            base.InitController(true);
+            base.InitController(true, hittables);
         }
 
         #region StateCommands

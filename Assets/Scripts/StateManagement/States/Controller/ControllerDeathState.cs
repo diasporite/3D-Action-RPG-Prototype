@@ -27,21 +27,16 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
+            controller.Health.Regenerative = false;
             controller.Stamina.Regenerative = false;
-            controller.Poise.Regenerative = false;
+            //controller.Poise.Regenerative = false;
 
             anim.SetTrigger("Death");
-
-            deathTime = anim.GetCurrentAnimatorStateInfo(0).length;
-            Debug.Log(deathTime + "s");
-            death = new Cooldown(deathTime);
         }
 
         public void ExecuteFrame()
         {
             controller.DeathCommand();
-            death.Tick(Time.deltaTime);
-            if (death.Full) controller.Die();
         }
 
         public void ExecuteFrameFixed()

@@ -16,8 +16,6 @@ GameObject:
   - component: {fileID: 406710400405136233}
   - component: {fileID: 406710400405136240}
   - component: {fileID: 888543359126961423}
-  - component: {fileID: 406710400405136237}
-  - component: {fileID: 406710400405136236}
   m_Layer: 10
   m_Name: Green
   m_TagString: Player
@@ -124,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00732e81f28e64890f2a5d89170098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceTravelled: 0
+  timeSinceStationary: 0
   ds: {x: 0, y: 0, z: 0}
   walkSpeed: 4.5
   runningSpeed: 6.75
@@ -178,6 +178,12 @@ MonoBehaviour:
       statValue: 160
       currentStatValue: 160
       pointValue: 160
+    vitality:
+      statValue: 100
+      currentStatValue: 100
+    endurance:
+      statValue: 25
+      currentStatValue: 25
     attack:
       statValue: 128
       currentStatValue: 128
@@ -252,7 +258,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
       weaponId: 0
       numberOfHits: 3
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -270,7 +276,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
       weaponId: 2
       numberOfHits: 1
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -288,7 +294,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
       weaponId: 0
       numberOfHits: 1
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -306,7 +312,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
       weaponId: 0
       numberOfHits: 1
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -394,53 +400,6 @@ MonoBehaviour:
       healthDps: 0
       poiseDps: 0
     spCost: 0
---- !u!114 &406710400405136237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406710400405136228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0bb5d89a001554d993f1cdfa313230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  regenerative: 1
-  regenSpeed: 5
-  currentRegen: 0
-  resourcePoints:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  resource:
-    cooldown: 100
-    speed: 30
-    count: 0
-  inRecovery: 0
---- !u!114 &406710400405136236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406710400405136228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c258af1cca5e74f9429948f93755ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  regenerative: 1
-  regenSpeed: 25
-  currentRegen: 0
-  resourcePoints:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  resource:
-    cooldown: 100
-    speed: 30
-    count: 0
 --- !u!1 &1439766289649130771
 GameObject:
   m_ObjectHideFlags: 0

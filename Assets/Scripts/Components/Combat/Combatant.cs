@@ -78,8 +78,8 @@ namespace RPG_Project
 
             abilities = GetComponent<AbilityManager>();
 
-            stamina = GetComponent<Stamina>();
-            poise = GetComponent<Poise>();
+            stamina = GetComponentInParent<Stamina>();
+            //poise = GetComponent<Poise>();
 
             character = characterData.Character;
             health = party.PartyHealth;
@@ -104,12 +104,12 @@ namespace RPG_Project
             health.ChangeResource(-healthDamage);
 
             character.ChangePoise(-poiseDamage);
-            poise.ChangeResource(-poiseDamage);
+            //poise.ChangeResource(-poiseDamage);
 
             party.InvokeDamage(-healthDamage);
 
             if (health.Empty) party.ActionQueue.StopActionDeath();
-            else if (poise.Empty) party.ActionQueue.StopActionStagger();
+            else if (stamina.Empty) party.ActionQueue.StopActionStagger();
         }
 
         public void ApplyFallDamage(float percent)
@@ -117,10 +117,9 @@ namespace RPG_Project
             var damage = Mathf.RoundToInt(0.01f * Mathf.Abs(percent) * 
                 (float)character.Health.CurrentStatValue);
 
-            //TakePoiseDamage(-999);  // Guaranteed stagger
-            //TakeHealthDamage(-damage);
-
             TakeDamage(damage, 999);
+
+            party.ActionQueue.StopActionStagger();
         }
     }
 }

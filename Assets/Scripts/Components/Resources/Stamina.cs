@@ -14,6 +14,26 @@ namespace RPG_Project
             set => inRecovery = value;
         }
 
+        protected override void Awake()
+        {
+            party = GetComponent<PartyManager>();
+            combatant = GetComponent<Combatant>();
+
+            currentRegen = regenSpeed;
+        }
+
+        public override void InitResource()
+        {
+            var sp = party.AverageStamina;
+
+            resourcePoints = new PointStat(sp, sp, 3999);
+
+            resource._cooldown = sp;
+            resource.Count = resourcePoints.PointValue;
+
+            UpdateUI();
+        }
+
         protected override void UpdateUI()
         {
             party.InvokeStaminaTick();

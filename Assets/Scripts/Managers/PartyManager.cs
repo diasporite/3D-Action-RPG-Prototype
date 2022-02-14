@@ -26,7 +26,7 @@ namespace RPG_Project
         public event OnStaminaChanged onStaminaChanged;
         public event OnPoiseChanged onPoiseChanged;
 
-        protected int partyCap = 8;
+        protected int partyCap = 4;
         [SerializeField] int currentMember = 0;
         [SerializeField] List<Controller> party = new List<Controller>();
         [SerializeField] List<Controller> activeParty = new List<Controller>();
@@ -35,6 +35,7 @@ namespace RPG_Project
         [SerializeField] Controller currentPartyMember;
 
         Health partyHealth;
+        Stamina partyStamina;
         ActionQueue actionQueue;
         ShortcutRegister shortcuts;
         LockOn lockOn;
@@ -54,10 +55,28 @@ namespace RPG_Project
             }
         }
                 
-        public BattleChar CurrentCharacter => CurrentPartyMember.Combatant.Character;
-        public Combatant CurrentCombatant => CurrentPartyMember.Combatant;
+        public BattleChar CurrentCharacter
+        {
+            get
+            {
+                if (CurrentPartyMember != null)
+                    return CurrentPartyMember.Combatant.Character;
+                return null;
+            }
+        }
+
+        public Combatant CurrentCombatant
+        {
+            get
+            {
+                if (CurrentPartyMember != null)
+                    return CurrentPartyMember.Combatant;
+                return null;
+            }
+        }
 
         public Health PartyHealth => partyHealth;
+        public Stamina PartyStamina => partyStamina;
         public ActionQueue ActionQueue => actionQueue;
         public ShortcutRegister Shortcuts => shortcuts;
         public LockOn LockOn => lockOn;
@@ -77,6 +96,22 @@ namespace RPG_Project
                 return health;
             }
         }
+
+        public int TotalStamina
+        {
+            get
+            {
+                int stamina = 0;
+
+                foreach (var member in activeParty)
+                    if (member != null)
+                        stamina += member.Character.Stamina.CurrentStatValue;
+
+                return stamina;
+            }
+        }
+
+        public int AverageStamina => Mathf.RoundToInt((float)TotalStamina / activeParty.Count);
 
         public Controller GetPartyMember(int index)
         {
@@ -99,6 +134,7 @@ namespace RPG_Project
         private void Awake()
         {
             partyHealth = GetComponent<Health>();
+            partyStamina = GetComponent<Stamina>();
             actionQueue = GetComponent<ActionQueue>();
             shortcuts = GetComponent<ShortcutRegister>();
             lockOn = GetComponent<LockOn>();
@@ -152,6 +188,7 @@ namespace RPG_Project
         public void InitParty()
         {
             partyHealth.InitResource();
+            partyStamina.InitResource();
         }
 
         public void AddPartyMember(Controller member)

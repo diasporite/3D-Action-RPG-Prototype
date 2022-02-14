@@ -4,18 +4,23 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class EnemyLock : MonoBehaviour
+    public class EnemyLock : LockOn
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override void Awake()
         {
+            base.Awake();
 
+            targetMask = LayerMask.GetMask("Targets");
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void LockOntoTarget()
         {
+            base.LockOntoTarget();
+        }
 
+        public override void UnlockFromTarget()
+        {
+            base.UnlockFromTarget();
         }
     }
 }

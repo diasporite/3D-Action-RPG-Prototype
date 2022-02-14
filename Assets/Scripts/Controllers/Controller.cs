@@ -53,6 +53,9 @@ namespace RPG_Project
         protected Stamina stamina;
         protected Poise poise;
 
+        protected HitDetector[] hitDetectors;
+        protected Hurtbox hurtbox;
+
         protected CharacterHealth charHealth;
 
         protected StateMachine sm = new StateMachine();
@@ -122,6 +125,9 @@ namespace RPG_Project
         public Stamina Stamina => stamina;
         public Poise Poise => poise;
 
+        public HitDetector[] HitDetectors => hitDetectors;
+        public Hurtbox Hurtbox => hurtbox;
+
         public BattleChar Character => combatant.Character;
 
         public StateMachine Sm => sm;
@@ -160,11 +166,14 @@ namespace RPG_Project
             
         }
 
-        public virtual void InitController(bool player)
+        public virtual void InitController(bool player, LayerMask hittables)
         {
             party = GetComponentInParent<PartyManager>();
-            health = GetComponentInParent<Health>();
             ai = GetComponentInParent<AIController>();
+
+            health = GetComponentInParent<Health>();
+            stamina = GetComponentInParent<Stamina>();
+            //poise = GetComponentInParent<Poise>();
 
             anim = GetComponent<Animator>();
 
@@ -172,14 +181,14 @@ namespace RPG_Project
             combatant = GetComponent<Combatant>();
             ability = GetComponent<AbilityManager>();
 
-            stamina = GetComponent<Stamina>();
-            poise = GetComponent<Poise>();
-
-            if (!player)
-            {
+            hitDetectors = GetComponentsInChildren<HitDetector>();
+            hurtbox = GetComponentInChildren<Hurtbox>();
+            
+            //if (!player)
+            //{
                 charHealth = GetComponentInChildren<CharacterHealth>();
                 charHealth.InitUI(this);
-            }
+            //}
 
             queue = party.ActionQueue;
             lockOn = party.LockOn;
@@ -187,11 +196,13 @@ namespace RPG_Project
 
             combatant.InitCombatant();
             movement.InitMovement(player);
-            ability.InitAbilities();
+            ability.InitAbilities(hittables);
 
-            health.InitResource();
-            stamina.InitResource();
-            poise.InitResource();
+            hurtbox.Init(this);
+
+            //health.InitResource();
+            //stamina.InitResource();
+            //poise.InitResource();
 
             InitSM();
         }
@@ -229,7 +240,7 @@ namespace RPG_Project
         #region StateCommands
         public virtual void MovementCommand()
         {
-            ResourceTick(Time.deltaTime);
+            stamina.Tick(Time.deltaTime);
 
             switch (inputMode)
             {
@@ -267,7 +278,7 @@ namespace RPG_Project
 
         public virtual void RunCommand()
         {
-            ResourceTick(Time.deltaTime);
+            stamina.Tick(Time.deltaTime);
 
             if (stamina.Empty) sm.ChangeState(RECOVER);
 
@@ -333,7 +344,7 @@ namespace RPG_Project
 
         public virtual void RecoveryCommand()
         {
-            ResourceTick(Time.deltaTime);
+            stamina.Tick(Time.deltaTime);
 
             if (Stamina.Full) sm.ChangeState(MOVE);
 
@@ -392,13 +403,6 @@ namespace RPG_Project
             if (command != null) queue.AddAction(command);
         }
 
-        public void ResourceTick(float dt)
-        {
-            health.Tick(dt);
-            stamina.Tick(dt);
-            poise.Tick(dt);
-        }
-
         public void SetRegen(bool value)
         {
             health.Regenerative = value;
@@ -435,7 +439,7 @@ namespace RPG_Project
 
         public void Die()
         {
-            print(89);
+            //print(89);
             party.RemovePartyMember(this);
             party.InvokeDeath();
             Destroy(gameObject);

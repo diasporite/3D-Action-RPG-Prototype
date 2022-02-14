@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4012377324784288309}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5283076859185392982
 MeshFilter:
@@ -108,7 +108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4012377324784288309}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2410540993899593946
 MonoBehaviour:
@@ -141,8 +141,6 @@ GameObject:
   - component: {fileID: 4012377324784288308}
   - component: {fileID: 4012377324784288301}
   - component: {fileID: 4494172850248752210}
-  - component: {fileID: 4012377324784288304}
-  - component: {fileID: 4012377324784288305}
   m_Layer: 10
   m_Name: Blue
   m_TagString: Player
@@ -161,6 +159,7 @@ Transform:
   m_LocalPosition: {x: 13.18, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5855365572373593185}
   - {fileID: 5291729281861472995}
   - {fileID: 6472251436261879616}
   - {fileID: 1925266055238658279}
@@ -249,6 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00732e81f28e64890f2a5d89170098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceTravelled: 0
+  timeSinceStationary: 0
   ds: {x: 0, y: 0, z: 0}
   walkSpeed: 4.5
   runningSpeed: 6.75
@@ -303,6 +304,12 @@ MonoBehaviour:
       statValue: 160
       currentStatValue: 160
       pointValue: 160
+    vitality:
+      statValue: 100
+      currentStatValue: 100
+    endurance:
+      statValue: 25
+      currentStatValue: 25
     attack:
       statValue: 128
       currentStatValue: 128
@@ -377,7 +384,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
       weaponId: 0
       numberOfHits: 3
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -395,7 +402,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
       weaponId: 2
       numberOfHits: 1
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -413,7 +420,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
       weaponId: 0
       numberOfHits: 1
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -431,7 +438,7 @@ MonoBehaviour:
       animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
       weaponId: 0
       numberOfHits: 1
-      spCost: 3
+      spCost: 30
     skill:
       skillName: 
       staminaCost: 0
@@ -519,53 +526,6 @@ MonoBehaviour:
       healthDps: 0
       poiseDps: 0
     spCost: 0
---- !u!114 &4012377324784288304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012377324784288313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0bb5d89a001554d993f1cdfa313230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  regenerative: 1
-  regenSpeed: 5
-  currentRegen: 0
-  resourcePoints:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  resource:
-    cooldown: 100
-    speed: 30
-    count: 0
-  inRecovery: 0
---- !u!114 &4012377324784288305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012377324784288313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c258af1cca5e74f9429948f93755ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  regenerative: 1
-  regenSpeed: 25
-  currentRegen: 0
-  resourcePoints:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  resource:
-    cooldown: 100
-    speed: 30
-    count: 0
 --- !u!1001 &527941948576359826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -596,7 +556,7 @@ PrefabInstance:
     - target: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6809915445803305682, guid: 9d5a72631338d0e42add1d6dfb504ca4,
         type: 3}
@@ -698,7 +658,7 @@ PrefabInstance:
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
@@ -833,6 +793,81 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4966054112413620801}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5074886414622640178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4012377324784288309}
+    m_Modifications:
+    - target: {fileID: 426398026135598930, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_Name
+      value: Hurtbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 15e4d52ccc10c404f8cd563f0c2b33ee, type: 3}
+--- !u!4 &5855365572373593185 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 5074886414622640178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6369753192332116456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -858,7 +893,7 @@ PrefabInstance:
     - target: {fileID: 4814914806199085327, guid: 4f9d85822df8f99469998230fc2da729,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4814914806199085327, guid: 4f9d85822df8f99469998230fc2da729,
         type: 3}
@@ -951,7 +986,7 @@ PrefabInstance:
     - target: {fileID: 7750481888995871317, guid: 6b6871c5c739b674c8a96da055769f4c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7750481888995871317, guid: 6b6871c5c739b674c8a96da055769f4c,
         type: 3}

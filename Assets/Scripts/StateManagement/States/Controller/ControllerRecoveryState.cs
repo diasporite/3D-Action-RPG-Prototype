@@ -55,7 +55,7 @@ namespace RPG_Project
 
         void Command()
         {
-            controller.ResourceTick(Time.deltaTime);
+            controller.Stamina.Tick(Time.deltaTime);
 
             if (controller.Stamina.Full)
             {

@@ -27,7 +27,7 @@ namespace RPG_Project
         public void Enter(params object[] args)
         {
             controller.Stamina.Regenerative = false;
-            controller.Poise.Regenerative = false;
+            //controller.Poise.Regenerative = false;
 
             weapon.CanDisarm = false;
         }
@@ -50,7 +50,7 @@ namespace RPG_Project
         public void Exit()
         {
             controller.Stamina.Regenerative = true;
-            controller.Poise.Regenerative = true;
+            //controller.Poise.Regenerative = true;
 
             weapon.CanDisarm = true;
         }

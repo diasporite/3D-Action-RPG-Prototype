@@ -7,7 +7,9 @@ PROJECT RESOURCES
   - https://www.youtube.com/watch?v=6ztY9-IX3Qg
 
 NOTES
-- Separate LockOn into PlayerLock and EnemyLock
+- 3rd Person Camera Lock on
+  - Separate LockOn into PlayerLock and EnemyLock
+    - Classes inherit from LockOn
 
 BUGS
 - Animation events not firing (fixed)

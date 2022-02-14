@@ -16,7 +16,7 @@ namespace RPG_Project
 
         }
 
-        public virtual void InitWeapon(Controller owner)
+        public virtual void InitWeapon(Controller owner, LayerMask hittables)
         {
             this.owner = owner;
             ability = owner.Ability;

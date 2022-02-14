@@ -25,7 +25,7 @@ namespace RPG_Project
         public void Enter(params object[] args)
         {
             controller.Mode = ControllerMode.Run;
-
+            controller.Health.Regenerative = false;
             movement.SetRunning(true);
             controller.Stamina.Run(true);
 
@@ -49,6 +49,8 @@ namespace RPG_Project
 
         public void Exit()
         {
+            controller.Health.Regenerative = true;
+
             controller.Stamina.Run(false);
             anim.SetBool("Run", false);
         }

@@ -13,7 +13,7 @@ namespace RPG_Project
         [SerializeField] Text characterName;
 
         [SerializeField] ResourceUI partyHealth;
-        [SerializeField] ResourceUI charStamina;
+        [SerializeField] ResourceUI partyStamina;
         [SerializeField] ResourceUI charPoise;
 
         public override void InitUI(PartyManager player)
@@ -21,7 +21,7 @@ namespace RPG_Project
             base.InitUI(player);
 
             partyHealth.InitUI(player);
-            charStamina.InitUI(player);
+            partyStamina.InitUI(player);
             charPoise.InitUI(player);
 
             SubscribeToDelegates();
@@ -55,22 +55,22 @@ namespace RPG_Project
         void UpdateCharacter(Combatant combatant)
         {
             partyHealth.UpdateCharacter(party.PartyHealth);
-            charStamina.UpdateCharacter(combatant.Stamina);
-            charPoise.UpdateCharacter(combatant.Poise);
+            partyStamina.UpdateCharacter(party.PartyStamina);
+            //charPoise.UpdateCharacter(combatant.Poise);
         }
 
         void UpdateActiveParty()
         {
             partyHealth.UpdateCharacter(party.PartyHealth);
-            charStamina.UpdateCharacter(party.CurrentPartyMember.Stamina);
-            charPoise.UpdateCharacter(party.CurrentPartyMember.Poise);
+            partyStamina.UpdateCharacter(party.PartyStamina);
+            //charPoise.UpdateCharacter(party.CurrentPartyMember.Poise);
         }
 
         void UpdateUI()
         {
             UpdateHealth();
             UpdateStamina();
-            UpdatePoise();
+            //UpdatePoise();
         }
 
         void UpdateHealth()
@@ -80,7 +80,7 @@ namespace RPG_Project
 
         void UpdateStamina()
         {
-            charStamina.UpdateUI();
+            partyStamina.UpdateUI();
         }
 
         void UpdatePoise()

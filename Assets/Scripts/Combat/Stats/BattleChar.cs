@@ -47,8 +47,11 @@ namespace RPG_Project
 
         [Header("Resource Stats")]
         [SerializeField] PointStat health = new PointStat(100, 999);
-        [SerializeField] PointStat stamina = new PointStat(25, 99);
+        [SerializeField] PointStat stamina = new PointStat(250, 999);
         [SerializeField] PointStat poise = new PointStat(50, 99);
+
+        [SerializeField] Stat vitality = new Stat(100, 999);
+        [SerializeField] Stat endurance = new Stat(250, 999);
 
         [Header("Attack Stats")]
         [SerializeField] Stat attack = new Stat(100, 255);
@@ -87,6 +90,9 @@ namespace RPG_Project
         public float StaminaResource { get; set; }
         public float PoiseResource { get; set; }
 
+        public Stat Vitality => vitality;
+        public Stat Endurance => endurance;
+
         public Stat Attack => attack;
         public Stat Defence => defence;
         //public Stat _speed => speed;
@@ -116,9 +122,13 @@ namespace RPG_Project
         public int Pp => poise.CurrentStatValue;
         public float PpFraction => poise.PointFraction;
 
+        public int Vit => vitality.CurrentStatValue;
+        public int End => endurance.CurrentStatValue;
+
         public int Atk => attack.CurrentStatValue;
         public int Def => defence.CurrentStatValue;
         //public int Spd => speed.CurrentStatValue;
+        public int Wt => weight.CurrentStatValue;
         #endregion
 
         #region Constructors and Init

@@ -75,22 +75,31 @@ namespace RPG_Project
             controller = GetComponent<Controller>();
         }
 
-        private void Start()
-        { 
+        //private void Start()
+        //{ 
+        //    csm = controller.Sm;
+        //    anim = controller.Anim;
+        //    lockOn = controller.LockOn;
+
+        //    foreach (var weapon in weapons)
+        //        weapon.InitWeapon(controller);
+
+        //    ammunition = new PointStat(gunAmmo, gunAmmo, 99);
+
+        //    InitAbilities();
+        //}
+
+        public void InitAbilities(LayerMask hittables)
+        {
             csm = controller.Sm;
             anim = controller.Anim;
             lockOn = controller.LockOn;
 
             foreach (var weapon in weapons)
-                weapon.InitWeapon(controller);
+                weapon.InitWeapon(controller, hittables);
 
             ammunition = new PointStat(gunAmmo, gunAmmo, 99);
 
-            InitAbilities();
-        }
-
-        public void InitAbilities()
-        {
             topLeftAbility.InitAbility("TopLeft");
             topRightAbility.InitAbility("TopRight");
             bottomLeftAbility.InitAbility("BottomLeft");

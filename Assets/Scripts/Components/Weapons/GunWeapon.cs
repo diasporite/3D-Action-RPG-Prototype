@@ -20,15 +20,18 @@ namespace RPG_Project
             muzzle.gameObject.SetActive(false);
         }
 
-        public override void InitWeapon(Controller owner)
+        public override void InitWeapon(Controller owner, LayerMask hittables)
         {
-            base.InitWeapon(owner);
+            base.InitWeapon(owner, hittables);
+
+            ray.Init(owner, hittables, 10f);
         }
 
         public override void ActivateWeapon()
         {
+            print("aw");
             ray.CastRay(muzzle.position);
-            ability.ChangeGunAmmo(-1);
+            //ability.ChangeGunAmmo(-1);
 
             //StartCoroutine(MuzzleFlashCo());
         }

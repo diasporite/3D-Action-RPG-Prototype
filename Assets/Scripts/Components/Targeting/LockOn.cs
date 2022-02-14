@@ -14,16 +14,16 @@ namespace RPG_Project
 
         [SerializeField] string currentState;
 
-        [SerializeField] float searchRadius = 5f;
+        [SerializeField] protected float searchRadius = 5f;
 
-        [SerializeField] int currentTarget = 0;
-        [SerializeField] List<Target> targets = new List<Target>();
+        [SerializeField] protected int currentTarget = 0;
+        [SerializeField] protected List<Target> targets = new List<Target>();
 
-        PartyManager party;
+        protected PartyManager party;
 
-        ThirdPersonCameraController cam;
+        protected ThirdPersonCameraController cam;
 
-        LayerMask targetMask;
+        protected LayerMask targetMask;
 
         public readonly StateMachine sm = new StateMachine();
 
@@ -63,7 +63,7 @@ namespace RPG_Project
 
         public ThirdPersonCameraController Cam => cam;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             party = GetComponent<PartyManager>();
 

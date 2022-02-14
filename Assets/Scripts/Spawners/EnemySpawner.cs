@@ -39,7 +39,7 @@ namespace RPG_Project
                     Quaternion.identity) as GameObject;
                 var controller = obj.GetComponent<Controller>();
                 obj.transform.SetParent(transform);
-                controller.InitController(false);
+                controller.InitController(false, LayerMask.GetMask("Player", "Destructibles"));
                 party.AddPartyMember(controller);
             }
 

@@ -16,7 +16,7 @@ TagManager:
   - 
   - Ground
   - 
-  - Combatants
+  - Enemies
   - 
   - Player
   - 
@@ -24,9 +24,9 @@ TagManager:
   - 
   - Destructibles
   - 
+  - Hurtboxes
   - 
-  - 
-  - 
+  - Hitboxes
   - 
   - 
   - 

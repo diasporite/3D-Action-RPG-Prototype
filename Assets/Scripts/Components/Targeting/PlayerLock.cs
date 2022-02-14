@@ -4,16 +4,27 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class PlayerLock : MonoBehaviour
+    public class PlayerLock : LockOn
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override void Awake()
         {
+            base.Awake();
 
+            cam = Camera.main.GetComponent<ThirdPersonCameraController>();
+
+            targetMask = LayerMask.GetMask("Targets");
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void LockOntoTarget()
+        {
+            if (Input.GetKeyDown("m"))
+            {
+                FindTargets();
+                if (targets.Count > 0) sm.ChangeState(LOCKED);
+            }
+        }
+
+        public override void UnlockFromTarget()
         {
 
         }
