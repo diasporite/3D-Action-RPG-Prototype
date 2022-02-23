@@ -5,6 +5,8 @@ PROJECT RESOURCES
   - https://learn.unity.com/tutorial/controlling-unity-camera-behaviour
 - Building UI
   - https://www.youtube.com/watch?v=6ztY9-IX3Qg
+- Camera lock on
+  - https://stackoverflow.com/questions/66876106/unity3d-cinemachine-how-can-i-lock-onto-an-enemy-dark-souls-style
 
 NOTES
 - 3rd Person Camera Lock on

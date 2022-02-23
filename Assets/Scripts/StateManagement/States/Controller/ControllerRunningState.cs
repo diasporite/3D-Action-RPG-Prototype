@@ -26,6 +26,8 @@ namespace RPG_Project
         {
             controller.Mode = ControllerMode.Run;
             controller.Health.Regenerative = false;
+            controller.Stamina.CurrentRegen = GameManager.instance.combat.staminaRunRegen;
+
             movement.SetRunning(true);
             controller.Stamina.Run(true);
 

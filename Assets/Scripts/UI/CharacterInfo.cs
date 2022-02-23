@@ -29,22 +29,22 @@ namespace RPG_Project
 
         protected override void SubscribeToDelegates()
         {
-            party.onCharacterChanged += SetCharName;
-            party.onCharacterChanged += UpdateCharacter;
+            party.OnCharacterChanged += SetCharName;
+            party.OnCharacterChanged += UpdateCharacter;
 
-            party.onHealthTick += UpdateHealth;
-            party.onStaminaTick += UpdateStamina;
-            party.onPoiseTick += UpdatePoise;
+            party.OnHealthChange += UpdateHealth;
+            party.OnStaminaChange += UpdateStamina;
+            party.OnPoiseChange += UpdatePoise;
         }
 
         protected override void UnsubscribeFromDelegates()
         {
-            party.onCharacterChanged -= SetCharName;
-            party.onCharacterChanged -= UpdateCharacter;
+            party.OnCharacterChanged -= SetCharName;
+            party.OnCharacterChanged -= UpdateCharacter;
 
-            party.onHealthTick -= UpdateHealth;
-            party.onStaminaTick -= UpdateStamina;
-            party.onPoiseTick -= UpdatePoise;
+            party.OnHealthChange -= UpdateHealth;
+            party.OnStaminaChange -= UpdateStamina;
+            party.OnPoiseChange -= UpdatePoise;
         }
 
         void SetCharName(Combatant combatant)

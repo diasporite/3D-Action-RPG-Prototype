@@ -49,6 +49,8 @@ namespace RPG_Project
 
         CombatDatabase combat;
 
+        public bool Locked => locked;
+
         public Vector3 Ds => ds;
 
         public float Speed
@@ -189,10 +191,10 @@ namespace RPG_Project
         // Source: https://www.youtube.com/watch?v=4HpC--2iowE
         public void MovePosition(Vector3 dir, float dt)
         {
-            if (!locked && dir != Vector3.zero)
+            if (!locked)
             {
-                if (lockOn.LockedOn) MovePositionPolar(dir, dt, lockOn.CurrentTargetPos);
-                else MovePositionCartesian(dir, dt);
+                if (lockOn.CurrentlyLocked) MovePositionLocked(dir, dt, lockOn.CurrentTargetPos);
+                else MovePositionFree(dir, dt);
 
                 //if (lockOn.LockedOn) transform.LookAt(lockOn.CurrentTarget.transform);
                 //if (lockOn.LockedOn) lockOn.LookAtTarget(transform);
@@ -201,31 +203,35 @@ namespace RPG_Project
             //FallPosition(dt);
         }
 
-        void MovePositionCartesian(Vector3 dir, float dt)
+        void MovePositionFree(Vector3 dir, float dt)
         {
-            float targetAngle = 0;
+            var angle = 0f;
+            var targetAngle = 0f;
 
             dir.Normalize();
 
             targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
             if (isPlayer) targetAngle += cam.eulerAngles.y;
-            var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
-                ref turnVelocity, turnTime);
-            cc.transform.rotation = Quaternion.Euler(0, angle, 0);
+
+            if (dir != Vector3.zero)
+            {
+                angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
+                    ref turnVelocity, turnTime);
+                cc.transform.rotation = Quaternion.Euler(0, angle, 0);
+            }
 
             ds = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
             ds.y -= Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
 
-            cc.Move(currentSpeed * ds.normalized * Time.deltaTime);
-
             if (dir != Vector3.zero)
             {
+                cc.Move(currentSpeed * ds.normalized * Time.deltaTime);
                 distanceTravelled += currentSpeed * Time.deltaTime;
                 controller.Health.Tick(Time.deltaTime);
             }
         }
 
-        void MovePositionPolar(Vector3 dir, float dt, Vector3 centre)
+        void MovePositionLocked(Vector3 dir, float dt, Vector3 centre)
         {
             dir.Normalize();
 
@@ -235,10 +241,9 @@ namespace RPG_Project
 
             ds = dsr + dsy + dst;
 
-            cc.Move(currentSpeed * ds.normalized * Time.deltaTime);
-
             if (dir != Vector3.zero)
             {
+                cc.Move(currentSpeed * ds.normalized * Time.deltaTime);
                 distanceTravelled += currentSpeed * Time.deltaTime;
                 controller.Health.Tick(Time.deltaTime);
             }

@@ -56,6 +56,8 @@ namespace RPG_Project
 
         public void OnDamage(int baseDamage, BattleChar instigator)
         {
+            if (controller.Mode == ControllerMode.Death) return;
+
             var healthDamage = GameManager.instance.Combat.GetDamage(baseDamage, instigator.Attack, Character.Defence);
             var poiseDamage = GameManager.instance.Combat.GetDamage(Mathf.RoundToInt(0.4f * baseDamage), instigator.Attack, Character.Defence);
 
@@ -67,6 +69,8 @@ namespace RPG_Project
 
         public IEnumerator OnDamageCo(int baseDamage, BattleChar instigator)
         {
+            if (controller.Mode == ControllerMode.Death) yield break;
+
             yield return null;
         }
 
@@ -94,16 +98,17 @@ namespace RPG_Project
 
         void TakePoiseDamage(int damage)
         {
-            character.ChangePoise(-damage);
+            //character.ChangePoise(-damage);
             poise.ChangeResource(-damage);
             if (poise.Empty) party.ActionQueue.StopActionStagger();
         }
 
-        void TakeDamage(int healthDamage, int poiseDamage)
+        void TakeDamage(int healthDamage, int staminaDamage)
         {
             health.ChangeResource(-healthDamage);
+            stamina.ChangeResource(-staminaDamage);
 
-            character.ChangePoise(-poiseDamage);
+            //character.ChangePoise(-poiseDamage);
             //poise.ChangeResource(-poiseDamage);
 
             party.InvokeDamage(-healthDamage);
@@ -115,9 +120,9 @@ namespace RPG_Project
         public void ApplyFallDamage(float percent)
         {
             var damage = Mathf.RoundToInt(0.01f * Mathf.Abs(percent) * 
-                (float)character.Health.CurrentStatValue);
+                (float)party.PartyHealth.ResourcePoints.CurrentStatValue);
 
-            TakeDamage(damage, 999);
+            TakeDamage(damage, 0);
 
             party.ActionQueue.StopActionStagger();
         }

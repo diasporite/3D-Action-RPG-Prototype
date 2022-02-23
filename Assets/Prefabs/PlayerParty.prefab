@@ -145,8 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88b3fdecdfb09e4d91a7f64d9fdc00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
-  searchRadius: 5
+  active: 0
+  currentlyLocked: 0
+  searchRadius: 12
+  searchFrequency: 10
   currentTarget: 0
   targets: []
 --- !u!114 &3882742282814432742

@@ -94,10 +94,13 @@ namespace RPG_Project
             Gizmos.color = Color.black;
             Gizmos.DrawRay(transform.position, PlaneDirToTarget);
 
-            if (party.CurrentCombatant != null)
+            if (party != null)
             {
-                Gizmos.color = Color.white;
-                Gizmos.DrawRay(transform.position, party.CurrentCombatant.transform.forward);
+                if (party.CurrentCombatant != null)
+                {
+                    Gizmos.color = Color.white;
+                    Gizmos.DrawRay(transform.position, party.CurrentCombatant.transform.forward);
+                }
             }
         }
 
@@ -118,7 +121,7 @@ namespace RPG_Project
 
         public void CalculateDistance()
         {
-            dirToTarget = target.position - party.CurrentPartyMember.transform.position;
+            dirToTarget = target.position - party.CurrentController.transform.position;
 
             sqrDist = dirToTarget.sqrMagnitude;
         }

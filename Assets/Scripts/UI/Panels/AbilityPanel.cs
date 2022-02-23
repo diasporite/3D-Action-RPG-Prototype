@@ -7,7 +7,7 @@ namespace RPG_Project
 {
     public class AbilityPanel : UIPanel
     {
-        public AbilityOrientation orientation;
+        public int index;
         [SerializeField] Ability ability;
 
         [SerializeField] Image element;
@@ -26,14 +26,14 @@ namespace RPG_Project
             base.UpdateUI();
 
             skillName.text = ability.skill.SkillName;
-            spCost.text = "SP " + ability.SpCost;
+            spCost.text = ability.SpCost + " SP";
             uses.text = ability.skill.Uses.PointValue + "/" +
                 ability.skill.Uses.CurrentStatValue;
         }
 
         public void UpdatePanel(Combatant combatant)
         {
-            var ability = combatant.Abilities.GetAbility(orientation);
+            var ability = combatant.Abilities.GetAbility(index);
             this.ability = ability;
 
             UpdateUI();

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bacedda16d6c044a72588b399ac4c1, type: 3}
+  m_Name: RegularAttack
+  m_EditorClassIdentifier: 
+  skillName: Regular Attack
+  element: 1
+  type: 0
+  staminaCost: 25
+  uses: 30
+  damageEffect:
+    used: 1
+    numOfHits: 1
+    healthDps: 40
+    staminaDps: 24
+    healthDamage: 1
+    staminaDamage: 1
+  buffEffect:
+    used: 0
+    buffPercent: 0

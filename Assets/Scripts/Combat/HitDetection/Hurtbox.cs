@@ -13,12 +13,14 @@ namespace RPG_Project
 
     public class Hurtbox : MonoBehaviour
     {
+        [SerializeField] bool weakpoint = false;
+
+        public HurtboxState state;
+
         Controller controller;
         Combatant combatant;
 
         Destructible destructible;
-
-        public HurtboxState state;
 
         public void Init(Controller controller)
         {
@@ -36,25 +38,34 @@ namespace RPG_Project
             if (other.transform.root == transform.root) return;
 
             var multiplier = 1f;
-            var hitter = other.GetComponent<HitDetector>();
+            var hitter = other.GetComponent<Hitbox>();
 
-            // Get instigator info from hitter
-            //print(controller);
-
-            switch (state)
+            if (hitter != null)
             {
-                case HurtboxState.Resist:
-                    multiplier = 0.7f;
-                    break;
-                case HurtboxState.Weak:
-                    multiplier = 1.4f;
-                    break;
-            }
+                //if (!hitter.AlreadyHit(this))
+                //{
+                    if (weakpoint) multiplier = 1.4f;
 
-            if (combatant != null)
-                combatant.OnDamage(Mathf.RoundToInt(multiplier * 50), combatant.Character);
-            else if (destructible != null)
-                destructible.OnDamage(Mathf.RoundToInt(multiplier * 50), null);
+                    //hitter.AddHit(this);
+
+                    // Get instigator info from hitter
+
+                    switch (state)
+                    {
+                        case HurtboxState.Resist:
+                            multiplier = 0.7f;
+                            break;
+                        case HurtboxState.Weak:
+                            multiplier = 1.4f;
+                            break;
+                    }
+
+                    if (combatant != null)
+                        combatant.OnDamage(Mathf.RoundToInt(multiplier * 30), combatant.Character);
+                    else if (destructible != null)
+                        destructible.OnDamage(Mathf.RoundToInt(multiplier * 50), null);
+                //}
+            }
         }
     }
 }

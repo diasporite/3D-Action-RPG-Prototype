@@ -1,74 +1,50 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RPG_Project
 {
-    public enum AbilityOrientation
-    {
-        Special = 0,
-        TopLeft = 1,
-        TopRight = 2,
-        BottomLeft = 3,
-        BottomRight = 4,
-    }
-
     public class AbilityManager : MonoBehaviour
     {
-        public event Action onAmmoUse;
-
-        bool canDisarm = true;
-
         [Header("Weapons")]
         [SerializeField] Weapon[] weapons;
 
+        [Header("Actions")]
+        [SerializeField] CombatAction[] actions;
+
+        [Header("Current Skills")]
+        [SerializeField] SkillData[] skills;
+
         [Header("Abilities")]
-        [SerializeField] Ability topLeftAbility;
-        [SerializeField] Ability topRightAbility;
-        [SerializeField] Ability bottomLeftAbility;
-        [SerializeField] Ability bottomRightAbility;
+        [SerializeField] int currentAbilityIndex = 0;
+        [SerializeField] Ability[] abilities;
+        Ability currentAbility;
+
+        string[] triggers = new string[4] { "TopLeft", "TopRight", "BottomLeft", "BottomRight" };
 
         [Header("Special Actions")]
         [SerializeField] Ability jumpAbility = new Ability("SpecialAction");
         [SerializeField] Ability rollAbility = new Ability("SpecialAction");
         [SerializeField] Ability guardAbility = new Ability("SpecialAction");
 
-        [Header("Resources")]
-        [SerializeField] int gunAmmo = 10;
-        [SerializeField] PointStat ammunition;
-
-        [SerializeField] Ability currentAbility;
-
-        Dictionary<AbilityOrientation, Ability> abilityDict = new Dictionary<AbilityOrientation, Ability>();
-
         Controller controller;
         StateMachine csm;
         Animator anim;
         LockOn lockOn;
 
-        public bool CanDisarm
-        {
-            get => canDisarm;
-            set => canDisarm = value;
-        }
-
-        public Ability TopLeftAbility => topLeftAbility;
-        public Ability TopRightAbility => topRightAbility;
-        public Ability BottomLeftAbility => bottomLeftAbility;
-        public Ability BottomRightAbility => bottomRightAbility;
-
         public Ability JumpAbility => jumpAbility;
         public Ability RollAbility => rollAbility;
         public Ability GuardAbility => guardAbility;
 
-        public Ability CurrentAbility => currentAbility;
-        public Weapon CurrentWeapon => currentAbility.action.weapon;
-
-        public Ability GetAbility(AbilityOrientation ability)
+        public Ability CurrentAbility
         {
-            return abilityDict[ability];
+            get => abilities[currentAbilityIndex];
+            set => currentAbility = value;
         }
+
+        public Skill CurrentSkillEffect => CurrentAbility.skill;
 
         private void Awake()
         {
@@ -98,58 +74,25 @@ namespace RPG_Project
             foreach (var weapon in weapons)
                 weapon.InitWeapon(controller, hittables);
 
-            ammunition = new PointStat(gunAmmo, gunAmmo, 99);
+            abilities = new Ability[4];
 
-            topLeftAbility.InitAbility("TopLeft");
-            topRightAbility.InitAbility("TopRight");
-            bottomLeftAbility.InitAbility("BottomLeft");
-            bottomRightAbility.InitAbility("BottomRight");
+            for(int i = 0; i < 4; i++)
+                abilities[i] = skills[i].GetSkill().GetAbility(triggers[i], actions[i]);
 
-            abilityDict.Clear();
-
-            abilityDict.Add(AbilityOrientation.TopLeft, topLeftAbility);
-            abilityDict.Add(AbilityOrientation.TopRight, topRightAbility);
-            abilityDict.Add(AbilityOrientation.BottomLeft, bottomLeftAbility);
-            abilityDict.Add(AbilityOrientation.BottomRight, bottomRightAbility);
-
-            currentAbility = topRightAbility;
-        }
-
-        public void SetCurrentAbility(Ability ability)
-        {
-            currentAbility = ability;
-        }
-
-        public void ChangeGunAmmo(int amount)
-        {
-            ammunition.PointValue += amount;
-
-            onAmmoUse?.Invoke();
-        }
-
-        public void ActivateWeapon()
-        {
-            currentAbility.action.weapon.ActivateWeapon();
-        }
-
-        public void DeactivateWeapon()
-        {
-            currentAbility.action.weapon.DeactivateWeapon();
+            currentAbilityIndex = 0;
         }
 
         public Ability GetAbility(int index)
         {
             index = Mathf.Abs(index);
-            index = index % 4;
+            index = index % abilities.Length;
 
-            switch (index)
-            {
-                case 0: return topLeftAbility;
-                case 1: return topRightAbility;
-                case 2: return bottomLeftAbility;
-                case 3: return bottomRightAbility;
-                default: return null;
-            }
+            return abilities[index];
+        }
+
+        public void SetAbility(Ability ability)
+        {
+            CurrentAbility = ability;
         }
 
         public Ability GetSpecialAction(WeightClass weight)

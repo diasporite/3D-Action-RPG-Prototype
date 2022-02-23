@@ -11,6 +11,8 @@ namespace RPG_Project
         public AbilityPanel bottomLeftAbility;
         public AbilityPanel bottomRightAbility;
 
+        public AbilityPanel[] abilityPanels;
+
         public override void InitUI(PartyManager party)
         {
             base.InitUI(party);
@@ -22,12 +24,12 @@ namespace RPG_Project
 
         protected override void SubscribeToDelegates()
         {
-            party.onCharacterChanged += UpdateAbilities;
+            party.OnCharacterChanged += UpdateAbilities;
         }
 
         protected override void UnsubscribeFromDelegates()
         {
-            party.onCharacterChanged -= UpdateAbilities;
+            party.OnCharacterChanged -= UpdateAbilities;
         }
 
         void UpdateAbilities(Combatant combatant)
@@ -36,6 +38,9 @@ namespace RPG_Project
             topRightAbility.UpdatePanel(combatant);
             bottomLeftAbility.UpdatePanel(combatant);
             bottomRightAbility.UpdatePanel(combatant);
+
+            foreach (var panel in abilityPanels)
+                panel.UpdatePanel(combatant);
         }
     }
 }

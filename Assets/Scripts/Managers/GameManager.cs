@@ -10,11 +10,14 @@ namespace RPG_Project
 
         public bool Paused { get; private set; }
 
+        [Header("Time")]
         [SerializeField] float inGameTime = 0;
         [SerializeField] float realTime = 0;
 
+        [Header("Databases")]
         public CharDatabase characters;
         public CombatDatabase combat;
+        public SkillDatabase skill;
 
         UIManager ui;
 
@@ -33,6 +36,7 @@ namespace RPG_Project
 
             characters.InitDatabase();
             combat.InitDatabase();
+            skill.InitDatabase();
 
             ui = FindObjectOfType<UIManager>();
 

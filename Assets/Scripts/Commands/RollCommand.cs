@@ -8,6 +8,8 @@ namespace RPG_Project
     {
         public RollCommand(Controller controller) : base(controller)
         {
+            dir = controller.transform.forward;
+
             actionName = "roll";
         }
 
@@ -22,7 +24,12 @@ namespace RPG_Project
         {
             controller.Mode = ControllerMode.Roll;
 
-            //controller.transform.LookAt(controller.transform.position + dir, Vector3.up);
+            dir.y = 0;
+            if (dir == Vector3.zero) dir = controller.transform.forward;
+
+            if (controller.LockOn.CurrentlyLocked)
+                controller.transform.forward = controller.transform.rotation * dir.normalized;
+            else controller.transform.forward = dir.normalized;
 
             anim.SetTrigger("SpecialAction");
 

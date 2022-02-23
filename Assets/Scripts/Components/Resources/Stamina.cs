@@ -26,7 +26,7 @@ namespace RPG_Project
         {
             var sp = party.AverageStamina;
 
-            resourcePoints = new PointStat(sp, sp, 3999);
+            resourcePoints = new PointStat(sp, sp, 999);
 
             resource._cooldown = sp;
             resource.Count = resourcePoints.PointValue;
@@ -39,22 +39,9 @@ namespace RPG_Project
             party.InvokeStaminaTick();
         }
 
-        public override void SaveToCharacter()
-        {
-            character.Stamina.PointValue = resourcePoints.PointValue;
-            character.StaminaResource = resource.Count;
-        }
-
-        public override void LoadFromCharacter()
-        {
-            resourcePoints = character.Stamina;
-            resource._cooldown = resourcePoints.CurrentStatValue;
-            resource.Count = resourcePoints.PointValue;
-        }
-
         public void Run(bool value)
         {
-            if (value) CurrentRegen = GameManager.instance.Combat.staminaRun;
+            if (value) CurrentRegen = GameManager.instance.Combat.staminaRunRegen;
             else CurrentRegen = GameManager.instance.Combat.staminaRegen;
         }
     }

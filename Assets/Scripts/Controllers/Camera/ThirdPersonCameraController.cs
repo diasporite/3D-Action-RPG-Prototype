@@ -11,44 +11,50 @@ namespace RPG_Project
         public readonly string UNLOCKED = "unlocked";
         public readonly string LOCKED = "locked";
 
-        public Controller player;
+        public string currentState;
+
+        public Transform follow;
         public Transform target;
 
         [Header("Original Solution")]
         public Image reticle;
 
         public float speed = 120;
-        [Range(3f, 10f)]
-        public float camDist = 10;
+        [Range(2f, 6f)]
+        public float camDist = 4f;
         [Range(0f, 5f)]
         public float camHeight = 2.5f;
-        public float thetaXz = 10;
-        public float thetaY = 180;
-        public float xzMax = 45;
-        public float xzMin = -10;
+
         public Vector3 defaultCamOffset = new Vector3(0, 2, -8);
-        Vector3 camPos;
+        Vector3 targetPos;
         public Vector3 targetPlayerOffset = new Vector3(5, 0, 5);
 
-        public string currentState;
+        public float updateSpeed = 50f;
 
         public Vector3 lastViewedPosition;
+
+        public float thetaXz = 10;
+        public float thetaY = 180;
+        float xzMax = 30;
+        float xzMin = -30;
 
         public Target LockedTarget { get; set; }
         public LockOn lockOn { get; set; }
 
-        [Header("Unity Tutorial")]
-        public Transform follow;
-        public float maxDistance = 10;
-        public float moveSpeed = 20;
-        public float updateSpeed = 10;
-        [Range(0, 10)]
-        public float currentDistance = 5;
-        public float hideDistance = 1.5f;
+        PlayerLock playerLock;
 
-        string moveAxis = "Mouse ScrollWheel";
-        GameObject ahead;
-        MeshRenderer mr;
+        [Header("Unity Tutorial")]
+        //public Transform follow;
+        //public float maxDistance = 10;
+        //public float moveSpeed = 20;
+        //public float updateSpeed = 10;
+        //[Range(0, 10)]
+        //public float currentDistance = 5;
+        //public float hideDistance = 1.5f;
+
+        //string moveAxis = "Mouse ScrollWheel";
+        //GameObject ahead;
+        //MeshRenderer mr;
 
         StateMachine sm = new StateMachine();
 
@@ -61,7 +67,10 @@ namespace RPG_Project
             //ahead = new GameObject("Ahead");
             //mr = follow.GetComponent<MeshRenderer>();
 
-            camPos = follow.transform.position + camDist * defaultCamOffset.normalized;
+            targetPos = follow.transform.position + camDist * defaultCamOffset.normalized;
+            lastViewedPosition = targetPos;
+
+            lockOn = FindObjectOfType<PlayerLock>();
 
             sm.AddState(UNLOCKED, new CameraUnlockedState(this));
             sm.AddState(LOCKED, new CameraLockedState(this));
@@ -91,15 +100,15 @@ namespace RPG_Project
 
         public void Follow3D()
         {
-            ahead.transform.position = follow.position + follow.forward * maxDistance * 0.25f;
-            currentDistance += Input.GetAxisRaw(moveAxis) * moveSpeed * Time.deltaTime;
-            currentDistance = Mathf.Clamp(currentDistance, 0, maxDistance);
-            transform.position = Vector3.MoveTowards(transform.position,
-                follow.position + Vector3.up * currentDistance -
-                follow.forward * (currentDistance + maxDistance * 0.5f),
-                updateSpeed * Time.deltaTime);
-            transform.LookAt(ahead.transform);
-            mr.enabled = currentDistance > hideDistance;
+            //ahead.transform.position = follow.position + follow.forward * maxDistance * 0.25f;
+            //currentDistance += Input.GetAxisRaw(moveAxis) * moveSpeed * Time.deltaTime;
+            //currentDistance = Mathf.Clamp(currentDistance, 0, maxDistance);
+            //transform.position = Vector3.MoveTowards(transform.position,
+            //    follow.position + Vector3.up * currentDistance -
+            //    follow.forward * (currentDistance + maxDistance * 0.5f),
+            //    updateSpeed * Time.deltaTime);
+            //transform.LookAt(ahead.transform);
+            //mr.enabled = currentDistance > hideDistance;
         }
 
         public void RotateCamera()
@@ -118,12 +127,14 @@ namespace RPG_Project
         {
             if (follow != null)
             {
-                camPos.x = follow.position.x + camDist * Mathf.Sin(thetaY * Mathf.Deg2Rad);
-                camPos.y = follow.position.y + camDist * Mathf.Sin(thetaXz * Mathf.Deg2Rad) + camHeight;
-                camPos.z = follow.position.z + camDist * Mathf.Cos(thetaY * Mathf.Deg2Rad);
+                targetPos.x = follow.position.x - camDist * Mathf.Sin(thetaY * Mathf.Deg2Rad);
+                targetPos.y = follow.position.y + camDist * Mathf.Sin(thetaXz * Mathf.Deg2Rad) + camHeight;
+                targetPos.z = follow.position.z - camDist * Mathf.Cos(thetaY * Mathf.Deg2Rad);
 
-                transform.position = camPos;
-                transform.LookAt(follow);
+                //transform.position = targetPos;
+                //transform.LookAt(follow);
+
+                SmoothFollow();
             }
         }
 
@@ -133,31 +144,48 @@ namespace RPG_Project
             {
                 var ds = target.position - follow.position;
 
-                if (ds.sqrMagnitude > 144) sm.ChangeState(UNLOCKED);
+                //if (ds.sqrMagnitude > lockOn.SqrSearchRadius) sm.ChangeState(UNLOCKED);
 
                 ds.y -= ds.magnitude * Mathf.Sin(10f * Mathf.Deg2Rad);
 
-                //camPos.x = 1.5f * ds.x;
-                //camPos.y = 1.5f * ds.y;
-                //camPos.z = 1.5f * ds.z;
-
-                camPos = follow.position - 4.5f * ds.normalized;
-                camPos.y = follow.position.y + camHeight;
+                targetPos = follow.position - 4.5f * ds.normalized;
+                targetPos.y = follow.position.y + camHeight;
+                targetPos += 1.5f * transform.right;
 
                 //camPos += targetPlayerOffset;
-                var look = Vector3.Lerp(follow.position, target.position, 0.5f);
-
-                transform.position = camPos;
-                transform.position += 3f * transform.right;
-                transform.LookAt(target);
-
-                lastViewedPosition = target.position;
+                //var look = Vector3.Lerp(follow.position, target.position, 0.5f);
+                SmoothFollow();
             }
         }
 
-        public void UpdateFollow(Combatant combatant)
+        public void FollowTarget2()
         {
-            follow = combatant.transform;
+            if (follow != null && target != null)
+            {
+                var ds = target.position - follow.position;
+                var newPos = follow.position - 3f * ds.normalized;
+                newPos.y = follow.position.y + 2f;
+                transform.position = Vector3.MoveTowards(transform.position, newPos, updateSpeed * Time.deltaTime);
+
+                transform.LookAt(0.5f * (follow.position + target.position));
+            }
+        }
+
+        protected void SmoothFollow()
+        {
+            var look = Vector3.MoveTowards(lastViewedPosition, targetPos, 
+                updateSpeed * Time.deltaTime);
+            transform.position = look;
+            lastViewedPosition = look;
+            transform.LookAt(follow);
+        }
+
+        public void ReticleFollow()
+        {
+            var target = lockOn.CurrentTarget;
+
+            if (target != null)
+                reticle.transform.position = Camera.main.WorldToScreenPoint(target.transform.position);
         }
     }
 }

@@ -20,18 +20,26 @@ namespace RPG_Project
         public float stabMultiplier = 1.2f;
 
         [Header("Running Speeds")]
-        public float lightweightWalk = 7f;
-        public float lightweightRun = 10.5f;
+        public float lightweightWalk = 5f;
+        public float lightweightRun = 7f;
+        public float lightweightLocked = 3f;
 
-        public float middleweightWalk = 6f;
-        public float middleweightRun = 9f;
+        public float middleweightWalk = 4f;
+        public float middleweightRun = 6f;
+        public float middleweightLocked = 2.5f;
 
-        public float heavyweightWalk = 4.5f;
-        public float heavyweightRun = 6.75f;
+        public float heavyweightWalk = 3f;
+        public float heavyweightRun = 5f;
+        public float heavyweightLocked = 2f;
 
         [Header("Resource Regen")]
-        public float staminaRegen = 12f;
-        public float staminaRun = -2f;
+        public float lightweightHealthRegen = 2f;
+        public float middleweightHealthRegen = 5f;
+        public float heavyweightHealthRegen = 8f;
+
+        public float staminaRegen = 45f;
+        public float staminaRecoverRegen = 75f;
+        public float staminaRunRegen = -25f;
 
         public float poiseRegen = 18f;
 
@@ -61,17 +69,52 @@ namespace RPG_Project
             return Mathf.RoundToInt(2.55f * baseStat);
         }
 
+        public int[] GetStatAtLv(StatType stat, CharData data)
+        {
+            int[] statAtLv = new int[10];
+
+            switch (stat)
+            {
+                case StatType.Vitality:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(1.15f * (i + 1) * data.baseVit + 140, 999);
+                    break;
+                case StatType.Endurance:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.4f * (i + 1) * data.baseEnd + 105, 999);
+                    break;
+                case StatType.Poise:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.11f * (i + 1) * data.basePp + 30, 99);
+                    break;
+                case StatType.Attack:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.3f * (i + 1) * data.baseAtk + 20, 255);
+                    break;
+                case StatType.Defence:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.3f * (i + 1) * data.baseDef + 20, 255);
+                    break;
+                default:
+                    for (int i = 0; i < statAtLv.Length; i++)
+                        statAtLv[i] = ConvertToStatValue(0.3f * (i + 1) * 1 + 20, 255);
+                    break;
+            }
+
+            return statAtLv;
+        }
+
         public int[] GetStatAtLv(StatType stat, int baseStat)
         {
             int[] statAtLv = new int[10];
 
             switch (stat)
             {
-                case StatType.Health:
+                case StatType.Vitality:
                     for (int i = 0; i < statAtLv.Length; i++)
                         statAtLv[i] = ConvertToStatValue(1.15f * (i + 1) * baseStat + 140, 999);
                     break;
-                case StatType.Stamina:
+                case StatType.Endurance:
                     for (int i = 0; i < statAtLv.Length; i++)
                         statAtLv[i] = ConvertToStatValue(0.4f * (i + 1) * baseStat + 105, 999);
                     break;

@@ -10,18 +10,5 @@ namespace RPG_Project
         {
             party.InvokePoiseTick();
         }
-
-        public override void SaveToCharacter()
-        {
-            character.Poise.PointValue = resourcePoints.PointValue;
-            character.PoiseResource = resource.Count;
-        }
-
-        public override void LoadFromCharacter()
-        {
-            resourcePoints = character.Poise;
-            resource._cooldown = resourcePoints.CurrentStatValue;
-            resource.Count = resourcePoints.PointValue;
-        }
     }
 }

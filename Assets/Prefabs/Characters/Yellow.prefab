@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 505037324963705108}
   - component: {fileID: 521569912044408481}
   - component: {fileID: 6925934273413999341}
+  - component: {fileID: 173751019231446377}
   m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &173751019231446377
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6656678881759820160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8042465399108378553
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +210,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8773975868281004494}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -291,18 +306,6 @@ MonoBehaviour:
     rewards:
       expAtLv: 
       moneyAtLv: 
-    health:
-      statValue: 400
-      currentStatValue: 400
-      pointValue: 400
-    stamina:
-      statValue: 32
-      currentStatValue: 32
-      pointValue: 32
-    poise:
-      statValue: 160
-      currentStatValue: 160
-      pointValue: 160
     vitality:
       statValue: 100
       currentStatValue: 100
@@ -318,9 +321,8 @@ MonoBehaviour:
     weight:
       statValue: 100
       currentStatValue: 100
-    hpAtLv: 
-    spAtLv: 
-    ppAtLv: 
+    vitAtLv: 
+    endAtLv: 
     atkAtLv: 
     defAtLv: 
   skillset:

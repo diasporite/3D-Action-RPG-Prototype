@@ -23,9 +23,9 @@ namespace RPG_Project
         public int baseExpReward = 50;
 
         [Range(1, 99)]
-        public int baseHp = 50;
+        public int baseVit = 50;
         [Range(1, 99)]
-        public int baseSp = 50;
+        public int baseEnd = 50;
         [Range(1, 99)]
         public int basePp = 50;
 
@@ -37,11 +37,11 @@ namespace RPG_Project
         [Range(25, 175)]
         public int weight = 100;
 
-        [Header("Actions")]
-        public ActionData topLeft;
-        public ActionData topRight;
-        public ActionData bottomLeft;
-        public ActionData bottomRight;
+        //[Header("Actions")]
+        //public ActionData topLeft;
+        //public ActionData topRight;
+        //public ActionData bottomLeft;
+        //public ActionData bottomRight;
 
         [Header("Skillset")]
         public SkillData[] skills;

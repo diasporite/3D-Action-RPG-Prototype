@@ -29,9 +29,13 @@ MonoBehaviour:
   middleweightRun: 6
   heavyweightWalk: 3.5
   heavyweightRun: 5
-  staminaRegen: 25
-  staminaRun: -12
+  lightweightHealthRegen: 2
+  middleweightHealthRegen: 5
+  heavyweightHealthRegen: 8
+  staminaRegen: 45
+  staminaRecoverRegen: 75
+  staminaRunRegen: -25
   poiseRegen: 18
-  jumpSpCost: 20
-  rollSpCost: 40
-  guardSpCost: 60
+  jumpSpCost: 40
+  rollSpCost: 80
+  guardSpCost: 120

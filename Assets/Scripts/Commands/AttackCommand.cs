@@ -19,7 +19,7 @@ namespace RPG_Project
         //    this.trigger = trigger;
         //}
 
-        public AttackCommand(Ability ability, Controller controller, Vector3 dir, string trigger) : base(controller, dir)
+        public AttackCommand(Controller controller, Vector3 dir, string trigger, Ability ability) : base(controller, dir)
         {
             anim = controller.Anim;
 
@@ -35,10 +35,10 @@ namespace RPG_Project
         {
             controller.Mode = ControllerMode.Action;
 
-            controller.Ability.SetCurrentAbility(ability);
+            controller.Ability.SetAbility(ability);
 
             //controller.transform.LookAt(controller.transform.position - dir);
-            if (lockOn.LockedOn) controller.LockOn.LookAtTarget();
+            if (lockOn.CurrentlyLocked) controller.LockOn.LookAtTarget();
 
             anim.SetTrigger(trigger);
 
@@ -61,7 +61,7 @@ namespace RPG_Project
 
             // Continually track direction to target
             // Animation will rotate instigator in that direction
-            if (lockOn.LockedOn) controller.LockOn.LookAtTarget();
+            if (lockOn.CurrentlyLocked) controller.LockOn.LookAtTarget();
 
             yield return new WaitForSeconds(ability.action.animation.length);
 

@@ -28,6 +28,8 @@ namespace RPG_Project
         {
             controller.Mode = ControllerMode.Walk;
 
+            controller.Stamina.CurrentRegen = GameManager.instance.combat.staminaRegen;
+
             movement.SetRunning(false);
         }
 

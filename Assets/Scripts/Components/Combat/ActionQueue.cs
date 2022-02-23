@@ -22,8 +22,8 @@ namespace RPG_Project
 
         public bool Executing => executing;
 
-        public Controller Controller => party.CurrentPartyMember;
-        public Animator Anim => party.CurrentPartyMember.Anim;
+        public Controller Controller => party.CurrentController;
+        public Animator Anim => party.CurrentController.Anim;
 
         private void Awake()
         {
@@ -100,6 +100,8 @@ namespace RPG_Project
 
             actions.Clear();
 
+            currentAction = 0;
+
             executing = false;
         }
 
@@ -108,6 +110,8 @@ namespace RPG_Project
             StopCoroutine(ActionChain());
 
             actions.Clear();
+
+            currentAction = 0;
 
             executing = false;
 
@@ -122,6 +126,8 @@ namespace RPG_Project
             StopCoroutine(ActionChain());
 
             actions.Clear();
+
+            currentAction = 0;
 
             executing = false;
 

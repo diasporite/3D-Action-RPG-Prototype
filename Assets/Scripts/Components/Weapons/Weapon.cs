@@ -31,5 +31,15 @@ namespace RPG_Project
         {
 
         }
+
+        public virtual void ShowRay()
+        {
+
+        }
+
+        public virtual void HideRay()
+        {
+
+        }
     }
 }

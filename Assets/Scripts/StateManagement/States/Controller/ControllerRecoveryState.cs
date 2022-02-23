@@ -29,6 +29,8 @@ namespace RPG_Project
             controller.Stamina.Run(false);
             controller.Movement.SetRunning(false);
 
+            controller.Stamina.CurrentRegen = GameManager.instance.combat.staminaRecoverRegen;
+
             anim.SetBool("Recovery", true);
         }
 

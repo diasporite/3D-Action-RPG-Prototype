@@ -23,7 +23,7 @@ namespace RPG_Project
 
         public void ExecuteFrame()
         {
-            //camera.lockOn.ToggleLock();
+
         }
 
         public void ExecuteFrameFixed()
@@ -33,7 +33,9 @@ namespace RPG_Project
 
         public void ExecuteFrameLate()
         {
-            camera.FollowTarget();
+            //camera.FollowTarget();
+            camera.FollowTarget2();
+            camera.ReticleFollow();
         }
 
         public void Exit()

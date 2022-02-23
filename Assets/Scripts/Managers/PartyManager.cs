@@ -8,23 +8,25 @@ namespace RPG_Project
     public class PartyManager : MonoBehaviour
     {
         // Delegates for UI
-        public event OnCharacterChanged onCharacterChanged;
+        public event OnCharacterChanged OnCharacterChanged;
 
         // Read up on C# actions
         //public event OnHealthTick onHealthTick;
         //public event OnStaminaTick onStaminaTick;
         //public event OnPoiseTick onPoiseTick;
 
-        public event Action onHealthTick;
-        public event Action onStaminaTick;
-        public event Action onPoiseTick;
+        public event Action OnHealthChange;
+        public event Action OnStaminaChange;
+        public event Action OnPoiseChange;
 
-        public event Action<int> onDamage;
-        public event Action onDeath;
+        public event Action<int> OnDamage;
+        public event Action OnDeath;
 
-        public event OnHealthChanged onHealthChanged;
-        public event OnStaminaChanged onStaminaChanged;
-        public event OnPoiseChanged onPoiseChanged;
+        public event Action<int> OnAbilityUse;
+
+        //public event OnHealthChanged OnHealthChanged;
+        //public event OnStaminaChanged OnStaminaChanged;
+        //public event OnPoiseChanged OnPoiseChanged;
 
         protected int partyCap = 4;
         [SerializeField] int currentMember = 0;
@@ -45,7 +47,7 @@ namespace RPG_Project
         public List<Controller> Party => party;
         public List<Controller> ActiveParty => activeParty;
 
-        public Controller CurrentPartyMember
+        public Controller CurrentController
         {
             get
             {
@@ -59,8 +61,8 @@ namespace RPG_Project
         {
             get
             {
-                if (CurrentPartyMember != null)
-                    return CurrentPartyMember.Combatant.Character;
+                if (CurrentController != null)
+                    return CurrentController.Combatant.Character;
                 return null;
             }
         }
@@ -69,8 +71,8 @@ namespace RPG_Project
         {
             get
             {
-                if (CurrentPartyMember != null)
-                    return CurrentPartyMember.Combatant;
+                if (CurrentController != null)
+                    return CurrentController.Combatant;
                 return null;
             }
         }
@@ -91,11 +93,13 @@ namespace RPG_Project
 
                 foreach (var member in activeParty)
                     if (member != null)
-                        health += member.Character.Health.CurrentStatValue;
+                        health += member.Character.Vitality.CurrentStatValue;
 
                 return health;
             }
         }
+
+        public int AverageHealth => Mathf.RoundToInt((float)TotalHealth / activeParty.Count);
 
         public int TotalStamina
         {
@@ -105,7 +109,7 @@ namespace RPG_Project
 
                 foreach (var member in activeParty)
                     if (member != null)
-                        stamina += member.Character.Stamina.CurrentStatValue;
+                        stamina += member.Character.Endurance.CurrentStatValue;
 
                 return stamina;
             }
@@ -144,9 +148,9 @@ namespace RPG_Project
 
         private void Update()
         {
-            if (CurrentPartyMember != null)
+            if (CurrentController != null)
             {
-                currentPos = CurrentPartyMember.transform.position;
+                currentPos = CurrentController.transform.position;
                 transform.position = currentPos;
             }
         }
@@ -156,32 +160,37 @@ namespace RPG_Project
         public void InvokeCharChange(Combatant combatant)
         {
             // ?. - shorthand for null check
-            onCharacterChanged?.Invoke(combatant);
+            OnCharacterChanged?.Invoke(combatant);
         }
 
         public void InvokeHealthTick()
         {
-            onHealthTick?.Invoke();
+            OnHealthChange?.Invoke();
         }
 
         public void InvokeStaminaTick()
         {
-            onStaminaTick?.Invoke();
+            OnStaminaChange?.Invoke();
         }
 
         public void InvokePoiseTick()
         {
-            onPoiseTick?.Invoke();
+            OnPoiseChange?.Invoke();
         }
 
         public void InvokeDamage(int damage)
         {
-            onDamage?.Invoke(damage);
+            OnDamage?.Invoke(damage);
         }
 
         public void InvokeDeath()
         {
-            onDeath?.Invoke();
+            OnDeath?.Invoke();
+        }
+
+        public void InvokeAbility(int index)
+        {
+            OnAbilityUse?.Invoke(index);
         }
         #endregion
 
@@ -223,8 +232,8 @@ namespace RPG_Project
                 else activeParty[i].gameObject.SetActive(false);
             }
 
-            currentPartyMember = CurrentPartyMember;
-            onCharacterChanged?.Invoke(CurrentCombatant);
+            currentPartyMember = CurrentController;
+            OnCharacterChanged?.Invoke(CurrentCombatant);
         }
 
         public void ChangePartyComp()

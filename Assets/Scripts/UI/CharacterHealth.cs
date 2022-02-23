@@ -7,13 +7,23 @@ namespace RPG_Project
 {
     public class CharacterHealth : MonoBehaviour
     {
+        [SerializeField] float uiOffset = 1.5f;
+        [SerializeField] float updateSpeed = 10f;
+
         [SerializeField] Controller controller;
 
-        [SerializeField] Slider bar;
+        [SerializeField] GameObject uiHolder;
+
+        [SerializeField] Text skillName;
+        [SerializeField] Slider health;
+        [SerializeField] Slider stamina;
         [SerializeField] Text damageText;
 
         int damageReceived = 0;
         Cooldown damageTime = new Cooldown(3f);
+
+        Vector3 lastPosition = new Vector3(0, 0);
+        Vector3 newPosition;
 
         private void Awake()
         {
@@ -25,40 +35,69 @@ namespace RPG_Project
 
         private void Start()
         {
-            bar.gameObject.SetActive(false);
-            damageText.gameObject.SetActive(false);
+            ShowUI(false);
         }
 
         private void Update()
         {
             damageTime.Tick(Time.deltaTime);
+
+            health.value = controller.Party.PartyHealth.ResourceFraction;
+            stamina.value = controller.Party.PartyStamina.ResourceFraction;
+
             if (damageTime.Full)
             {
                 damageReceived = 0;
-                bar.gameObject.SetActive(false);
-                damageText.gameObject.SetActive(false);
+                ShowUI(false);
             }
+        }
+
+        private void LateUpdate()
+        {
+            // Use update speed / MoveTowards() to reduce jitter (see camera follow)
+            newPosition =
+                Camera.main.WorldToScreenPoint(controller.transform.position +
+                uiOffset * Vector3.up);
+
+            uiHolder.transform.position = Vector3.MoveTowards(lastPosition, newPosition, updateSpeed * Time.deltaTime);
+
+            lastPosition = uiHolder.transform.position;
         }
 
         private void OnDisable()
         {
             //print("d");
-            controller.Party.onDamage -= TakeDamage;
+            controller.Party.OnDamage -= TakeDamage;
         }
 
         public void InitUI(Controller controller)
         {
             this.controller = controller;
 
-            controller.Party.onDamage += TakeDamage;
+            controller.Party.OnDamage += TakeDamage;
+        }
+
+        void ShowUI(bool value)
+        {
+            if (!value) skillName.text = "";
+
+            skillName.gameObject.SetActive(value);
+            health.gameObject.SetActive(value);
+            stamina.gameObject.SetActive(value);
+            damageText.gameObject.SetActive(value);
         }
 
         void TakeDamage(int damage)
         {
-            bar.gameObject.SetActive(true);
-            damageText.gameObject.SetActive(true);
+            lastPosition =
+                Camera.main.WorldToScreenPoint(controller.transform.position +
+                uiOffset * controller.transform.up);
+            uiHolder.transform.position = lastPosition;
 
-            bar.value = controller.Party.PartyHealth.ResourceFraction;
+            ShowUI(true);
+
+            health.value = controller.Party.PartyHealth.ResourceFraction;
+            stamina.value = controller.Party.PartyStamina.ResourceFraction;
 
             damageReceived += Mathf.Abs(damage);
             damageText.text = "-" + Mathf.Abs(damageReceived);

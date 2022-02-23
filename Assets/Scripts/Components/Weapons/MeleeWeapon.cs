@@ -19,20 +19,22 @@ namespace RPG_Project
 
             hitbox.Init(owner, hittables);
 
-            hitbox.gameObject.SetActive(false);
+            DeactivateWeapon();
         }
 
         public override void ActivateWeapon()
         {
-            hitbox.gameObject.SetActive(true);
-            //hitbox.SetActive(true);
+            hitbox.GetComponent<Collider>().enabled = true;
+            hitbox.ClearHits();
+
             print("act");
         }
 
         public override void DeactivateWeapon()
         {
-            hitbox.gameObject.SetActive(false);
-            //hitbox.SetActive(false);
+            hitbox.ClearHits();
+            hitbox.GetComponent<Collider>().enabled = false;
+
             print("deact");
         }
     }

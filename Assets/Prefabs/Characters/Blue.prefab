@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5291729281861472995}
   - component: {fileID: 5283076859185392982}
   - component: {fileID: 3346284461492783386}
+  - component: {fileID: 2667835584023452939}
   m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
@@ -79,52 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &2445785347659742286
-GameObject:
+--- !u!136 &2667835584023452939
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5255532251041108128}
-  - component: {fileID: 2410540993899593946}
-  m_Layer: 10
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5255532251041108128
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2445785347659742286}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4012377324784288309}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2410540993899593946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2445785347659742286}
+  m_GameObject: {fileID: 1300688546323487351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 716ae67bdb506a74b932114639a9d454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
-  offset: 0.02
-  skin: 0.05
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4012377324784288313
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +165,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4012377324784288313}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -292,18 +261,6 @@ MonoBehaviour:
     rewards:
       expAtLv: 
       moneyAtLv: 
-    health:
-      statValue: 400
-      currentStatValue: 400
-      pointValue: 400
-    stamina:
-      statValue: 32
-      currentStatValue: 32
-      pointValue: 32
-    poise:
-      statValue: 160
-      currentStatValue: 160
-      pointValue: 160
     vitality:
       statValue: 100
       currentStatValue: 100
@@ -319,46 +276,93 @@ MonoBehaviour:
     weight:
       statValue: 100
       currentStatValue: 100
-    hpAtLv: 
-    spAtLv: 
-    ppAtLv: 
+    vitAtLv: 
+    endAtLv: 
     atkAtLv: 
     defAtLv: 
   skillset:
     tlSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     trSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     blSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     brSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     skillset: []
@@ -377,152 +381,90 @@ MonoBehaviour:
   weapons:
   - {fileID: 3066900411084317503}
   - {fileID: 6758360262487538939}
-  topLeftAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 3066900411084317503}
-      animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
-      weaponId: 0
-      numberOfHits: 3
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  topRightAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 3066900411084317503}
-      animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
-      weaponId: 2
-      numberOfHits: 1
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  bottomLeftAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 6758360262487538939}
-      animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  bottomRightAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 6758360262487538939}
-      animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
+  actions:
+  - {fileID: 11400000, guid: 696c0fb1fdb683241b0b374698d5ab06, type: 2}
+  - {fileID: 11400000, guid: c3548905a651b914d8d966e72f6a0401, type: 2}
+  - {fileID: 11400000, guid: 474ab8d2d89b190489b10b039dfc0873, type: 2}
+  - {fileID: 11400000, guid: 85d6f47f52fdbcd4d951d071fa7201b0, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 775149946dee93542acf33c45852f676, type: 2}
+  - {fileID: 11400000, guid: 775149946dee93542acf33c45852f676, type: 2}
+  - {fileID: 11400000, guid: 775149946dee93542acf33c45852f676, type: 2}
+  - {fileID: 11400000, guid: 775149946dee93542acf33c45852f676, type: 2}
+  currentAbilityIndex: 0
+  abilities: []
   jumpAbility:
     trigger: SpecialAction
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
+    action: {fileID: 0}
     skill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     spCost: 0
   rollAbility:
     trigger: SpecialAction
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
+    action: {fileID: 0}
     skill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     spCost: 0
   guardAbility:
     trigger: SpecialAction
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
+    action: {fileID: 0}
     skill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  gunAmmo: 10
-  ammunition:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  currentAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     spCost: 0
@@ -618,7 +560,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8603339351628788424, guid: 9d5a72631338d0e42add1d6dfb504ca4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9d5a72631338d0e42add1d6dfb504ca4, type: 3}
 --- !u!4 &6472251436261879616 stripped
 Transform:
@@ -648,12 +591,12 @@ PrefabInstance:
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
@@ -683,12 +626,27 @@ PrefabInstance:
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 837
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 471
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
@@ -713,17 +671,17 @@ PrefabInstance:
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
@@ -733,7 +691,7 @@ PrefabInstance:
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 506840967828900942, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
@@ -759,6 +717,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922761256112263700, guid: 53a177ae566466a458ecf75982a6b6c9,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5400404054514981839, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}
@@ -867,6 +830,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1670819765400695891, guid: 15e4d52ccc10c404f8cd563f0c2b33ee,
     type: 3}
   m_PrefabInstance: {fileID: 5074886414622640178}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5863478802287944265
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4012377324784288309}
+    m_Modifications:
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119548361410534919, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundCheck
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69fb695590b32654284c0ac5c6e7aeef, type: 3}
+--- !u!4 &5255532251041108128 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+    type: 3}
+  m_PrefabInstance: {fileID: 5863478802287944265}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6369753192332116456
 PrefabInstance:

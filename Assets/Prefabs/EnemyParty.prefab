@@ -146,8 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112d2d5175a000a4f9e1ec15183eaad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
-  searchRadius: 5
+  active: 0
+  currentlyLocked: 0
+  searchRadius: 10
+  searchFrequency: 10
   currentTarget: 0
   targets: []
 --- !u!114 &3300493368550835750
@@ -180,7 +182,7 @@ MonoBehaviour:
   chaseDist: 8
   attackDist: 2
   attackCooldown:
-    cooldown: 1
+    cooldown: 2
     speed: 1
     count: 0
 --- !u!114 &3964566145213977552

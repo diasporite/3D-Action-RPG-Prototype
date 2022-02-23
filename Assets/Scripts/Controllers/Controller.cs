@@ -53,7 +53,7 @@ namespace RPG_Project
         protected Stamina stamina;
         protected Poise poise;
 
-        protected HitDetector[] hitDetectors;
+        protected Hitbox[] hitboxes;
         protected Hurtbox hurtbox;
 
         protected CharacterHealth charHealth;
@@ -125,7 +125,7 @@ namespace RPG_Project
         public Stamina Stamina => stamina;
         public Poise Poise => poise;
 
-        public HitDetector[] HitDetectors => hitDetectors;
+        public Hitbox[] Hitboxes => hitboxes;
         public Hurtbox Hurtbox => hurtbox;
 
         public BattleChar Character => combatant.Character;
@@ -181,7 +181,7 @@ namespace RPG_Project
             combatant = GetComponent<Combatant>();
             ability = GetComponent<AbilityManager>();
 
-            hitDetectors = GetComponentsInChildren<HitDetector>();
+            hitboxes = GetComponentsInChildren<Hitbox>();
             hurtbox = GetComponentInChildren<Hurtbox>();
             
             //if (!player)
@@ -318,7 +318,8 @@ namespace RPG_Project
 
         public virtual void ActionCommand()
         {
-            if (lockOn.LockedOn) lockOn.LookAtTarget();
+            if (lockOn.CurrentlyLocked && !movement.Locked && mode != ControllerMode.Roll)
+                lockOn.LookAtTarget();
 
             switch (inputMode)
             {
@@ -374,24 +375,26 @@ namespace RPG_Project
 
         public void SpecialAction()
         {
-            var weightclass = combatant.Character.Weightclass;
-            BattleCommand act;
+            //var weightclass = combatant.Character.Weightclass;
+            //BattleCommand act;
 
-            switch (weightclass)
-            {
-                case WeightClass.Lightweight:
-                    act = new JumpCommand(this);
-                    AddCommand(act);
-                    break;
-                case WeightClass.Heavyweight:
-                    act = new GuardCommand(this);
-                    AddCommand(act);
-                    break;
-                default:
-                    act = new RollCommand(this, inputDir);
-                    AddCommand(act);
-                    break;
-            }
+            //switch (weightclass)
+            //{
+            //    case WeightClass.Lightweight:
+            //        act = new JumpCommand(this);
+            //        AddCommand(act);
+            //        break;
+            //    case WeightClass.Heavyweight:
+            //        act = new GuardCommand(this);
+            //        AddCommand(act);
+            //        break;
+            //    default:
+            //        act = new RollCommand(this, inputDir);
+            //        AddCommand(act);
+            //        break;
+            //}
+
+            AddCommand(new RollCommand(this, inputDir));
         }
 
         public void UseAbility(int index)

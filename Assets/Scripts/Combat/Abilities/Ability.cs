@@ -41,19 +41,14 @@ namespace RPG_Project
             this.trigger = trigger;
             this.action = action;
             this.skill = skill;
+
+            spCost = Mathf.Abs(action.baseSpCost) + Mathf.Abs(skill.StaminaCost);
         }
         #endregion
 
         public virtual BattleCommand GetCommand(Controller controller, Vector3 dir)
         {
-            return new AttackCommand(this, controller, dir, trigger);
-        }
-
-        public virtual void InitAbility(string trigger)
-        {
-            this.trigger = trigger;
-
-            spCost = Mathf.Abs(action.spCost) + Mathf.Abs(skill.StaminaCost);
+            return new AttackCommand(controller, dir, trigger, this);
         }
 
         public void UseResource(int amount)

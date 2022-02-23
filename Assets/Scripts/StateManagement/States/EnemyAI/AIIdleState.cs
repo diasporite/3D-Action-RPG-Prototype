@@ -25,7 +25,7 @@ namespace RPG_Project
 
         public void ExecuteFrame()
         {
-            controller = ai.Party.CurrentPartyMember;
+            controller = ai.Party.CurrentController;
 
             ai.CalculateDistance();
 

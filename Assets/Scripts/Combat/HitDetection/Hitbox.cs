@@ -4,13 +4,43 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public class Hitbox : HitDetector
+    [System.Serializable]
+    public class HitData
     {
-        BoxCollider col;
+        [SerializeField] Combatant combatant;
+        [SerializeField] int basePower;
 
-        List<IDamageable> weaponHits = new List<IDamageable>();
+        public Combatant Combatant => combatant;
 
-        private void Awake()
+        public HitData(Combatant combatant, int basePower)
+        {
+            this.combatant = combatant;
+            this.basePower = basePower;
+        }
+    }
+
+    public class Hitbox : MonoBehaviour
+    {
+        protected Controller controller;
+        protected AbilityManager abilities;
+
+        protected LayerMask hittables;
+
+        protected Skill actionSkill;
+
+        protected HitData data;
+
+        [SerializeField] protected List<Hurtbox> hits = new List<Hurtbox>();
+        protected List<IDamageable> weaponHits = new List<IDamageable>();
+
+        protected BoxCollider col;
+
+        public Controller Controller => controller;
+        public HitData Data => data;
+
+        public bool AlreadyHit(Hurtbox hurtbox) => hits.Contains(hurtbox);
+
+        protected virtual void Awake()
         {
             col = GetComponent<BoxCollider>();
         }
@@ -19,6 +49,16 @@ namespace RPG_Project
         {
             this.controller = controller;
             this.hittables = hittables;
+        }
+
+        public void AddHit(Hurtbox hit)
+        {
+            //if (hit != null) hits.Add(hit);
+        }
+
+        public void ClearHits()
+        {
+            hits.Clear();
         }
 
         //void DetectCollisonOverlap()

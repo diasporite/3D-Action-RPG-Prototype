@@ -24,6 +24,8 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
+            controller.Party.ActionQueue.StopAction();
+
             controller.Health.Regenerative = false;
             controller.Stamina.Regenerative = false;
             //controller.Poise.Regenerative = false;

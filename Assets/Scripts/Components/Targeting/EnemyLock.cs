@@ -12,15 +12,5 @@ namespace RPG_Project
 
             targetMask = LayerMask.GetMask("Targets");
         }
-
-        public override void LockOntoTarget()
-        {
-            base.LockOntoTarget();
-        }
-
-        public override void UnlockFromTarget()
-        {
-            base.UnlockFromTarget();
-        }
     }
 }

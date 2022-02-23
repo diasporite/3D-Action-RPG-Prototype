@@ -6,16 +6,16 @@ namespace RPG_Project
 {
     public class GunWeapon : Weapon
     {
-        Hitray ray;
+        [SerializeField] Hitray ray;
 
-        [SerializeField] float range = 5f;
+        [SerializeField] float range = 10f;
         [SerializeField] Transform muzzle;
 
         protected override void Awake()
         {
             base.Awake();
 
-            ray = GetComponent<Hitray>();
+            ray = GetComponentInChildren<Hitray>();
 
             muzzle.gameObject.SetActive(false);
         }
@@ -24,16 +24,35 @@ namespace RPG_Project
         {
             base.InitWeapon(owner, hittables);
 
-            ray.Init(owner, hittables, 10f);
+            ray.Init(owner, hittables, range);
+
+            DeactivateWeapon();
         }
 
         public override void ActivateWeapon()
         {
             print("aw");
-            ray.CastRay(muzzle.position);
-            //ability.ChangeGunAmmo(-1);
+            ray.GetComponent<Collider>().enabled = true;
+            ray.CastRaybox();
+            ray.ClearHits();
 
-            //StartCoroutine(MuzzleFlashCo());
+            StartCoroutine(MuzzleFlashCo());
+        }
+
+        public override void DeactivateWeapon()
+        {
+            ray.GetComponent<Collider>().enabled = false;
+            ray.ClearHits();
+        }
+
+        public override void ShowRay()
+        {
+            ray.ShowRay(true);
+        }
+
+        public override void HideRay()
+        {
+            ray.ShowRay(false);
         }
 
         public void ActivateMuzzleFlash()

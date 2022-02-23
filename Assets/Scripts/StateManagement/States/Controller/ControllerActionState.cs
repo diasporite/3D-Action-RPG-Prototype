@@ -28,8 +28,6 @@ namespace RPG_Project
         {
             controller.Stamina.Regenerative = false;
             //controller.Poise.Regenerative = false;
-
-            weapon.CanDisarm = false;
         }
 
         public void ExecuteFrame()
@@ -51,8 +49,6 @@ namespace RPG_Project
         {
             controller.Stamina.Regenerative = true;
             //controller.Poise.Regenerative = true;
-
-            weapon.CanDisarm = true;
         }
         #endregion
 

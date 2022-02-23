@@ -15,10 +15,14 @@ namespace RPG_Project
         Health = 5,
         Stamina = 6,
         Poise = 7,
-        Stagger = 8,
+        
+        Vitality = 8,
+        Endurance = 9,
 
         Attack = 10,
         Defence = 11,
+
+        Weight = 12,
     }
 
     public enum WeightClass
@@ -46,9 +50,9 @@ namespace RPG_Project
         [SerializeField] Rewards rewards;
 
         [Header("Resource Stats")]
-        [SerializeField] PointStat health = new PointStat(100, 999);
-        [SerializeField] PointStat stamina = new PointStat(250, 999);
-        [SerializeField] PointStat poise = new PointStat(50, 99);
+        //[SerializeField] PointStat health = new PointStat(100, 999);
+        //[SerializeField] PointStat stamina = new PointStat(250, 999);
+        //[SerializeField] PointStat poise = new PointStat(50, 99);
 
         [SerializeField] Stat vitality = new Stat(100, 999);
         [SerializeField] Stat endurance = new Stat(250, 999);
@@ -60,9 +64,9 @@ namespace RPG_Project
         [SerializeField] Stat weight = new Stat(100, 200);
 
         [Header("Stat Tables")]
-        [SerializeField] int[] hpAtLv;
-        [SerializeField] int[] spAtLv;
-        [SerializeField] int[] ppAtLv;
+        [SerializeField] int[] vitAtLv;
+        [SerializeField] int[] endAtLv;
+        //[SerializeField] int[] ppAtLv;
 
         [SerializeField] int[] atkAtLv;
         [SerializeField] int[] defAtLv;
@@ -81,9 +85,9 @@ namespace RPG_Project
         public ElementData Element1 => element1;
         public ElementData Element2 => element2;
 
-        public PointStat Health => health;
-        public PointStat Stamina => stamina;
-        public PointStat Poise => poise;
+        //public PointStat Health => health;
+        //public PointStat Stamina => stamina;
+        //public PointStat Poise => poise;
 
         // Stores float values for hp, sp, pp
         public float HealthResource { get; set; }
@@ -110,17 +114,17 @@ namespace RPG_Project
 
         public int Lv => progression.Lv;
 
-        public int CurrentHp => health.PointValue;
-        public int Hp => health.CurrentStatValue;
-        public float HpFraction => health.PointFraction;
+        //public int CurrentHp => health.PointValue;
+        //public int Hp => health.CurrentStatValue;
+        //public float HpFraction => health.PointFraction;
 
-        public int CurrentStamina => stamina.PointValue;
-        public int Sp => stamina.CurrentStatValue;
-        public float SpFraction => stamina.PointFraction;
+        //public int CurrentStamina => stamina.PointValue;
+        //public int Sp => stamina.CurrentStatValue;
+        //public float SpFraction => stamina.PointFraction;
 
-        public int CurrentPoise => poise.PointValue;
-        public int Pp => poise.CurrentStatValue;
-        public float PpFraction => poise.PointFraction;
+        //public int CurrentPoise => poise.PointValue;
+        //public int Pp => poise.CurrentStatValue;
+        //public float PpFraction => poise.PointFraction;
 
         public int Vit => vitality.CurrentStatValue;
         public int End => endurance.CurrentStatValue;
@@ -161,25 +165,25 @@ namespace RPG_Project
             progression = new Progression(100);
             rewards = new Rewards(100, 0);
 
-            hpAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Health, baseHp);
-            spAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Stamina, baseHp);
-            ppAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Poise, baseHp);
+            vitAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Vitality, baseHp);
+            endAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Endurance, baseHp);
+            //ppAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Poise, baseHp);
 
             atkAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Attack, baseAtk);
             defAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Defence, baseDef);
 
             var lv = 1;
 
-            var hp = spAtLv[lv - 1];
-            var sp = spAtLv[lv - 1];
-            var pp = ppAtLv[lv - 1];
+            var hp = endAtLv[lv - 1];
+            var sp = endAtLv[lv - 1];
+            //var pp = ppAtLv[lv - 1];
 
-            var atk = spAtLv[lv - 1];
-            var def = spAtLv[lv - 1];
+            var atk = endAtLv[lv - 1];
+            var def = endAtLv[lv - 1];
 
-            health = new PointStat(hp, hp, 3999);
-            stamina = new PointStat(sp, sp, 999);
-            poise = new PointStat(pp, pp, 999);
+            //health = new PointStat(hp, hp, 3999);
+            //stamina = new PointStat(sp, sp, 999);
+            //poise = new PointStat(pp, pp, 999);
 
             attack = new Stat(atk, 255);
             defence = new Stat(def, 255);
@@ -195,46 +199,46 @@ namespace RPG_Project
             progression = new Progression(data.baseExp);
             rewards = new Rewards(data.baseExpReward, data.baseExpReward);
 
-            hpAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Health, data.baseHp);
-            spAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Stamina, data.baseHp);
-            ppAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Poise, data.baseHp);
+            vitAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Vitality, data.baseVit);
+            endAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Endurance, data.baseEnd);
+            //ppAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Poise, data.baseVit);
 
             atkAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Attack, data.baseAtk);
             defAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Defence, data.baseDef);
 
             var lv = 1;
 
-            var hp = hpAtLv[lv - 1];
-            var sp = spAtLv[lv - 1];
-            var pp = ppAtLv[lv - 1];
+            var hp = vitAtLv[lv - 1];
+            var sp = endAtLv[lv - 1];
+            //var pp = ppAtLv[lv - 1];
 
-            var atk = spAtLv[lv - 1];
-            var def = spAtLv[lv - 1];
+            var atk = endAtLv[lv - 1];
+            var def = endAtLv[lv - 1];
 
-            health = new PointStat(hp, hp, 999);
-            stamina = new PointStat(sp, sp, 999);
-            poise = new PointStat(pp, pp, 999);
+            //health = new PointStat(hp, hp, 999);
+            //stamina = new PointStat(sp, sp, 999);
+            //poise = new PointStat(pp, pp, 999);
 
             attack = new Stat(atk, 255);
             defence = new Stat(def, 255);
         }
         #endregion
 
-        public void ChangeHealth(int amount)
-        {
-            health.ChangeCurrentPoints(amount);
-            if (health.PointValue <= 0) dead = true;
-        }
+        //public void ChangeHealth(int amount)
+        //{
+        //    health.ChangeCurrentPoints(amount);
+        //    if (health.PointValue <= 0) dead = true;
+        //}
 
-        public void ChangeStamina(int amount)
-        {
-            stamina.ChangeCurrentPoints(amount);
-        }
+        //public void ChangeStamina(int amount)
+        //{
+        //    stamina.ChangeCurrentPoints(amount);
+        //}
 
-        public void ChangePoise(int amount)
-        {
-            poise.ChangeCurrentPoints(amount);
-        }
+        //public void ChangePoise(int amount)
+        //{
+        //    poise.ChangeCurrentPoints(amount);
+        //}
 
         //public void UpdateTerrain()
         //{
@@ -244,10 +248,5 @@ namespace RPG_Project
         //    var i = Random.Range(-50, 50);
         //    terrain.AddModifier(new StatModifier(StatModifierType.Additive, i));
         //}
-
-        public bool CanKill(int damage)
-        {
-            return damage > Hp;
-        }
     }
 }
