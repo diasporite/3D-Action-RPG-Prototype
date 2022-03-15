@@ -183,4 +183,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926ea2650a12cec4489a78e814572516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partyData: {fileID: 11400000, guid: 2c7cef293e582fe43a6ef9d1e476513e, type: 2}
   playerParty: []

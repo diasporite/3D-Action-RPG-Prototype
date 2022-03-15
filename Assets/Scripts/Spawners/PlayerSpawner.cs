@@ -6,6 +6,8 @@ namespace RPG_Project
 {
     public class PlayerSpawner : Spawner
     {
+        [SerializeField] PlayerParty partyData;
+
         [SerializeField] List<Controller> playerParty = new List<Controller>();
         
         private void Start()
@@ -26,7 +28,7 @@ namespace RPG_Project
 
         public override void SpawnCharacter()
         {
-            foreach(var p in party.Party.ToArray())
+            foreach(var p in playerParty)
             {
                 var obj = Instantiate(p.gameObject, transform.position, 
                     Quaternion.identity) as GameObject;

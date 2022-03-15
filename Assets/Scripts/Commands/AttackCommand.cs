@@ -11,6 +11,8 @@ namespace RPG_Project
 
         LockOn lockOn;
 
+        int abilityIndex;
+
         //public AttackCommand(Controller controller, Vector3 dir, string trigger) : base(controller, dir)
         //{
         //    anim = controller.Anim;
@@ -19,13 +21,14 @@ namespace RPG_Project
         //    this.trigger = trigger;
         //}
 
-        public AttackCommand(Controller controller, Vector3 dir, string trigger, Ability ability) : base(controller, dir)
+        public AttackCommand(Controller controller, Vector3 dir, string trigger, int abilityIndex) : base(controller, dir)
         {
             anim = controller.Anim;
 
             lockOn = controller.LockOn;
 
-            this.ability = ability;
+            this.abilityIndex = abilityIndex;
+            ability = controller.Ability.GetAbility(abilityIndex);
 
             actionName = ability.Trigger;
             this.trigger = trigger;
@@ -33,7 +36,7 @@ namespace RPG_Project
 
         public override void Execute()
         {
-            controller.Mode = ControllerMode.Action;
+            controller.State = ControllerState.Action;
 
             controller.Ability.SetAbility(ability);
 
@@ -46,11 +49,12 @@ namespace RPG_Project
             //controller.Poise.ChangeResource(-47);
 
             ability.UseResource(1);
+            controller.Party.InvokeAbility(abilityIndex);
         }
 
         public override IEnumerator ExecuteCo()
         {
-            controller.Mode = ControllerMode.Action;
+            controller.State = ControllerState.Action;
 
             anim.SetTrigger(trigger);
 

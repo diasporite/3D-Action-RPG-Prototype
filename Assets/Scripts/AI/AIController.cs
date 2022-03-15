@@ -11,22 +11,30 @@ namespace RPG_Project
         Idle = 1,
         Chase = 2,
         Attack = 3,
+        Circle = 4,
     }
 
     public class AIController : MonoBehaviour
     {
-        [SerializeField] AIState state = AIState.Empty;
+        [SerializeField] protected AIState state = AIState.Empty;
+
+        [SerializeField] protected InputMode inputMode;
 
         [SerializeField] protected Transform target;
         [SerializeField] protected Vector3 dirToTarget;
 
         [SerializeField] protected float chaseDist = 8f;
         [SerializeField] protected float attackDist = 2f;
+        [SerializeField] protected float innerAttackDist = 1.2f;
+        [SerializeField] protected float outerAttackDist = 2f;
+        [SerializeField] protected float actionDelay = 3f;
 
-        [SerializeField] protected Cooldown attackCooldown = new Cooldown(1f);
+        [SerializeField] protected Cooldown actionCooldown = new Cooldown(1f);
 
         float sqrChaseDist;
         float sqrAttackDist;
+        float sqrInnerAtkDist;
+        float sqrOuterAtkDist;
         float sqrDist;
 
         protected PartyManager party;
@@ -34,6 +42,24 @@ namespace RPG_Project
         public readonly StateMachine sm = new StateMachine();
 
         public AIState State => state;
+
+        public InputMode InputMode
+        {
+            get => inputMode;
+            set => inputMode = value;
+        }
+
+        public Transform Target => target;
+
+        public Vector3 PlaneTargetPos
+        {
+            get
+            {
+                var pos = target.position;
+                pos.y = transform.position.y;
+                return pos;
+            }
+        }
 
         public Vector3 DirToTarget => dirToTarget;
 
@@ -62,10 +88,12 @@ namespace RPG_Project
             }
         }
 
-        public Cooldown AttackCooldown => attackCooldown;
+        public Cooldown ActionCooldown => actionCooldown;
 
         public float SqrChaseDist => sqrChaseDist;
         public float SqrAttackDist => sqrAttackDist;
+        public float SqrInnerAtkDist => sqrInnerAtkDist;
+        public float SqrOuterAtkDist => sqrOuterAtkDist;
         public float SqrDist => sqrDist;
 
         public PartyManager Party => party;
@@ -74,6 +102,10 @@ namespace RPG_Project
         {
             sqrChaseDist = chaseDist * chaseDist;
             sqrAttackDist = attackDist * attackDist;
+            sqrInnerAtkDist = innerAttackDist * innerAttackDist;
+            sqrOuterAtkDist = outerAttackDist * outerAttackDist;
+
+            actionCooldown = new Cooldown(actionDelay);
 
             party = GetComponent<PartyManager>();
         }
@@ -109,6 +141,7 @@ namespace RPG_Project
             sm.AddState(AIState.Idle, new AIIdleState(this));
             sm.AddState(AIState.Chase, new AIChaseState(this));
             sm.AddState(AIState.Attack, new AIAttackState(this));
+            sm.AddState(AIState.Circle, new AICircleState(this));
 
             sm.ChangeState(AIState.Idle);
         }
@@ -124,6 +157,18 @@ namespace RPG_Project
             dirToTarget = target.position - party.CurrentController.transform.position;
 
             sqrDist = dirToTarget.sqrMagnitude;
+        }
+
+        public void LookAtTarget()
+        {
+            var pos = target.position;
+            pos.y = transform.position.y;
+            transform.LookAt(pos);
+        }
+
+        public void FillActionCooldown(float delta)
+        {
+            actionCooldown.Count += delta;
         }
     }
 }

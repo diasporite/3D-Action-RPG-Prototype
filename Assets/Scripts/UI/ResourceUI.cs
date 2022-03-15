@@ -13,6 +13,7 @@ namespace RPG_Project
         [SerializeField] PartyManager player;
         [SerializeField] Resource resource;
 
+        [SerializeField] ResourceBar resourceBar;
         [SerializeField] Slider bar;
         [SerializeField] Text text;
 
@@ -20,6 +21,7 @@ namespace RPG_Project
         {
             this.player = player;
 
+            resourceBar = GetComponentInChildren<ResourceBar>();
             bar = GetComponentInChildren<Slider>();
             text = GetComponentInChildren<Text>();
         }
@@ -28,7 +30,8 @@ namespace RPG_Project
         {
             if (resource != null)
             {
-                bar.value = resource.ResourceFraction;
+                resourceBar.UpdateUI(resource.ResourceFraction);
+                //bar.value = resource.ResourceFraction;
                 text.text = textHeader.Trim() + " " +
                     resource.ResourcePointValue + "/" + resource.ResourceStatValue;
             }
@@ -37,6 +40,8 @@ namespace RPG_Project
         public void UpdateCharacter(Resource resource)
         {
             this.resource = resource;
+
+            resourceBar.InitUI(resource.ResourceFraction);
 
             UpdateUI();
         }

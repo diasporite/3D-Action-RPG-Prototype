@@ -29,6 +29,9 @@ namespace RPG_Project
             controller.Stamina.Run(false);
             controller.Movement.SetRunning(false);
 
+            controller.Health.Regenerative = false;
+            controller.Stamina.Regenerative = true;
+
             controller.Stamina.CurrentRegen = GameManager.instance.combat.staminaRecoverRegen;
 
             anim.SetBool("Recovery", true);
@@ -64,14 +67,6 @@ namespace RPG_Project
                 csm.ChangeState(controller.MOVE);
                 return;
             }
-
-            Move();
-        }
-
-        void Move()
-        {
-            var dir = controller.RawInputDir;
-            controller.Move(dir);
         }
     }
 }

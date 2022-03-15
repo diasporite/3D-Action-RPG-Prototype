@@ -13,7 +13,7 @@ namespace RPG_Project
 
         public override void Execute()
         {
-            controller.Mode = ControllerMode.Jump;
+            controller.State = ControllerState.Jump;
 
             anim.SetTrigger("SpecialAction");
 

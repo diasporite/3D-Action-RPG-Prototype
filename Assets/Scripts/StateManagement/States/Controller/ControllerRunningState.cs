@@ -24,7 +24,7 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            controller.Mode = ControllerMode.Run;
+            controller.State = ControllerState.Run;
             controller.Health.Regenerative = false;
             controller.Stamina.CurrentRegen = GameManager.instance.combat.staminaRunRegen;
 

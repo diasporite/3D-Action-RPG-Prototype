@@ -7,7 +7,9 @@ namespace RPG_Project
     public class Movement : MonoBehaviour
     {
         bool isPlayer = false;
-        bool locked = false;
+
+        bool lockedLinear = false;
+        bool lockedRotation = false;
 
         [SerializeField] float distanceTravelled = 0;
         [SerializeField] float timeSinceStationary = 0;
@@ -49,7 +51,8 @@ namespace RPG_Project
 
         CombatDatabase combat;
 
-        public bool Locked => locked;
+        public bool LockedLinear => lockedLinear;
+        public bool LockedRotation => lockedRotation;
 
         public Vector3 Ds => ds;
 
@@ -87,19 +90,6 @@ namespace RPG_Project
             cam = Camera.main.transform;
         }
 
-        private void Start()
-        {
-            //combat = GameManager.instance.Combat;
-
-            //lockOn = controller.Party.LockOn;
-
-            //GameManager.instance.Party.onCharacterChanged += SetSpeeds;
-
-            //SetSpeeds(GetComponent<Combatant>());
-
-            //velocity = Vector3.zero;
-        }
-
         private void Update()
         {
             //if (Input.GetKeyDown("space")) Jump();
@@ -125,35 +115,7 @@ namespace RPG_Project
 
             sqrTerminalSpeed = terminalSpeed * terminalSpeed;
 
-            SetSpeeds(GetComponent<Combatant>());
-
             velocity = Vector3.zero;
-        }
-
-        public void SetSpeeds(Combatant combatant)
-        {
-            //print(gameObject.name + " " + (combatant == null).ToString());
-            var character = combatant.Character;
-            var weight = WeightClass.Middleweight;
-
-            if (character != null)
-                weight = character.Weightclass;
-
-            switch (weight)
-            {
-                case WeightClass.Lightweight:
-                    walkSpeed = combat.lightweightWalk;
-                    runningSpeed = combat.lightweightRun;
-                    break;
-                case WeightClass.Middleweight:
-                    walkSpeed = combat.middleweightWalk;
-                    runningSpeed = combat.middleweightRun;
-                    break;
-                case WeightClass.Heavyweight:
-                    walkSpeed = combat.heavyweightWalk;
-                    runningSpeed = combat.heavyweightRun;
-                    break;
-            }
         }
 
         public void SetRunning(bool value)
@@ -162,14 +124,14 @@ namespace RPG_Project
             else currentSpeed = walkSpeed;
         }
 
-        public void SetSpeed(ControllerMode mode)
+        public void SetSpeed(ControllerState mode)
         {
             switch (mode)
             {
-                case ControllerMode.Walk:
+                case ControllerState.Walk:
                     currentSpeed = walkSpeed;
                     break;
-                case ControllerMode.Run:
+                case ControllerState.Run:
                     currentSpeed = runningSpeed;
                     break;
                 default:
@@ -179,19 +141,19 @@ namespace RPG_Project
 
         public void LockMovement()
         {
-            locked = true;
+            lockedLinear = true;
         }
 
         public void UnlockMovement()
         {
-            locked = false;
+            lockedLinear = false;
         }
 
         #region PositionBasedMovement
         // Source: https://www.youtube.com/watch?v=4HpC--2iowE
         public void MovePosition(Vector3 dir, float dt)
         {
-            if (!locked)
+            if (!lockedLinear)
             {
                 if (lockOn.CurrentlyLocked) MovePositionLocked(dir, dt, lockOn.CurrentTargetPos);
                 else MovePositionFree(dir, dt);
@@ -290,7 +252,7 @@ namespace RPG_Project
         #region VelocityBasedMovement
         public void MoveVelocity(Vector3 dir)
         {
-            if (!locked && dir != Vector3.zero)
+            if (!lockedLinear && dir != Vector3.zero)
             {
                 dir.Normalize();
 

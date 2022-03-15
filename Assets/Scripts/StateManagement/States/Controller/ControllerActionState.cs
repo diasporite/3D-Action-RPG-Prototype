@@ -26,6 +26,7 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
+            controller.Health.Regenerative = false;
             controller.Stamina.Regenerative = false;
             //controller.Poise.Regenerative = false;
         }
@@ -47,8 +48,7 @@ namespace RPG_Project
 
         public void Exit()
         {
-            controller.Stamina.Regenerative = true;
-            //controller.Poise.Regenerative = true;
+
         }
         #endregion
 

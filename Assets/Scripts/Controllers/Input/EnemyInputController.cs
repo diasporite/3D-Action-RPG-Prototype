@@ -17,30 +17,7 @@ namespace RPG_Project
 
         public override InputMode GetInput()
         {
-            if (ai.State == AIState.Attack)
-            {
-                if (!party.ActionQueue.Executing)
-                    ai.AttackCooldown.Tick(Time.deltaTime);
-
-                if (ai.AttackCooldown.Full)
-                {
-                    ai.AttackCooldown.Reset();
-
-                    var i = Random.Range(0, 4);
-
-                    switch (i)
-                    {
-                        case 0: return InputMode.TLAbility;
-                        case 1: return InputMode.TRAbility;
-                        case 2: return InputMode.BLAbility;
-                        case 3: return InputMode.BRAbility;
-                        default:
-                            break;
-                    }
-                }
-            }
-
-            return InputMode.None;
+            return ai.InputMode;
         }
 
         public override Vector3 GetOutputDir1()
@@ -49,10 +26,12 @@ namespace RPG_Project
             {
                 case AIState.Chase:
                     //return ai.AbsPlaneDirToTarget;
-                    return ai.PlaneDirToTarget;
+                    return ai.PlaneDirToTarget.normalized;
                 case AIState.Attack:
                     //return ai.AbsPlaneDirToTarget;
-                    return ai.PlaneDirToTarget;
+                    return ai.PlaneDirToTarget.normalized;
+                case AIState.Circle:
+                    return transform.right;
                 default:
                     return Vector3.zero;
             }

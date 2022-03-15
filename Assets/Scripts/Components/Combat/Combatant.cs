@@ -56,12 +56,12 @@ namespace RPG_Project
 
         public void OnDamage(int baseDamage, BattleChar instigator)
         {
-            if (controller.Mode == ControllerMode.Death) return;
+            if (controller.State == ControllerState.Death) return;
 
             var healthDamage = GameManager.instance.Combat.GetDamage(baseDamage, instigator.Attack, Character.Defence);
-            var poiseDamage = GameManager.instance.Combat.GetDamage(Mathf.RoundToInt(0.4f * baseDamage), instigator.Attack, Character.Defence);
+            var staminaDamage = GameManager.instance.Combat.GetDamage(Mathf.RoundToInt(2.4f * baseDamage), instigator.Attack, Character.Defence);
 
-            TakeDamage(healthDamage, poiseDamage);
+            TakeDamage(healthDamage, staminaDamage);
 
             //party.onPoiseChanged.Invoke(poiseDamage);
             //party.onHealthChanged.Invoke(healthDamage);
@@ -69,7 +69,7 @@ namespace RPG_Project
 
         public IEnumerator OnDamageCo(int baseDamage, BattleChar instigator)
         {
-            if (controller.Mode == ControllerMode.Death) yield break;
+            if (controller.State == ControllerState.Death) yield break;
 
             yield return null;
         }
@@ -89,32 +89,19 @@ namespace RPG_Project
             health = party.PartyHealth;
         }
 
-        void TakeHealthDamage(int damage)
-        {
-            //character.ChangeHealth(damage);
-            health.ChangeResource(-damage);
-            if (health.Empty) party.ActionQueue.StopActionDeath();
-        }
-
-        void TakePoiseDamage(int damage)
-        {
-            //character.ChangePoise(-damage);
-            poise.ChangeResource(-damage);
-            if (poise.Empty) party.ActionQueue.StopActionStagger();
-        }
-
         void TakeDamage(int healthDamage, int staminaDamage)
         {
+            print(gameObject.name);
             health.ChangeResource(-healthDamage);
-            stamina.ChangeResource(-staminaDamage);
-
-            //character.ChangePoise(-poiseDamage);
-            //poise.ChangeResource(-poiseDamage);
+            if (controller.State != ControllerState.Stagger)
+                stamina.ChangeResource(-staminaDamage);
 
             party.InvokeDamage(-healthDamage);
 
             if (health.Empty) party.ActionQueue.StopActionDeath();
-            else if (stamina.Empty) party.ActionQueue.StopActionStagger();
+            else if (stamina.Empty && controller.State != ControllerState.Stagger)
+                party.ActionQueue.StopActionStagger();
+            else if (party.AIController != null) party.AIController.FillActionCooldown(1f);
         }
 
         public void ApplyFallDamage(float percent)

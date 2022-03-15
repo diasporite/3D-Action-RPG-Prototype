@@ -13,7 +13,7 @@ namespace RPG_Project
 
         public override void Execute()
         {
-            controller.Mode = ControllerMode.Guard;
+            controller.State = ControllerState.Guard;
 
             anim.SetTrigger("SpecialAction");
 

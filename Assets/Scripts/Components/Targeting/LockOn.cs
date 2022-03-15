@@ -87,11 +87,7 @@ namespace RPG_Project
 
         protected virtual void Update()
         {
-            UpdateLock();
 
-            ToggleLock();
-
-            SelectTarget();
         }
 
         private void OnDrawGizmos()
@@ -192,7 +188,7 @@ namespace RPG_Project
             }
         }
 
-        public void LookAtTarget()
+        public virtual void LookAtTarget()
         {
             if (Controller == null || CurrentTarget == null) return;
 
@@ -203,7 +199,7 @@ namespace RPG_Project
             LastTrackedPosition = lookPos;
         }
 
-        public void LookAtTarget(Transform subject)
+        public virtual void LookAtTarget(Transform subject)
         {
             if (CurrentTarget != null)
             {
@@ -218,13 +214,23 @@ namespace RPG_Project
         public void LockCamera()
         {
             currentlyLocked = true;
-            cam.Sm.ChangeState(cam.LOCKED);
+            if (cam!=null) cam.Sm.ChangeState(cam.LOCKED);
         }
 
         public void UnlockCamera()
         {
             currentlyLocked = false;
-            cam.Sm.ChangeState(cam.UNLOCKED);
+            if (cam!=null) cam.Sm.ChangeState(cam.UNLOCKED);
+        }
+
+        public virtual void TargetLock()
+        {
+
+        }
+
+        public virtual void TargetUnlock()
+        {
+
         }
     }
 }

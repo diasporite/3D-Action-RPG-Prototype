@@ -77,6 +77,8 @@ namespace RPG_Project
         public string CharName => charName;
         public bool Dead => dead;
 
+        public Sprite Portrait => portrait;
+
         public Progression Progression => progression;
         public Rewards Rewards => rewards;
 
@@ -150,44 +152,44 @@ namespace RPG_Project
 
         public BattleChar(bool random)
         {
-            if (random)
-                InitChar(Random.Range(50, 200), Random.Range(10, 50), 
-                Random.Range(55, 165));
+            //if (random)
+            //    InitChar(Random.Range(50, 200), Random.Range(10, 50), 
+            //    Random.Range(55, 165));
         }
 
         public BattleChar(int hp, int atk, int def)
         {
-            InitChar(hp, atk, def);
+            //InitChar(hp, atk, def);
         }
 
-        void InitChar(int baseHp, int baseAtk, int baseDef)
-        {
-            progression = new Progression(100);
-            rewards = new Rewards(100, 0);
+        //void InitChar(int baseHp, int baseAtk, int baseDef)
+        //{
+        //    progression = new Progression(100);
+        //    rewards = new Rewards(100, 0);
 
-            vitAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Vitality, baseHp);
-            endAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Endurance, baseHp);
-            //ppAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Poise, baseHp);
+        //    vitAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Vitality, baseHp);
+        //    endAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Endurance, baseHp);
+        //    //ppAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Poise, baseHp);
 
-            atkAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Attack, baseAtk);
-            defAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Defence, baseDef);
+        //    atkAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Attack, baseAtk);
+        //    defAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.Defence, baseDef);
 
-            var lv = 1;
+        //    var lv = 1;
 
-            var hp = endAtLv[lv - 1];
-            var sp = endAtLv[lv - 1];
-            //var pp = ppAtLv[lv - 1];
+        //    var hp = endAtLv[lv - 1];
+        //    var sp = endAtLv[lv - 1];
+        //    //var pp = ppAtLv[lv - 1];
 
-            var atk = endAtLv[lv - 1];
-            var def = endAtLv[lv - 1];
+        //    var atk = endAtLv[lv - 1];
+        //    var def = endAtLv[lv - 1];
 
-            //health = new PointStat(hp, hp, 3999);
-            //stamina = new PointStat(sp, sp, 999);
-            //poise = new PointStat(pp, pp, 999);
+        //    //health = new PointStat(hp, hp, 3999);
+        //    //stamina = new PointStat(sp, sp, 999);
+        //    //poise = new PointStat(pp, pp, 999);
 
-            attack = new Stat(atk, 255);
-            defence = new Stat(def, 255);
-        }
+        //    attack = new Stat(atk, 255);
+        //    defence = new Stat(def, 255);
+        //}
 
         void InitChar(CharData data)
         {

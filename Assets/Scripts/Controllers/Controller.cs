@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPG_Project
 {
-    public enum ControllerMode
+    public enum ControllerState
     {
         Walk = 0,
         Run = 1,
@@ -34,7 +34,7 @@ namespace RPG_Project
         [SerializeField] Vector3 inputDir = new Vector3(0, 0);
 
         [Header("Info")]
-        [SerializeField] protected ControllerMode mode;
+        [SerializeField] protected ControllerState mode;
         [SerializeField] protected string currentState;
 
         protected PartyManager party;
@@ -54,60 +54,16 @@ namespace RPG_Project
         protected Poise poise;
 
         protected Hitbox[] hitboxes;
-        protected Hurtbox hurtbox;
+        protected Hurtbox[] hurtboxes;
 
         protected CharacterHealth charHealth;
 
         protected StateMachine sm = new StateMachine();
 
-        public ControllerMode Mode
+        public ControllerState State
         {
             get => mode;
             set => mode = value;
-        }
-
-        public Vector3 RawInputDir
-        {
-            get
-            {
-                inputDir.x = Input.GetAxisRaw("Horizontal");
-                inputDir.y = Input.GetAxisRaw("Vertical");
-
-                return inputDir;
-            }
-        }
-
-        public Vector3 RawInputDirXz
-        {
-            get
-            {
-                inputDir.x = Input.GetAxisRaw("Horizontal");
-                inputDir.z = Input.GetAxisRaw("Vertical");
-
-                return inputDir;
-            }
-        }
-
-        public Vector3 InputDir
-        {
-            get
-            {
-                inputDir.x = Input.GetAxis("Horizontal");
-                inputDir.y = Input.GetAxis("Vertical");
-
-                return inputDir;
-            }
-        }
-
-        public Vector3 InputDirXz
-        {
-            get
-            {
-                inputDir.x = Input.GetAxis("Horizontal");
-                inputDir.y = Input.GetAxis("Vertical");
-
-                return inputDir;
-            }
         }
 
         public PartyManager Party => party;
@@ -126,7 +82,7 @@ namespace RPG_Project
         public Poise Poise => poise;
 
         public Hitbox[] Hitboxes => hitboxes;
-        public Hurtbox Hurtbox => hurtbox;
+        public Hurtbox[] Hurtboxes => hurtboxes;
 
         public BattleChar Character => combatant.Character;
 
@@ -163,7 +119,10 @@ namespace RPG_Project
 
         protected virtual void OnDrawGizmos()
         {
-            
+            Gizmos.color = Color.cyan;
+            if (lockOn.CurrentlyLocked)
+                Gizmos.DrawRay(transform.position, transform.rotation * inputDir.normalized);
+            else Gizmos.DrawRay(transform.position, inputDir.normalized);
         }
 
         public virtual void InitController(bool player, LayerMask hittables)
@@ -182,7 +141,7 @@ namespace RPG_Project
             ability = GetComponent<AbilityManager>();
 
             hitboxes = GetComponentsInChildren<Hitbox>();
-            hurtbox = GetComponentInChildren<Hurtbox>();
+            hurtboxes = GetComponentsInChildren<Hurtbox>();
             
             //if (!player)
             //{
@@ -198,11 +157,7 @@ namespace RPG_Project
             movement.InitMovement(player);
             ability.InitAbilities(hittables);
 
-            hurtbox.Init(this);
-
-            //health.InitResource();
-            //stamina.InitResource();
-            //poise.InitResource();
+            foreach(var box in hurtboxes) box.Init(this);
 
             InitSM();
         }
@@ -248,7 +203,7 @@ namespace RPG_Project
                     Run();
                     break;
                 case InputMode.Defend:
-                    SpecialAction();
+                    Roll();
                     break;
                 case InputMode.TLAbility:
                     UseAbility(0);
@@ -263,9 +218,12 @@ namespace RPG_Project
                     UseAbility(3);
                     break;
                 default:
-                    Move(inputDir);
+                    //print(gameObject.name);
+                    //Move(inputDir);
                     break;
             }
+
+            Move(inputDir);
 
             //if (Input.GetKey("j")) Run();
             //else if (Input.GetKeyDown("l")) SpecialAction();
@@ -288,7 +246,7 @@ namespace RPG_Project
                     sm.ChangeState(MOVE);
                     break;
                 case InputMode.Defend:
-                    SpecialAction();
+                    Roll();
                     break;
                 case InputMode.TLAbility:
                     UseAbility(0);
@@ -303,9 +261,11 @@ namespace RPG_Project
                     UseAbility(3);
                     break;
                 default:
-                    Move(inputDir);
+                    //Move(inputDir);
                     break;
             }
+
+            Move(inputDir);
 
             //if (!Input.GetKey("j")) sm.ChangeState(MOVE);
             //else if (Input.GetKeyDown("l")) SpecialAction();
@@ -318,13 +278,13 @@ namespace RPG_Project
 
         public virtual void ActionCommand()
         {
-            if (lockOn.CurrentlyLocked && !movement.Locked && mode != ControllerMode.Roll)
+            if (lockOn.CurrentlyLocked && !movement.LockedLinear && mode != ControllerState.Roll)
                 lockOn.LookAtTarget();
 
             switch (inputMode)
             {
                 case InputMode.Defend:
-                    SpecialAction();
+                    Roll();
                     break;
                 case InputMode.TLAbility:
                     UseAbility(0);
@@ -354,7 +314,7 @@ namespace RPG_Project
 
         public virtual void StaggerCommand()
         {
-
+            stamina.Tick(Time.deltaTime);
         }
 
         public virtual void DeathCommand()
@@ -373,27 +333,8 @@ namespace RPG_Project
             sm.ChangeState(RUN);
         }
 
-        public void SpecialAction()
+        public void Roll()
         {
-            //var weightclass = combatant.Character.Weightclass;
-            //BattleCommand act;
-
-            //switch (weightclass)
-            //{
-            //    case WeightClass.Lightweight:
-            //        act = new JumpCommand(this);
-            //        AddCommand(act);
-            //        break;
-            //    case WeightClass.Heavyweight:
-            //        act = new GuardCommand(this);
-            //        AddCommand(act);
-            //        break;
-            //    default:
-            //        act = new RollCommand(this, inputDir);
-            //        AddCommand(act);
-            //        break;
-            //}
-
             AddCommand(new RollCommand(this, inputDir));
         }
 
@@ -402,7 +343,7 @@ namespace RPG_Project
             index = Mathf.Abs(index);
             index = index % 4;
 
-            var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget);
+            var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget, index);
             if (command != null) queue.AddAction(command);
         }
 
@@ -415,7 +356,7 @@ namespace RPG_Project
 
         public void AddAbilityCommand(int index)
         {
-            var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget);
+            var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget, index);
             if (command != null) queue.AddAction(command);
             //queue.AddAction(new AttackCommand(this, transform.forward));
         }

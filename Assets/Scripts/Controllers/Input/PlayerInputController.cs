@@ -20,6 +20,27 @@ namespace RPG_Project
         public string blAbility = "u";
         public string brAbility = "o";
 
+        [Header("Char")]
+        public string char1 = "z";
+        public string char2 = "x";
+        public string char3 = "c";
+        public string char4 = "v";
+
+        string[] inputStrings = new string[] { "k", "j", "l", "i", "y", "p", "u", "o", "z", "x", "c", "v" };
+        InputMode[] modes = new InputMode[] { InputMode.Action, InputMode.Run, InputMode.Walk, InputMode.Defend,
+            InputMode.ToggleShortcut, InputMode.TLAbility, InputMode.TRAbility, InputMode.BLAbility, InputMode.BRAbility,
+            InputMode.Char1, InputMode.Char2, InputMode.Char3, InputMode.Char4 };
+
+        Dictionary<string, InputMode> dict = new Dictionary<string, InputMode>();
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            for (int i = 0; i < inputStrings.Length; i++)
+                dict.Add(inputStrings[i], modes[i]);
+        }
+
         public override InputMode GetInput()
         {
             if (!inputLocked)
@@ -34,6 +55,11 @@ namespace RPG_Project
                 if (Input.GetKeyDown(trAbility)) return InputMode.TRAbility;
                 if (Input.GetKeyDown(blAbility)) return InputMode.BLAbility;
                 if (Input.GetKeyDown(brAbility)) return InputMode.BRAbility;
+
+                if (Input.GetKeyDown(char1)) return InputMode.Char1;
+                if (Input.GetKeyDown(char2)) return InputMode.Char2;
+                if (Input.GetKeyDown(char3)) return InputMode.Char3;
+                if (Input.GetKeyDown(char4)) return InputMode.Char4;
             }
 
             return InputMode.None;

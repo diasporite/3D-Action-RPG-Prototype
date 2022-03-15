@@ -13,6 +13,15 @@ namespace RPG_Project
             cam = Camera.main.GetComponent<ThirdPersonCameraController>();
         }
 
+        protected override void Update()
+        {
+            UpdateLock();
+
+            ToggleLock();
+
+            SelectTarget();
+        }
+
         public override void ToggleLock()
         {
             if (party.CurrentController != null)

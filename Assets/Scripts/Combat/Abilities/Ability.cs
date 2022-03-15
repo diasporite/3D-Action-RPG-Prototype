@@ -46,9 +46,9 @@ namespace RPG_Project
         }
         #endregion
 
-        public virtual BattleCommand GetCommand(Controller controller, Vector3 dir)
+        public virtual BattleCommand GetCommand(Controller controller, Vector3 dir, int index)
         {
-            return new AttackCommand(controller, dir, trigger, this);
+            return new AttackCommand(controller, dir, trigger, index);
         }
 
         public void UseResource(int amount)

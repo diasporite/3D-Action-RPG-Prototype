@@ -31,7 +31,6 @@ namespace RPG_Project
         protected int partyCap = 4;
         [SerializeField] int currentMember = 0;
         [SerializeField] List<Controller> party = new List<Controller>();
-        [SerializeField] List<Controller> activeParty = new List<Controller>();
 
         [SerializeField] Vector3 currentPos = new Vector3(0, 0, 0);
         [SerializeField] Controller currentPartyMember;
@@ -45,14 +44,13 @@ namespace RPG_Project
         AIController ai;
 
         public List<Controller> Party => party;
-        public List<Controller> ActiveParty => activeParty;
 
         public Controller CurrentController
         {
             get
             {
-                if (currentMember < activeParty.Count)
-                    return activeParty[currentMember];
+                if (currentMember < party.Count)
+                    return party[currentMember];
                 return null;
             }
         }
@@ -91,7 +89,7 @@ namespace RPG_Project
             {
                 int health = 0;
 
-                foreach (var member in activeParty)
+                foreach (var member in party)
                     if (member != null)
                         health += member.Character.Vitality.CurrentStatValue;
 
@@ -99,7 +97,9 @@ namespace RPG_Project
             }
         }
 
-        public int AverageHealth => Mathf.RoundToInt((float)TotalHealth / activeParty.Count);
+        public int AverageHealth => Mathf.RoundToInt((float)TotalHealth / party.Count);
+
+        public int PartyHp => Mathf.RoundToInt((0.125f * (party.Count - 1) + 1) * AverageHealth);
 
         public int TotalStamina
         {
@@ -107,7 +107,7 @@ namespace RPG_Project
             {
                 int stamina = 0;
 
-                foreach (var member in activeParty)
+                foreach (var member in party)
                     if (member != null)
                         stamina += member.Character.Endurance.CurrentStatValue;
 
@@ -115,24 +115,17 @@ namespace RPG_Project
             }
         }
 
-        public int AverageStamina => Mathf.RoundToInt((float)TotalStamina / activeParty.Count);
+        public int AverageStamina => Mathf.RoundToInt((float)TotalStamina / party.Count);
+
+        public int PartySp => Mathf.RoundToInt((0.125f * (party.Count - 1) + 1) * AverageStamina);
 
         public Controller GetPartyMember(int index)
         {
-            if (party.Count <= 0) return null;
-
             index = Mathf.Abs(index);
-            index = index % party.Count;
 
-            return party[index];
-        }
+            if (index < party.Count) return party[index];
 
-        public Controller GetActivePartyMember(int index)
-        {
-            index = Mathf.Abs(index);
-            index = index % 4;
-
-            return party[index];
+            return null;
         }
 
         private void Awake()
@@ -196,23 +189,25 @@ namespace RPG_Project
 
         public void InitParty()
         {
+            currentPartyMember = CurrentController;
+
             partyHealth.InitResource();
             partyStamina.InitResource();
         }
 
         public void AddPartyMember(Controller member)
         {
-            if (activeParty.Count < partyCap) activeParty.Add(member);
+            if (party.Count < partyCap) party.Add(member);
         }
 
         public void RemovePartyMember(Controller member)
         {
-            if (activeParty.Contains(member)) activeParty.Remove(member);
+            if (party.Contains(member)) party.Remove(member);
         }
 
         public void ChangePartyMember(int index)
         {
-            if (activeParty.Count <= 0) return;
+            if (party.Count <= 0) return;
 
             index = Mathf.Abs(index);
             index = index % party.Count;
@@ -222,14 +217,14 @@ namespace RPG_Project
             currentMember = index;
             //CurrentPartyMember.gameObject.SetActive(true);
 
-            for(int i = 0; i < activeParty.Count; i++)
+            for(int i = 0; i < party.Count; i++)
             {
                 if (i == currentMember)
                 {
-                    activeParty[i].gameObject.SetActive(true);
-                    activeParty[i].transform.position = currentPos;
+                    party[i].gameObject.SetActive(true);
+                    party[i].transform.position = currentPos;
                 }
-                else activeParty[i].gameObject.SetActive(false);
+                else party[i].gameObject.SetActive(false);
             }
 
             currentPartyMember = CurrentController;
@@ -239,13 +234,6 @@ namespace RPG_Project
         public void ChangePartyComp()
         {
 
-        }
-
-        public void GetActiveParty()
-        {
-            for (int i = 0; i < 4; i++)
-                if (i < party.Count)
-                    activeParty[i] = party[i];
         }
     }
 }

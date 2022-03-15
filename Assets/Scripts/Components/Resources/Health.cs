@@ -28,7 +28,7 @@ namespace RPG_Project
 
         public override void InitResource()
         {
-            var hp = 2 * party.AverageHealth;
+            var hp = party.PartyHp;
 
             resourcePoints = new PointStat(hp, hp, 1999);
 

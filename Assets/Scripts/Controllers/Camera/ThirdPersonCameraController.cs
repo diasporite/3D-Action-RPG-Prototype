@@ -163,7 +163,7 @@ namespace RPG_Project
             if (follow != null && target != null)
             {
                 var ds = target.position - follow.position;
-                var newPos = follow.position - 3f * ds.normalized;
+                var newPos = follow.position - 5f * ds.normalized;
                 newPos.y = follow.position.y + 2f;
                 transform.position = Vector3.MoveTowards(transform.position, newPos, updateSpeed * Time.deltaTime);
 

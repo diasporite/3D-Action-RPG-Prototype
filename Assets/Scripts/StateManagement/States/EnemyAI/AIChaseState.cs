@@ -29,10 +29,16 @@ namespace RPG_Project
 
             ai.CalculateDistance();
 
+            ai.ActionCooldown.Tick(Time.deltaTime);
+
             if (ai.SqrDist <= ai.SqrChaseDist)
             {
                 if (ai.SqrDist <= ai.SqrAttackDist)
-                    sm.ChangeState(AIState.Attack);
+                {
+                    if (ai.ActionCooldown.Full)
+                        sm.ChangeState(AIState.Attack);
+                    else sm.ChangeState(AIState.Circle);
+                }
             }
             else sm.ChangeState(AIState.Idle);
         }

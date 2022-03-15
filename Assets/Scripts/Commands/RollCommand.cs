@@ -15,17 +15,17 @@ namespace RPG_Project
 
         public RollCommand(Controller controller, Vector3 dir) : base(controller, dir)
         {
-            if (dir == Vector3.zero) dir = controller.transform.forward;
+            if (dir == Vector3.zero) this.dir = controller.transform.forward;
+            else this.dir = dir;
 
             actionName = "roll";
         }
 
         public override void Execute()
         {
-            controller.Mode = ControllerMode.Roll;
+            controller.State = ControllerState.Roll;
 
             dir.y = 0;
-            if (dir == Vector3.zero) dir = controller.transform.forward;
 
             if (controller.LockOn.CurrentlyLocked)
                 controller.transform.forward = controller.transform.rotation * dir.normalized;

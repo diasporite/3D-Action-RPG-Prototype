@@ -328,38 +328,86 @@ MonoBehaviour:
   skillset:
     tlSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     trSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     blSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     brSkill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     skillset: []
@@ -378,152 +426,82 @@ MonoBehaviour:
   weapons:
   - {fileID: 7269494620106162376}
   - {fileID: 1416166175767518988}
-  topLeftAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 7269494620106162376}
-      animation: {fileID: 7400000, guid: 592b34d96f010a442adc15c21d9d9fce, type: 2}
-      weaponId: 0
-      numberOfHits: 3
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  topRightAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 7269494620106162376}
-      animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
-      weaponId: 2
-      numberOfHits: 1
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  bottomLeftAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 1416166175767518988}
-      animation: {fileID: 7400000, guid: 06f9f7c4ee3da3049b3ea8e63d35b6cf, type: 2}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  bottomRightAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 1416166175767518988}
-      animation: {fileID: 7400000, guid: 4b8e994f258e9764482e64cec64c8fa3, type: 2}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 30
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
+  actions: []
+  skills: []
+  currentAbilityIndex: 0
+  abilities: []
   jumpAbility:
     trigger: SpecialAction
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
+    action: {fileID: 0}
     skill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     spCost: 0
   rollAbility:
     trigger: SpecialAction
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
+    action: {fileID: 0}
     skill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     spCost: 0
   guardAbility:
     trigger: SpecialAction
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
+    action: {fileID: 0}
     skill:
       skillName: 
+      element: 0
+      type: 0
       staminaCost: 0
       uses:
         statValue: 0
         currentStatValue: 0
         pointValue: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  gunAmmo: 10
-  ammunition:
-    statValue: 0
-    currentStatValue: 0
-    pointValue: 0
-  currentAbility:
-    trigger: 
-    action:
-      weapon: {fileID: 0}
-      animation: {fileID: 0}
-      weaponId: 0
-      numberOfHits: 1
-      spCost: 3
-    skill:
-      skillName: 
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      damage:
+        used: 0
+        numOfHits: 1
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
       healthDps: 0
       poiseDps: 0
     spCost: 0
@@ -648,6 +626,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922761256112263700, guid: 53a177ae566466a458ecf75982a6b6c9,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5400404054514981839, guid: 53a177ae566466a458ecf75982a6b6c9,
         type: 3}

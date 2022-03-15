@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiOffset: 1.5
-  updateSpeed: 50
+  updateSpeed: 10
   controller: {fileID: 0}
   uiHolder: {fileID: 3333422973892055389}
   skillName: {fileID: 5154340660520943816}

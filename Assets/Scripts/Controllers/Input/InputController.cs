@@ -18,6 +18,11 @@ namespace RPG_Project
         TRAbility,
         BLAbility,
         BRAbility,
+
+        Char1,
+        Char2,
+        Char3,
+        Char4,
     }
 
     public class InputController : MonoBehaviour

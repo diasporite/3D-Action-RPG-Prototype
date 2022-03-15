@@ -24,7 +24,7 @@ namespace RPG_Project
 
         public override void InitResource()
         {
-            var sp = party.AverageStamina;
+            var sp = party.PartySp;
 
             resourcePoints = new PointStat(sp, sp, 999);
 

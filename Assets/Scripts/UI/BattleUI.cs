@@ -9,7 +9,8 @@ namespace RPG_Project
         [SerializeField] PartyManager party;
 
         public CharacterInfo charInfo;
-        public DPadMenu shortcuts;
+        //public DPadMenu shortcuts;
+        public ActiveParty activeParty;
         public CharacterAbilities charAbilities;
         public BasicActions basicActions;
 
@@ -19,6 +20,7 @@ namespace RPG_Project
 
             charInfo.InitUI(party);
             //shortcuts.InitUI(party);
+            activeParty.InitUI(party);
             charAbilities.InitUI(party);
             basicActions.InitUI(party);
         }

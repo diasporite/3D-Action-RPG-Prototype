@@ -175,12 +175,6 @@ namespace RPG_Project
         }
         #endregion
 
-        void GetInput()
-        {
-            key = Input.inputString;
-            dir = RawInputDirXz;
-        }
-
         #region OldInputMethods
         //public void MovePlayer2()
         //{

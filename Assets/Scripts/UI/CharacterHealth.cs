@@ -54,14 +54,7 @@ namespace RPG_Project
 
         private void LateUpdate()
         {
-            // Use update speed / MoveTowards() to reduce jitter (see camera follow)
-            newPosition =
-                Camera.main.WorldToScreenPoint(controller.transform.position +
-                uiOffset * Vector3.up);
-
-            uiHolder.transform.position = Vector3.MoveTowards(lastPosition, newPosition, updateSpeed * Time.deltaTime);
-
-            lastPosition = uiHolder.transform.position;
+            UpdatePosition();
         }
 
         private void OnDisable()
@@ -102,6 +95,18 @@ namespace RPG_Project
             damageReceived += Mathf.Abs(damage);
             damageText.text = "-" + Mathf.Abs(damageReceived);
             damageTime.Reset();
+        }
+
+        void UpdatePosition()
+        {
+            // Use update speed / MoveTowards() to reduce jitter (see camera follow)
+            newPosition =
+                Camera.main.WorldToScreenPoint(controller.transform.position +
+                uiOffset * Vector3.up);
+
+            uiHolder.transform.position = Vector3.MoveTowards(lastPosition, newPosition, updateSpeed * Time.deltaTime);
+            //uiHolder.transform.position = newPosition;
+            lastPosition = uiHolder.transform.position;
         }
     }
 }
