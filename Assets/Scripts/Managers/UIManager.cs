@@ -9,6 +9,7 @@ namespace RPG_Project
         public PartyManager playerParty;
 
         public BattleUI battleUi;
+        public GameOverScreen gameOverScreen;
 
         //public CharacterInfo charInfo;
         //public DPadMenu shortcuts;

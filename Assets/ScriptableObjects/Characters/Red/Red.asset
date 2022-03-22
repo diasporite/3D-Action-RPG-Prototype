@@ -20,10 +20,10 @@ MonoBehaviour:
   element2: 1
   baseExp: 50
   baseExpReward: 50
-  baseVit: 50
-  baseEnd: 50
+  baseVit: 1
+  baseEnd: 24
   basePp: 75
-  baseAtk: 29
-  baseDef: 82
+  baseAtk: 60
+  baseDef: 79
   weight: 152
   skills: []

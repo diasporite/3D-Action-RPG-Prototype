@@ -37,33 +37,40 @@ namespace RPG_Project
         {
             if (other.transform.root == transform.root) return;
 
+            Ability ability;
             var multiplier = 1f;
+
             var hitter = other.GetComponent<Hitbox>();
+            if (hitter != null)
+                ability = hitter.Controller.Ability.CurrentAbility;
+            else ability = null;
 
             if (hitter != null)
             {
                 //if (!hitter.AlreadyHit(this))
                 //{
-                    if (weakpoint) multiplier = 1.4f;
+                if (weakpoint) multiplier = 1.4f;
 
-                    //hitter.AddHit(this);
+                //hitter.AddHit(this);
 
-                    // Get instigator info from hitter
+                // Get instigator info from hitter
 
-                    switch (state)
-                    {
-                        case HurtboxState.Resist:
-                            multiplier = 0.7f;
-                            break;
-                        case HurtboxState.Weak:
-                            multiplier = 1.4f;
-                            break;
-                    }
+                switch (state)
+                {
+                    case HurtboxState.Resist:
+                        multiplier = 0.7f;
+                        break;
+                    case HurtboxState.Weak:
+                        multiplier = 1.4f;
+                        break;
+                }
 
-                    if (combatant != null)
-                        combatant.OnDamage(Mathf.RoundToInt(multiplier * 30), combatant.Character);
-                    else if (destructible != null)
-                        destructible.OnDamage(Mathf.RoundToInt(multiplier * 50), null);
+                print(ability.skill.SkillName);
+
+                if (combatant != null)
+                    combatant.OnDamage(multiplier, ability, hitter.Controller.Combatant);
+                else if (destructible != null)
+                    destructible.OnDamage(multiplier, ability, null);
                 //}
             }
         }

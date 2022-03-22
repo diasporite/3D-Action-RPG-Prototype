@@ -25,17 +25,20 @@ MonoBehaviour:
   stabMultiplier: 1.2
   lightweightWalk: 4.5
   lightweightRun: 7
+  lightweightLocked: 3
   middleweightWalk: 4
   middleweightRun: 6
+  middleweightLocked: 2.5
   heavyweightWalk: 3.5
   heavyweightRun: 5
+  heavyweightLocked: 2
   lightweightHealthRegen: 2
   middleweightHealthRegen: 5
   heavyweightHealthRegen: 8
-  staminaRegen: 45
-  staminaRecoverRegen: 75
-  staminaRunRegen: -25
+  staminaRegen: 20
+  staminaRecoverRegen: 45
+  staminaRunRegen: -10
   poiseRegen: 18
-  jumpSpCost: 40
-  rollSpCost: 80
-  guardSpCost: 120
+  jumpSpCost: 16
+  rollSpCost: 24
+  guardSpCost: 32

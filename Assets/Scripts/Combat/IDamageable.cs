@@ -4,7 +4,7 @@ namespace RPG_Project
 {
     public interface IDamageable
     {
-        void OnDamage(int baseDamage, BattleChar instigator);
-        IEnumerator OnDamageCo(int baseDamage, BattleChar instigator);
+        void OnDamage(float multiplier, Ability ability, Combatant instigator);
+        IEnumerator OnDamageCo(float multiplier, Ability ability, Combatant instigator);
     }
 }

@@ -19,9 +19,13 @@ namespace RPG_Project
         public CombatDatabase combat;
         public SkillDatabase skill;
 
+        public string[] gameOverTexts;
+
         UIManager ui;
 
         PartyManager party;
+
+        public readonly StateMachine sm = new StateMachine();
 
         public CombatDatabase Combat => combat;
 
@@ -41,12 +45,19 @@ namespace RPG_Project
             ui = FindObjectOfType<UIManager>();
 
             party = FindObjectOfType<PlayerInputController>().GetComponent<PartyManager>();
+
+            sm.AddState("running", new GameRunningState(this));
+            sm.AddState("game over", new GameOverState(this));
         }
 
         private void Start()
         {
             inGameTime = 0;
             realTime = 0;
+
+            sm.ChangeState("running");
+
+            FindObjectOfType<PlayerSpawner>().GetComponent<PartyManager>().OnDeath += GameOver;
         }
 
         private void Update()
@@ -55,6 +66,11 @@ namespace RPG_Project
 
             inGameTime += Time.deltaTime;
             realTime += Time.unscaledDeltaTime;
+        }
+
+        private void OnDisable()
+        {
+            FindObjectOfType<PlayerSpawner>().GetComponent<PartyManager>().OnDeath -= GameOver;
         }
 
         void InitGame()
@@ -76,6 +92,11 @@ namespace RPG_Project
 
             if (Paused) Time.timeScale = 0;
             else Time.timeScale = 1;
+        }
+
+        void GameOver()
+        {
+            sm.ChangeState("game over");
         }
     }
 }

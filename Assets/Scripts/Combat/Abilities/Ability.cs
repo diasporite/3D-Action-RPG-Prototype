@@ -14,10 +14,37 @@ namespace RPG_Project
         public Skill skill;
 
         [SerializeField] protected int spCost;
+        [SerializeField] PointStat uses;
+
+        [SerializeField] DamageEffect damage = null;
+        [SerializeField] BuffEffect buff = null;
 
         public string Trigger => trigger;
 
         public int SpCost => spCost;
+
+        public PointStat Uses => uses;
+
+        public DamageEffect Damage => damage;
+        public BuffEffect Buff => buff;
+
+        public int HealthDamage
+        {
+            get
+            {
+                if (damage != null) return damage.HealthDamage;
+                return 0;
+            }
+        }
+
+        public int StaminaDamage
+        {
+            get
+            {
+                if (damage != null) return damage.StaminaDamage;
+                return 0;
+            }
+        }
 
         #region Constructors
         public Ability()
@@ -25,15 +52,12 @@ namespace RPG_Project
 
         }
 
-        public Ability(string trigger)
-        {
-            this.trigger = trigger;
-        }
-
         public Ability(CombatAction action, Skill skill)
         {
             this.action = action;
             this.skill = skill;
+
+            InitAbility();
         }
 
         public Ability(string trigger, CombatAction action, Skill skill)
@@ -42,7 +66,7 @@ namespace RPG_Project
             this.action = action;
             this.skill = skill;
 
-            spCost = Mathf.Abs(action.baseSpCost) + Mathf.Abs(skill.StaminaCost);
+            InitAbility();
         }
         #endregion
 
@@ -51,9 +75,27 @@ namespace RPG_Project
             return new AttackCommand(controller, dir, trigger, index);
         }
 
+        void InitAbility()
+        {
+            spCost = Mathf.Abs(action.baseSpCost) + Mathf.Abs(skill.StaminaCost);
+
+            var numUses = action.baseUsage;
+            uses = new PointStat(numUses, numUses, 40);
+
+            if (skill.Damage.used) damage = new DamageEffect(skill.Damage.HealthDps, 
+                skill.Damage.StaminaDps, action);
+
+            if (skill.Buff.used) buff = skill.Buff;
+        }
+
+        public void ChangeResource(int amount)
+        {
+            uses.ChangeCurrentPoints(amount);
+        }
+
         public void UseResource(int amount)
         {
-            skill.Uses.ChangeCurrentPoints(-Mathf.Abs(amount));
+            uses.ChangeCurrentPoints(-Mathf.Abs(amount));
         }
     }
 }

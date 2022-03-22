@@ -6,16 +6,30 @@ namespace RPG_Project
 {
     public class SwitchCommand : BattleCommand
     {
+        PartyManager party;
         Controller newController;
+        int index;
 
-        public SwitchCommand(Controller controller, Controller newController) : base(controller)
+        public SwitchCommand(Controller controller, int index) : base(controller)
         {
-            this.newController = newController;
+            actionName = "switch";
+
+            this.index = index;
+            party = controller.Party;
         }
 
         public override void Execute()
         {
-            base.Execute();
+            party.StartCoroutine(ExecuteCo());
+        }
+
+        public override IEnumerator ExecuteCo()
+        {
+            party.ChangePartyMember(index);
+
+            yield return new WaitForSeconds(0.2f);
+
+            party.ActionQueue.NextAction();
         }
     }
 }

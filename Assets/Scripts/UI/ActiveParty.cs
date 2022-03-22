@@ -17,11 +17,15 @@ namespace RPG_Project
         protected override void SubscribeToDelegates()
         {
             party.OnCharacterChanged += UpdateCombatant;
+
+            //party.OnCharacterSelect += SelectCharacter;
         }
 
         protected override void UnsubscribeFromDelegates()
         {
             party.OnCharacterChanged -= UpdateCombatant;
+
+            //party.OnCharacterSelect -= SelectCharacter;
         }
 
         public override void InitUI(PartyManager party)
@@ -29,6 +33,8 @@ namespace RPG_Project
             base.InitUI(party);
 
             InitPanels();
+
+            SubscribeToDelegates();
         }
 
         void InitPanels()
@@ -49,8 +55,10 @@ namespace RPG_Project
         {
             foreach (var panel in panels)
             {
+                print(6);
                 if (panel.Character == combatant)
                 {
+                    print(4);
                     panel.SelectUI();
                     panel.HighlightPanel(true);
                 }

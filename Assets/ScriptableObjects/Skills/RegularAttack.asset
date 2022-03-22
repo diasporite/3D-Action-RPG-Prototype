@@ -15,11 +15,10 @@ MonoBehaviour:
   skillName: Regular Attack
   element: 1
   type: 0
-  staminaCost: 25
+  staminaCost: 12
   uses: 30
   damageEffect:
     used: 1
-    numOfHits: 1
     healthDps: 40
     staminaDps: 24
     healthDamage: 1

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Red_TL
   m_EditorClassIdentifier: 
   animation: {fileID: 7400000, guid: 6fa9f474bbef64c468492f8e0551bb2f, type: 2}
+  weapon: {fileID: 0}
   numberOfHits: 1
-  baseSpCost: 1
+  baseSpCost: 19
+  baseUsage: 25

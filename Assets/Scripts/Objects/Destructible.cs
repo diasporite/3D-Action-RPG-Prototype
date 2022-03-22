@@ -30,13 +30,12 @@ namespace RPG_Project
             hurtbox.Init(this);
         }
 
-        public void OnDamage(int baseDamage, BattleChar instigator)
+        public void OnDamage(float multiplier, Ability ability, Combatant instigator)
         {
             var damage = 1;
 
-            if (instigator != null) damage =
-                    GameManager.instance.Combat.GetDamage(instigator.Atk, defence.CurrentStatValue);
-            else damage = baseDamage;
+            if (instigator != null) damage = Mathf.RoundToInt(multiplier * 
+                GameManager.instance.Combat.GetDamage(instigator.Character.Atk, defence.CurrentStatValue));
 
             //var damage = GameManager.instance.Combat.GetDamage(baseDamage, , defence);
 
@@ -44,7 +43,7 @@ namespace RPG_Project
             if (health.PointValue <= 0) DestroyObject();
         }
 
-        public IEnumerator OnDamageCo(int baseDamage, BattleChar instigator)
+        public IEnumerator OnDamageCo(float multiplier, Ability ability, Combatant instigator)
         {
             yield return null;
         }

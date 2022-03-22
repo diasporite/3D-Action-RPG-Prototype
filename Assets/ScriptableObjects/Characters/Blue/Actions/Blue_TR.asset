@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Blue_TR
   m_EditorClassIdentifier: 
   animation: {fileID: 7400000, guid: 7e16a118b8828134ebb181d61636303f, type: 2}
+  weapon: {fileID: 0}
   numberOfHits: 1
-  baseSpCost: 40
+  baseSpCost: 11
+  baseUsage: 10

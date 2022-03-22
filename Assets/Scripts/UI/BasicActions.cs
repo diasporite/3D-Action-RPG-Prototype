@@ -25,12 +25,12 @@ namespace RPG_Project
 
         protected override void SubscribeToDelegates()
         {
-            party.OnCharacterChanged += UpdateDefence;
+            //party.OnCharacterChanged += UpdateDefence;
         }
 
         protected override void UnsubscribeFromDelegates()
         {
-            party.OnCharacterChanged -= UpdateDefence;
+            //party.OnCharacterChanged -= UpdateDefence;
         }
 
         public void UpdateDefence(Combatant combatant)

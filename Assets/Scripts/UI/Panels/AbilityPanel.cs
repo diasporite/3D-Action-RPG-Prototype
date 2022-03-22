@@ -27,8 +27,8 @@ namespace RPG_Project
 
             skillName.text = ability.skill.SkillName;
             spCost.text = ability.SpCost + " SP";
-            uses.text = ability.skill.Uses.PointValue + "/" +
-                ability.skill.Uses.CurrentStatValue;
+            uses.text = ability.Uses.PointValue + "/" +
+                ability.Uses.CurrentStatValue;
         }
 
         public void UpdatePanel(Combatant combatant)

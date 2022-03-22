@@ -8,15 +8,14 @@ namespace RPG_Project
     public class CombatAction : ScriptableObject
     {
         public AnimationClip animation;
+        public Weapon weapon;
 
         [Range(1, 5)]
         public int numberOfHits = 1;
 
         public int baseSpCost = 1;
 
-        public void InitAction()
-        {
-
-        }
+        [Range(1, 40)]
+        public int baseUsage = 20;
     }
 }

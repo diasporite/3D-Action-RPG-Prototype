@@ -10,7 +10,7 @@ namespace RPG_Project
         [SerializeField] float uiOffset = 1.5f;
         [SerializeField] float updateSpeed = 10f;
 
-        [SerializeField] Controller controller;
+        [SerializeField] PartyManager party;
 
         [SerializeField] GameObject uiHolder;
 
@@ -42,8 +42,8 @@ namespace RPG_Project
         {
             damageTime.Tick(Time.deltaTime);
 
-            health.value = controller.Party.PartyHealth.ResourceFraction;
-            stamina.value = controller.Party.PartyStamina.ResourceFraction;
+            health.value = party.PartyHealth.ResourceFraction;
+            stamina.value = party.PartyStamina.ResourceFraction;
 
             if (damageTime.Full)
             {
@@ -60,14 +60,14 @@ namespace RPG_Project
         private void OnDisable()
         {
             //print("d");
-            controller.Party.OnDamage -= TakeDamage;
+            party.OnDamage -= TakeDamage;
         }
 
-        public void InitUI(Controller controller)
+        public void InitUI(PartyManager party)
         {
-            this.controller = controller;
+            this.party = party;
 
-            controller.Party.OnDamage += TakeDamage;
+            this.party.OnDamage += TakeDamage;
         }
 
         void ShowUI(bool value)
@@ -83,14 +83,14 @@ namespace RPG_Project
         void TakeDamage(int damage)
         {
             lastPosition =
-                Camera.main.WorldToScreenPoint(controller.transform.position +
-                uiOffset * controller.transform.up);
+                Camera.main.WorldToScreenPoint(party.transform.position +
+                uiOffset * party.transform.up);
             uiHolder.transform.position = lastPosition;
 
             ShowUI(true);
 
-            health.value = controller.Party.PartyHealth.ResourceFraction;
-            stamina.value = controller.Party.PartyStamina.ResourceFraction;
+            health.value = party.PartyHealth.ResourceFraction;
+            stamina.value = party.PartyStamina.ResourceFraction;
 
             damageReceived += Mathf.Abs(damage);
             damageText.text = "-" + Mathf.Abs(damageReceived);
@@ -101,7 +101,7 @@ namespace RPG_Project
         {
             // Use update speed / MoveTowards() to reduce jitter (see camera follow)
             newPosition =
-                Camera.main.WorldToScreenPoint(controller.transform.position +
+                Camera.main.WorldToScreenPoint(party.transform.position +
                 uiOffset * Vector3.up);
 
             uiHolder.transform.position = Vector3.MoveTowards(lastPosition, newPosition, updateSpeed * Time.deltaTime);

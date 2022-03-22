@@ -37,8 +37,8 @@ namespace RPG_Project
 
                 var obj = Instantiate(spawns[j].gameObject, transform.position, 
                     Quaternion.identity) as GameObject;
-                var controller = obj.GetComponent<Controller>();
                 obj.transform.SetParent(transform);
+                var controller = obj.GetComponent<Controller>();
                 controller.InitController(false, LayerMask.GetMask("Player", "Destructibles"));
                 party.AddPartyMember(controller);
             }

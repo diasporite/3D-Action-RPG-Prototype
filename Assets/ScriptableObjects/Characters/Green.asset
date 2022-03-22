@@ -23,7 +23,7 @@ MonoBehaviour:
   baseVit: 50
   baseEnd: 50
   basePp: 32
-  baseAtk: 34
-  baseDef: 73
-  weight: 59
+  baseAtk: 79
+  baseDef: 23
+  weight: 47
   skills: []

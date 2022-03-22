@@ -23,6 +23,8 @@ namespace RPG_Project
         Stamina stamina;
         Poise poise;
 
+        CombatDatabase combat;
+
         public bool Invincible
         {
             get => invincible;
@@ -37,61 +39,51 @@ namespace RPG_Project
         public Stamina Stamina => stamina;
         public Poise Poise => poise;
 
-        private void Awake()
-        {
-
-        }
-
-        private void Start()
-        {
-            //party.onHealthChanged +=
-            //party.onPoiseChanged +=
-        }
-
-        private void OnDestroy()
-        {
-            //party.onHealthChanged -=
-            //party.onPoiseChanged -=
-        }
-
-        public void OnDamage(int baseDamage, BattleChar instigator)
+        public void OnDamage(float multiplier, Ability ability, Combatant instigator)
         {
             if (controller.State == ControllerState.Death) return;
 
-            var healthDamage = GameManager.instance.Combat.GetDamage(baseDamage, instigator.Attack, Character.Defence);
-            var staminaDamage = GameManager.instance.Combat.GetDamage(Mathf.RoundToInt(2.4f * baseDamage), instigator.Attack, Character.Defence);
+            var healthDamage = 0;
+            var staminaDamage = 0;
+
+            var effect = ability.Damage;
+
+            if (effect != null)
+            {
+                healthDamage = Mathf.RoundToInt(multiplier * combat.GetDamage(effect.HealthDamage, 
+                    ability.skill.Element, instigator, this));
+                staminaDamage = Mathf.RoundToInt(multiplier * combat.GetDamage(effect.StaminaDamage, 
+                    ability.skill.Element, instigator, this));
+            }
 
             TakeDamage(healthDamage, staminaDamage);
-
-            //party.onPoiseChanged.Invoke(poiseDamage);
-            //party.onHealthChanged.Invoke(healthDamage);
         }
 
-        public IEnumerator OnDamageCo(int baseDamage, BattleChar instigator)
+        public IEnumerator OnDamageCo(float multiplier, Ability ability, Combatant instigator)
         {
             if (controller.State == ControllerState.Death) yield break;
+            if (ability.Damage == null) yield break;
 
             yield return null;
         }
 
         public void InitCombatant()
         {
+            combat = GameManager.instance.combat;
+            character = characterData.Character;
+
             party = GetComponentInParent<PartyManager>();
             controller = GetComponent<Controller>();
             csm = controller.Sm;
 
             abilities = GetComponent<AbilityManager>();
 
-            stamina = GetComponentInParent<Stamina>();
-            //poise = GetComponent<Poise>();
-
-            character = characterData.Character;
             health = party.PartyHealth;
+            stamina = party.PartyStamina;
         }
 
         void TakeDamage(int healthDamage, int staminaDamage)
         {
-            print(gameObject.name);
             health.ChangeResource(-healthDamage);
             if (controller.State != ControllerState.Stagger)
                 stamina.ChangeResource(-staminaDamage);

@@ -38,7 +38,7 @@ namespace RPG_Project
         {
             controller.State = ControllerState.Action;
 
-            controller.Ability.SetAbility(ability);
+            controller.Ability.SetAbility(abilityIndex);
 
             //controller.transform.LookAt(controller.transform.position - dir);
             if (lockOn.CurrentlyLocked) controller.LockOn.LookAtTarget();
@@ -48,8 +48,8 @@ namespace RPG_Project
             controller.Stamina.ChangeResource(-ability.SpCost);
             //controller.Poise.ChangeResource(-47);
 
-            ability.UseResource(1);
-            controller.Party.InvokeAbility(abilityIndex);
+            ability.UseResource(-1);
+            controller.Party.InvokeAbilityUse(abilityIndex);
         }
 
         public override IEnumerator ExecuteCo()

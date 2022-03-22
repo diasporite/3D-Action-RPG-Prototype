@@ -159,15 +159,15 @@ namespace RPG_Project
         {
             if (IsImmune(element, target.Character)) return 1;
 
-            var offense = instigator.Character.Attack;
-            var defence = instigator.Character.Defence;
+            var atk = instigator.Character.Attack.CurrentStatValue;
+            var def = target.Character.Defence.CurrentStatValue;
 
             var instPos = instigator.transform.position;
             var targetPos = target.transform.position;
 
             float multiplier = 1;
 
-            var damage = baseDamage + offense.CurrentStatValue - defence.CurrentStatValue;
+            var damage = baseDamage + atk - def;
 
             if (BackstabCritical(instPos, targetPos)) multiplier *= critMultiplier;
             if (StabBonus(element, instigator.Character)) multiplier *= stabMultiplier;
@@ -179,6 +179,7 @@ namespace RPG_Project
             if (damage < 1) damage = 1;
             if (damage > 999) damage = 999;
 
+            Debug.Log(multiplier + " * (" + baseDamage + " + " + atk + " - " + def + ") = " + damage);
             return damage;
         }
         #endregion

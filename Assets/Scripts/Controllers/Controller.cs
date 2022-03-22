@@ -142,12 +142,6 @@ namespace RPG_Project
 
             hitboxes = GetComponentsInChildren<Hitbox>();
             hurtboxes = GetComponentsInChildren<Hurtbox>();
-            
-            //if (!player)
-            //{
-                charHealth = GetComponentInChildren<CharacterHealth>();
-                charHealth.InitUI(this);
-            //}
 
             queue = party.ActionQueue;
             lockOn = party.LockOn;
@@ -157,7 +151,7 @@ namespace RPG_Project
             movement.InitMovement(player);
             ability.InitAbilities(hittables);
 
-            foreach(var box in hurtboxes) box.Init(this);
+            foreach (var box in hurtboxes) box.Init(this);
 
             InitSM();
         }
@@ -217,6 +211,18 @@ namespace RPG_Project
                 case InputMode.BRAbility:
                     UseAbility(3);
                     break;
+                case InputMode.Char1:
+                    SwitchChar(0);
+                    break;
+                case InputMode.Char2:
+                    SwitchChar(1);
+                    break;
+                case InputMode.Char3:
+                    SwitchChar(2);
+                    break;
+                case InputMode.Char4:
+                    SwitchChar(3);
+                    break;
                 default:
                     //print(gameObject.name);
                     //Move(inputDir);
@@ -224,14 +230,6 @@ namespace RPG_Project
             }
 
             Move(inputDir);
-
-            //if (Input.GetKey("j")) Run();
-            //else if (Input.GetKeyDown("l")) SpecialAction();
-            //else if (Input.GetKeyDown("y")) UseAbility(0);
-            //else if (Input.GetKeyDown("p")) UseAbility(1);
-            //else if (Input.GetKeyDown("u")) UseAbility(2);
-            //else if (Input.GetKeyDown("o")) UseAbility(3);
-            //else Move(inputDir);
         }
 
         public virtual void RunCommand()
@@ -260,6 +258,18 @@ namespace RPG_Project
                 case InputMode.BRAbility:
                     UseAbility(3);
                     break;
+                case InputMode.Char1:
+                    SwitchChar(0);
+                    break;
+                case InputMode.Char2:
+                    SwitchChar(1);
+                    break;
+                case InputMode.Char3:
+                    SwitchChar(2);
+                    break;
+                case InputMode.Char4:
+                    SwitchChar(3);
+                    break;
                 default:
                     //Move(inputDir);
                     break;
@@ -278,7 +288,7 @@ namespace RPG_Project
 
         public virtual void ActionCommand()
         {
-            if (lockOn.CurrentlyLocked && !movement.LockedLinear && mode != ControllerState.Roll)
+            if (lockOn.CurrentlyLocked && !movement.LockedRotation && mode != ControllerState.Roll)
                 lockOn.LookAtTarget();
 
             switch (inputMode)
@@ -308,6 +318,22 @@ namespace RPG_Project
             stamina.Tick(Time.deltaTime);
 
             if (Stamina.Full) sm.ChangeState(MOVE);
+
+            switch (inputMode)
+            {
+                case InputMode.Char1:
+                    SwitchChar(0);
+                    break;
+                case InputMode.Char2:
+                    SwitchChar(1);
+                    break;
+                case InputMode.Char3:
+                    SwitchChar(2);
+                    break;
+                case InputMode.Char4:
+                    SwitchChar(3);
+                    break;
+            }
 
             Move(inputDir.normalized);
         }
@@ -345,8 +371,21 @@ namespace RPG_Project
 
             var command = ability.GetAbility(index).GetCommand(this, lockOn.DirToTarget, index);
             if (command != null) queue.AddAction(command);
+
+            party.InvokeAbilitySelect(index);
         }
 
+        public void SwitchChar(int index)
+        {
+            index = Mathf.Abs(index);
+
+            if (index > party.Party.Count) return;
+
+            queue.AddAction(new SwitchCommand(this, index));
+
+            party.InvokeCharSelect(index);
+        }
+    
         public void SetRegen(bool value)
         {
             health.Regenerative = value;

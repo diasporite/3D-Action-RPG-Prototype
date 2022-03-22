@@ -15,8 +15,8 @@ namespace RPG_Project
         protected Image background;
         protected CanvasGroup vignette;
 
-        protected Color selected = new Color(0.7f, 0.7f, 0.7f);
-        protected Color notSelected = new Color(0.3f, 0.3f, 0.3f);
+        [SerializeField] protected Color selected = new Color(0.5f, 0.5f, 0.5f);
+        [SerializeField] protected Color notSelected = new Color(0.3f, 0.3f, 0.3f);
 
         public virtual void InitUI(PartyManager party)
         {

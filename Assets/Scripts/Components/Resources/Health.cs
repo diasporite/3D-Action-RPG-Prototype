@@ -30,7 +30,7 @@ namespace RPG_Project
         {
             var hp = party.PartyHp;
 
-            resourcePoints = new PointStat(hp, hp, 1999);
+            resourcePoints = new PointStat(hp, hp, 3999);
 
             resource._cooldown = hp;
             resource.Count = resourcePoints.PointValue;
@@ -41,7 +41,7 @@ namespace RPG_Project
 
         protected override void UpdateUI()
         {
-            party.InvokeHealthTick();
+            party.InvokeHealthChange();
         }
 
         public override void SaveToStat(PointStat stat)

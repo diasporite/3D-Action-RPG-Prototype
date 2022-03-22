@@ -34,11 +34,6 @@ namespace RPG_Project
             if (value) UpdateUI();
         }
 
-        public override void SelectUI()
-        {
-            base.SelectUI();
-        }
-
         public void SetCharacter()
         {
             var controller = party.GetPartyMember(characterIndex);

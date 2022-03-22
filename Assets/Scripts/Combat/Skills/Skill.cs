@@ -21,7 +21,7 @@ namespace RPG_Project
 
         [SerializeField] protected int staminaCost = 5;
 
-        [SerializeField] protected PointStat uses = new PointStat(10, 10);
+        [SerializeField] protected int useModifierPercent;
 
         [SerializeField] protected DamageEffect damage;
         [SerializeField] protected BuffEffect buff;
@@ -31,9 +31,15 @@ namespace RPG_Project
 
         public string SkillName => skillName;
 
+        public ElementData Element => GameManager.instance.combat.GetElement(element);
+
         public int StaminaCost => staminaCost;
 
-        public PointStat Uses => uses;
+        public int Uses(int baseUsage) => 
+            Mathf.RoundToInt(0.01f * (100 + useModifierPercent) * baseUsage);
+
+        public DamageEffect Damage => damage;
+        public BuffEffect Buff => buff;
 
         public virtual Ability GetAbility(string trigger, CombatAction action) => 
             new Ability(trigger, action, this);
@@ -45,8 +51,6 @@ namespace RPG_Project
             type = data.type;
 
             staminaCost = data.staminaCost;
-
-            uses = new PointStat(data.uses, data.uses);
 
             damage = data.damageEffect;
             buff = data.buffEffect;

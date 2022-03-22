@@ -36,7 +36,7 @@ namespace RPG_Project
 
         protected override void UpdateUI()
         {
-            party.InvokeStaminaTick();
+            party.InvokeStaminaChange();
         }
 
         public void Run(bool value)

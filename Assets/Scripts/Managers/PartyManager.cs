@@ -9,6 +9,7 @@ namespace RPG_Project
     {
         // Delegates for UI
         public event OnCharacterChanged OnCharacterChanged;
+        public event Action<int> OnCharacterSelect;
 
         // Read up on C# actions
         //public event OnHealthTick onHealthTick;
@@ -23,6 +24,7 @@ namespace RPG_Project
         public event Action OnDeath;
 
         public event Action<int> OnAbilityUse;
+        public event Action<int> OnAbilitySelect;
 
         //public event OnHealthChanged OnHealthChanged;
         //public event OnStaminaChanged OnStaminaChanged;
@@ -42,6 +44,8 @@ namespace RPG_Project
         LockOn lockOn;
         InputController inputController;
         AIController ai;
+
+        CharacterHealth charStats;
 
         public List<Controller> Party => party;
 
@@ -99,7 +103,7 @@ namespace RPG_Project
 
         public int AverageHealth => Mathf.RoundToInt((float)TotalHealth / party.Count);
 
-        public int PartyHp => Mathf.RoundToInt((0.125f * (party.Count - 1) + 1) * AverageHealth);
+        public int PartyHp => Mathf.RoundToInt((0.428571f * (party.Count - 1) + 1) * AverageHealth);
 
         public int TotalStamina
         {
@@ -117,7 +121,7 @@ namespace RPG_Project
 
         public int AverageStamina => Mathf.RoundToInt((float)TotalStamina / party.Count);
 
-        public int PartySp => Mathf.RoundToInt((0.125f * (party.Count - 1) + 1) * AverageStamina);
+        public int PartySp => Mathf.RoundToInt((0.142857f * (party.Count - 1) + 1) * AverageStamina);
 
         public Controller GetPartyMember(int index)
         {
@@ -137,6 +141,8 @@ namespace RPG_Project
             lockOn = GetComponent<LockOn>();
             inputController = GetComponent<InputController>();
             ai = GetComponent<AIController>();
+
+            charStats = GetComponentInChildren<CharacterHealth>();
         }
 
         private void Update()
@@ -156,17 +162,22 @@ namespace RPG_Project
             OnCharacterChanged?.Invoke(combatant);
         }
 
-        public void InvokeHealthTick()
+        public void InvokeCharSelect(int index)
+        {
+            OnAbilitySelect?.Invoke(index);
+        }
+
+        public void InvokeHealthChange()
         {
             OnHealthChange?.Invoke();
         }
 
-        public void InvokeStaminaTick()
+        public void InvokeStaminaChange()
         {
             OnStaminaChange?.Invoke();
         }
 
-        public void InvokePoiseTick()
+        public void InvokePoiseChange()
         {
             OnPoiseChange?.Invoke();
         }
@@ -181,9 +192,14 @@ namespace RPG_Project
             OnDeath?.Invoke();
         }
 
-        public void InvokeAbility(int index)
+        public void InvokeAbilityUse(int index)
         {
             OnAbilityUse?.Invoke(index);
+        }
+
+        public void InvokeAbilitySelect(int index)
+        {
+            OnAbilitySelect?.Invoke(index);
         }
         #endregion
 
@@ -193,6 +209,8 @@ namespace RPG_Project
 
             partyHealth.InitResource();
             partyStamina.InitResource();
+
+            charStats.InitUI(this);
         }
 
         public void AddPartyMember(Controller member)
@@ -208,11 +226,13 @@ namespace RPG_Project
         public void ChangePartyMember(int index)
         {
             if (party.Count <= 0) return;
+            //if (currentMember == index) return;
 
             index = Mathf.Abs(index);
-            index = index % party.Count;
 
             //CurrentPartyMember.gameObject.SetActive(false);
+
+            if (index >= party.Count) return;
 
             currentMember = index;
             //CurrentPartyMember.gameObject.SetActive(true);

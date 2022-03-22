@@ -8,7 +8,7 @@ namespace RPG_Project
     {
         protected override void UpdateUI()
         {
-            party.InvokePoiseTick();
+            party.InvokePoiseChange();
         }
     }
 }

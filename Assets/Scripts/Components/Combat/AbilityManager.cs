@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace RPG_Project
@@ -20,29 +18,15 @@ namespace RPG_Project
         [Header("Abilities")]
         [SerializeField] int currentAbilityIndex = 0;
         [SerializeField] Ability[] abilities;
-        Ability currentAbility;
+        [SerializeField] Ability currentAbility;
 
         string[] triggers = new string[4] { "TopLeft", "TopRight", "BottomLeft", "BottomRight" };
 
-        [Header("Special Actions")]
-        [SerializeField] Ability jumpAbility = new Ability("SpecialAction");
-        [SerializeField] Ability rollAbility = new Ability("SpecialAction");
-        [SerializeField] Ability guardAbility = new Ability("SpecialAction");
-
         Controller controller;
-        StateMachine csm;
         Animator anim;
         LockOn lockOn;
 
-        public Ability JumpAbility => jumpAbility;
-        public Ability RollAbility => rollAbility;
-        public Ability GuardAbility => guardAbility;
-
-        public Ability CurrentAbility
-        {
-            get => abilities[currentAbilityIndex];
-            set => currentAbility = value;
-        }
+        public Ability CurrentAbility => abilities[currentAbilityIndex];
 
         public Skill CurrentSkillEffect => CurrentAbility.skill;
 
@@ -67,7 +51,6 @@ namespace RPG_Project
 
         public void InitAbilities(LayerMask hittables)
         {
-            csm = controller.Sm;
             anim = controller.Anim;
             lockOn = controller.LockOn;
 
@@ -90,24 +73,13 @@ namespace RPG_Project
             return abilities[index];
         }
 
-        public void SetAbility(Ability ability)
+        public void SetAbility(int index)
         {
-            CurrentAbility = ability;
-        }
+            index = Mathf.Abs(index);
+            index = index % abilities.Length;
 
-        public Ability GetSpecialAction(WeightClass weight)
-        {
-            switch (weight)
-            {
-                case WeightClass.Lightweight:
-                    return jumpAbility;
-                case WeightClass.Middleweight:
-                    return rollAbility;
-                case WeightClass.Heavyweight:
-                    return guardAbility;
-                default:
-                    return rollAbility;
-            }
+            currentAbilityIndex = index;
+            currentAbility = abilities[currentAbilityIndex];
         }
     }
 }

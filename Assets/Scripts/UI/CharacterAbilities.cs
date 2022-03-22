@@ -34,7 +34,8 @@ namespace RPG_Project
             party.OnCharacterChanged += UpdateAbilities;
 
             party.OnAbilityUse += UpdateAbilityPanel;
-            party.OnAbilityUse += SelectAbilityPanel;
+
+            //party.OnAbilitySelect += SelectAbilityPanel;
         }
 
         protected override void UnsubscribeFromDelegates()
@@ -42,7 +43,8 @@ namespace RPG_Project
             party.OnCharacterChanged -= UpdateAbilities;
 
             party.OnAbilityUse -= UpdateAbilityPanel;
-            party.OnAbilityUse -= SelectAbilityPanel;
+
+            //party.OnAbilitySelect -= SelectAbilityPanel;
         }
 
         void UpdateAbilities(Combatant combatant)
