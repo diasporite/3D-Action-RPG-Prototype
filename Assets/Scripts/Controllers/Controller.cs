@@ -289,8 +289,10 @@ namespace RPG_Project
         public virtual void ActionCommand()
         {
             if (lockOn.CurrentlyLocked && !movement.LockedRotation && mode != ControllerState.Roll)
+            {
+                print(909);
                 lockOn.LookAtTarget();
-
+            }
             switch (inputMode)
             {
                 case InputMode.Defend:

@@ -28,7 +28,9 @@ namespace RPG_Project
         {
             controller.Health.Regenerative = false;
             controller.Stamina.Regenerative = false;
-            //controller.Poise.Regenerative = false;
+
+            // Rotation will be locked during animation
+            controller.Movement.LockPosition();
         }
 
         public void ExecuteFrame()
@@ -48,7 +50,8 @@ namespace RPG_Project
 
         public void Exit()
         {
-
+            controller.Movement.UnlockPosition();
+            controller.Movement.UnlockRotation();
         }
         #endregion
 

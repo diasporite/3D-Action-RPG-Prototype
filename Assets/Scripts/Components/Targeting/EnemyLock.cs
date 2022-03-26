@@ -25,6 +25,13 @@ namespace RPG_Project
             ai = GetComponent<AIController>();
         }
 
+        public override void InitLockOn()
+        {
+            base.InitLockOn();
+
+            TargetLock();
+        }
+
         public override void ToggleLock()
         {
             active = !active;

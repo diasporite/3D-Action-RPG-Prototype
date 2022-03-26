@@ -8,8 +8,8 @@ namespace RPG_Project
     {
         bool isPlayer = false;
 
-        bool lockedLinear = false;
-        bool lockedRotation = false;
+        [SerializeField] bool lockedLinear = false;
+        [SerializeField] bool lockedRotation = false;
 
         [SerializeField] float distanceTravelled = 0;
         [SerializeField] float timeSinceStationary = 0;
@@ -139,14 +139,24 @@ namespace RPG_Project
             }
         }
 
-        public void LockMovement()
+        public void LockPosition()
         {
             lockedLinear = true;
         }
 
-        public void UnlockMovement()
+        public void LockRotation()
+        {
+            lockedRotation = true;
+        }
+
+        public void UnlockPosition()
         {
             lockedLinear = false;
+        }
+
+        public void UnlockRotation()
+        {
+            lockedRotation = false;
         }
 
         #region PositionBasedMovement

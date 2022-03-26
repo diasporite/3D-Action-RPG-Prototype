@@ -61,6 +61,8 @@ namespace RPG_Project
 
         public void NextAction()
         {
+            controller.Movement.UnlockRotation();
+
             currentAction++;
 
             controller = Controller;

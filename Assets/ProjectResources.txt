@@ -14,6 +14,14 @@ NOTES
 - 3rd Person Camera Lock on
   - Separate LockOn into PlayerLock and EnemyLock
     - Classes inherit from LockOn
+- Skill system
+  - 4 constant abilities
+  - Abilities upgrade upon reaching character reaching certain level
+- Teleportation
+  - Alternative to rolling
+  - User instantly teleports to new location
+  - User will have to wait for short animation
+  - Uses more stamina
 
 BUGS
 - Animation events not firing (fixed)

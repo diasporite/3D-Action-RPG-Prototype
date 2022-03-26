@@ -23,7 +23,7 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-            lockOn.TargetLock();
+
         }
 
         public void ExecuteFrame()
@@ -55,7 +55,7 @@ namespace RPG_Project
 
         public void Exit()
         {
-            lockOn.TargetUnlock();
+
         }
         #endregion
     }
