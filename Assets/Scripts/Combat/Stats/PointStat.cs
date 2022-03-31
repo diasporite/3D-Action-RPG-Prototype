@@ -21,7 +21,7 @@ namespace RPG_Project
             }
         }
 
-        public int _allStatValues
+        public int AllStatValues
         {
             set
             {
@@ -37,7 +37,9 @@ namespace RPG_Project
                 if (currentStatValue != 0) return (float)pointValue / currentStatValue;
                 return 0;
             }
+            set => PointValue = Mathf.RoundToInt(value * (float)currentStatValue);
         }
+
         #region Constructors and Init
         public PointStat(int statValue) : base(statValue)
         {

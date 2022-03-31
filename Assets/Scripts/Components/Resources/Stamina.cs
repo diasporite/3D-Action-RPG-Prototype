@@ -8,26 +8,41 @@ namespace RPG_Project
     {
         [SerializeField] bool inRecovery = false;
 
-        [SerializeField] float staminaRegen = 6;
-        [SerializeField] float runningRegen = -3;
-
         public bool InRecovery
         {
             get => inRecovery;
             set => inRecovery = value;
         }
 
+        protected override void Awake()
+        {
+            party = GetComponent<PartyManager>();
+            combatant = GetComponent<Combatant>();
+
+            currentRegen = regenSpeed;
+        }
+
+        public override void InitResource()
+        {
+            var sp = party.PartySp;
+
+            resourcePoints = new PointStat(sp, sp, 999);
+
+            resource._cooldown = sp;
+            resource.Count = resourcePoints.PointValue;
+
+            UpdateUI();
+        }
+
         protected override void UpdateUI()
         {
-            base.UpdateUI();
-            if (statText != null)
-                statText.text = "SP " + resourcePoints.PointValue + "/" + resourcePoints.CurrentStatValue;
+            party.InvokeStaminaChange();
         }
 
         public void Run(bool value)
         {
-            if (value) CurrentRegen = runningRegen;
-            else CurrentRegen = staminaRegen;
+            if (value) CurrentRegen = GameManager.instance.Combat.staminaRunRegen;
+            else CurrentRegen = GameManager.instance.Combat.staminaRegen;
         }
     }
 }

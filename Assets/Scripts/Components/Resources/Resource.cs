@@ -7,19 +7,17 @@ namespace RPG_Project
 {
     public class Resource : MonoBehaviour
     {
-        [SerializeField] bool regenerative = true;
+        [SerializeField] protected bool regenerative = true;
 
-        [SerializeField] int points = 100;
-        [SerializeField] int initPoints = 0;
-
-        [SerializeField] float regenSpeed = 30;
-        [SerializeField] float currentRegen;
+        [SerializeField] protected float regenSpeed = 30;
+        [SerializeField] protected float currentRegen;
 
         [SerializeField] protected PointStat resourcePoints;
         [SerializeField] protected Cooldown resource = new Cooldown(100, 30);
 
-        [SerializeField] protected Slider statBar;
-        [SerializeField] protected Text statText;
+        protected PartyManager party;
+        protected Combatant combatant;
+        protected BattleChar character;
 
         public bool Regenerative
         {
@@ -37,26 +35,61 @@ namespace RPG_Project
             }
         }
 
+        public PointStat ResourcePoints => resourcePoints;
         public Cooldown _resource => resource;
+
+        public int ResourcePointValue => resourcePoints.PointValue;
+        public int ResourceStatValue => resourcePoints.CurrentStatValue;
+        public float ResourceFraction => resource.CooldownFraction;
 
         public bool Empty => resource.Empty;
         public bool Full => resource.Full;
 
-        private void Start()
+        protected virtual void Awake()
         {
-            currentRegen = regenSpeed;
-            resourcePoints = new PointStat(points, initPoints, points);
-            resource = new Cooldown(points, regenSpeed);
+            //resourcePoints = new PointStat(points, initPoints, points);
+            //resource = new Cooldown(points, regenSpeed);
 
-            resource.Speed = regenSpeed;
-            resource.Count = initPoints;
+            //resource.Speed = regenSpeed;
+            //resource.Count = initPoints;
+        }
 
-            UpdateUI();
+        protected virtual void Start()
+        {
+        //    if (combatant != null) character = combatant.Character;
+
+        //    LoadFromCharacter();
+
+        //    UpdateUI();
         }
 
         private void Update()
         {
             //if (regenerative) Tick(Time.deltaTime);
+        }
+
+        protected virtual void OnDestroy()
+        {
+
+        }
+
+        public virtual void InitResource()
+        {
+            party = GetComponentInParent<PartyManager>();
+            combatant = GetComponent<Combatant>();
+
+            currentRegen = regenSpeed;
+
+            character = combatant.Character;
+
+            LoadFromCharacter();
+
+            UpdateUI();
+        }
+
+        protected virtual void UpdateUI()
+        {
+
         }
 
         public void Tick(float dt)
@@ -73,16 +106,26 @@ namespace RPG_Project
             }
         }
 
-        protected virtual void UpdateUI()
+        public int GetResourcePercent(float percent)
         {
-            if (statBar != null)
-                statBar.value = resource.CooldownFraction;
+            return Mathf.RoundToInt(percent * (float)resourcePoints.CurrentStatValue);
         }
 
         public void ChangeResource(int amount)
         {
             resourcePoints.PointValue += amount;
-            resource.Count += amount;
+            resource.Count = resourcePoints.PointValue;
+
+            UpdateUI();
+        }
+
+        public void ChangeResourcePercent(float percent)
+        {
+            var p = 0.01f * percent;
+
+            resourcePoints.PointFraction += p;
+            resource.Count = resourcePoints.PointValue;
+
             UpdateUI();
         }
 
@@ -99,7 +142,22 @@ namespace RPG_Project
             resource.Speed = currentRegen;
         }
 
-        public void ConvertToStat()
+        public virtual void SaveToCharacter()
+        {
+            
+        }
+
+        public virtual void LoadFromCharacter()
+        {
+
+        }
+
+        public virtual void SaveToStat(PointStat stat)
+        {
+
+        }
+        
+        public virtual void LoadFromStat(PointStat stat)
         {
 
         }

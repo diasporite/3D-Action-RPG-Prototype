@@ -3,3 +3,31 @@ PROJECT RESOURCES
 
 - Camera controller
   - https://learn.unity.com/tutorial/controlling-unity-camera-behaviour
+- Building UI
+  - https://www.youtube.com/watch?v=6ztY9-IX3Qg
+- Camera lock on
+  - https://stackoverflow.com/questions/66876106/unity3d-cinemachine-how-can-i-lock-onto-an-enemy-dark-souls-style
+- Behaviour trees (AI)
+  - https://learn.unity.com/project/behaviour-trees
+
+NOTES
+- 3rd Person Camera Lock on
+  - Separate LockOn into PlayerLock and EnemyLock
+    - Classes inherit from LockOn
+- Skill system
+  - 4 constant abilities
+  - Abilities upgrade upon reaching character reaching certain level
+- Teleportation
+  - Alternative to rolling
+  - User instantly teleports to new location
+  - User will have to wait for short animation
+  - Uses more stamina
+
+BUGS
+- Animation events not firing (fixed)
+  - Check that the full animation is played out before transitioning into another
+- Camera jitter when locked
+  - Look at lerping
+    - https://forum.unity.com/threads/camera-jitter-problem.115224/
+- Camera rotation affects AI movement (fixed)
+  - Rework Movement component

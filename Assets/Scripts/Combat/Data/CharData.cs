@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG_Project
 {
@@ -9,29 +10,47 @@ namespace RPG_Project
     {
         [Header("Char Info")]
         public string charName;
-        public int id;
 
-        public Sprite sprite;
+        public Sprite portrait;
+        public Controller controller;
+
+        public ElementID element1;
+        public ElementID element2;
 
         [Header("Base Stats")]
-        public int baseExp = 100;
-        public int baseExpReward = 100;
+        [Range(1, 99)]
+        public int baseExp = 50;
+        [Range(1, 99)]
+        public int baseExpReward = 50;
 
-        public int baseHp = 100;
-        public int baseMp = 100;
-        public int baseSp = 100;
+        [Range(1, 99)]
+        public int baseVit = 50;
+        [Range(1, 99)]
+        public int baseEnd = 50;
+        [Range(1, 99)]
+        public int basePp = 50;
 
-        public int baseAtk = 100;
-        public int baseDef = 100;
+        [Range(1, 99)]
+        public int baseAtk = 50;
+        [Range(1, 99)]
+        public int baseDef = 50;
 
-        public int baseSpd = 100;
+        [Range(25, 175)]
+        public int weight = 100;
 
-        [Header("Skills")]
+        //[Header("Actions")]
+        //public ActionData topLeft;
+        //public ActionData topRight;
+        //public ActionData bottomLeft;
+        //public ActionData bottomRight;
+
+        [Header("Skillset")]
         public SkillData[] skills;
+
+        public BattleChar Character => new BattleChar(this);
 
         public BattleChar GetChar()
         {
-            //return new BattleChar(id, baseHp, baseAtk, baseDef, baseSpd);
             return new BattleChar(this);
         }
     }

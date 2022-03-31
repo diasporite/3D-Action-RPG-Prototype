@@ -6,10 +6,10 @@ namespace RPG_Project
 {
     public class CameraLockedState : IState
     {
-        CameraController camera;
+        ThirdPersonCameraController camera;
         StateMachine csm;
 
-        public CameraLockedState(CameraController camera)
+        public CameraLockedState(ThirdPersonCameraController camera)
         {
             this.camera = camera;
             csm = camera.Sm;
@@ -18,7 +18,7 @@ namespace RPG_Project
         #region InterfaceMethods
         public void Enter(params object[] args)
         {
-
+            camera.reticle.gameObject.SetActive(true);
         }
 
         public void ExecuteFrame()
@@ -33,7 +33,9 @@ namespace RPG_Project
 
         public void ExecuteFrameLate()
         {
-
+            //camera.FollowTarget();
+            camera.FollowTarget2();
+            camera.ReticleFollow();
         }
 
         public void Exit()

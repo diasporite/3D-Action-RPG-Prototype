@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RPG_Project
 {
     public class StateMachine
     {
+        object currentStateKey;
         IState currentState = new EmptyState();
         Dictionary<object, IState> states = new Dictionary<object, IState>();
 
+        public object GetCurrentKey => currentStateKey;
         public IState _currentState => currentState;
         public Dictionary<object, IState> _states => states;
         public int _stateCount => states.Count;
@@ -55,13 +58,18 @@ namespace RPG_Project
 
         public void ChangeState(object id, params object[] args)
         {
-            if (currentState != null) currentState.Exit();
-
-            if (states.ContainsKey(id))
+            if (currentState != null)
             {
-                currentState = states[id];
-                currentState.Enter(args);
+                currentState.Exit();
+
+                if (states.ContainsKey(id))
+                {
+                    currentStateKey = id;
+                    currentState = states[id];
+                    currentState.Enter(args);
+                }
             }
+            else Debug.LogError("State machine does not contain the state " + id);
         }
 
         public void ClearStates()

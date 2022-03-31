@@ -12,11 +12,11 @@ namespace RPG_Project
         [SerializeField] int[] expAtLv; // 0 at LV 1 (element 0)
         [SerializeField] int[] expRewardAtLv;
 
-        int lvCap = 50;
+        int lvCap = 10;
 
-        public int _lv => lv;
+        public int Lv => lv;
 
-        public int _exp
+        public int Exp
         {
             get => exp;
             set
@@ -26,9 +26,9 @@ namespace RPG_Project
             }
         }
 
-        public int _expToNext => expAtLv[lv] - exp;
+        public int ExpToNext => expAtLv[lv] - exp;
 
-        public int _expFromLast => exp - expAtLv[lv - 1];
+        public int ExpFromLast => exp - expAtLv[lv - 1];
 
         public int GetExpAtLv(int level)
         {
@@ -57,9 +57,9 @@ namespace RPG_Project
             return lv;
         }
 
-        public Progression(int baseExp, int levelCap)
+        public Progression(int baseExp)
         {
-
+            expAtLv = GameManager.instance.Combat.GetStatAtLv(StatType.ExpAtLv, baseExp);
         }
 
         public Progression(int initialExp, int[] expAtLv, int currentLvCap)
