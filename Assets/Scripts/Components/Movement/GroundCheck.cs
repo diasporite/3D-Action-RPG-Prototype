@@ -4,58 +4,40 @@ namespace RPG_Project
 {
     public class GroundCheck : MonoBehaviour
     {
-        public float radius = 0.5f;
-        public float offset = 0.01f;
-        public float skin = 0.05f;
+        public float radius = 0.05f;
+        public float skin = 0.02f;
 
-        float height = 2;
         float slopeLimit = 45;
 
-        CharacterController cc;
-        CapsuleCollider col;
-
         Vector3 startPos;
+
+        CharacterController cc;
+
+        LayerMask ground;
+
+        public bool IsGrounded => Physics.CheckSphere(transform.position, radius, ground);
 
         private void Awake()
         {
             cc = GetComponentInParent<CharacterController>();
-            col = GetComponentInParent<CapsuleCollider>();
 
-            radius = col.radius;
-            height = col.height;
-
-            skin = cc.skinWidth;
             slopeLimit = cc.slopeLimit;
 
-            startPos = transform.position + (0.5f * height + offset) * Vector3.down;
-            //transform.position += skin * Vector3.down;
+            startPos = transform.position + skin * Vector3.down;
+
+            ground = LayerMask.GetMask("Ground");
         }
 
         private void Update()
         {
-            startPos = transform.position + (0.5f * height + offset) * Vector3.down;
+            startPos = transform.position + skin * Vector3.down;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.black;
             //Gizmos.DrawRay(startPos, skin * Vector3.down);
-            Gizmos.DrawWireSphere(startPos, 0.5f * skin);
-        }
-
-        public bool IsGrounded(GameObject excludeObj)
-        {
-            //var hits = Physics.OverlapSphere(transform.position, 0.5f * skin);
-
-            //if (hits != null)
-            //    foreach (var hit in hits)
-            //        if (hit.gameObject != excludeObj)
-            //            return true;
-
-            //return false;
-
-            var hit = Physics.Raycast(startPos, skin * Vector3.down);
-            return hit;
+            Gizmos.DrawWireSphere(transform.position, radius);
         }
 
         // For steep ground, angle of incline > cc slope limit

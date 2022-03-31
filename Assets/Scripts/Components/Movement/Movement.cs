@@ -171,8 +171,6 @@ namespace RPG_Project
                 //if (lockOn.LockedOn) transform.LookAt(lockOn.CurrentTarget.transform);
                 //if (lockOn.LockedOn) lockOn.LookAtTarget(transform);
             }
-
-            //FallPosition(dt);
         }
 
         void MovePositionFree(Vector3 dir, float dt)
@@ -180,7 +178,7 @@ namespace RPG_Project
             var angle = 0f;
             var targetAngle = 0f;
 
-            dir.Normalize();
+            if (dir.sqrMagnitude > 1) dir.Normalize();
 
             targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
             if (isPlayer) targetAngle += cam.eulerAngles.y;
@@ -205,7 +203,7 @@ namespace RPG_Project
 
         void MovePositionLocked(Vector3 dir, float dt, Vector3 centre)
         {
-            dir.Normalize();
+            if (dir.sqrMagnitude > 1) dir.Normalize();
 
             var dsr = dir.z * transform.forward;
             var dsy = -transform.up * Mathf.Sin(groundCheck.GroundAngle() * Mathf.Deg2Rad);
@@ -229,9 +227,10 @@ namespace RPG_Project
 
             cc.Move(velocity * Time.deltaTime);
 
-            //grounded = groundCheck.IsGrounded(gameObject);
-            grounded = cc.isGrounded;
+            grounded = groundCheck.IsGrounded;
+            //grounded = cc.isGrounded;
 
+            // Rewrite
             if (grounded)
             {
                 if (fallDamageTime > 0)
@@ -250,7 +249,7 @@ namespace RPG_Project
 
                 // Increase downward y component of velocity
                 fallSpeed += gravity.y * dt;
-                velocity += gravity* dt;
+                velocity += gravity * dt;
                 if (velocity.sqrMagnitude > sqrTerminalSpeed)
                     velocity = terminalSpeed * velocity.normalized;
 

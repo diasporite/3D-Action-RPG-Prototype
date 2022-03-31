@@ -70,6 +70,9 @@ namespace RPG_Project
             dir1.x = Input.GetAxisRaw("Horizontal");
             dir1.z = Input.GetAxisRaw("Vertical");
 
+            //dir1.x = Input.GetAxis("Horizontal");
+            //dir1.z = Input.GetAxis("Vertical");
+
             return dir1;
         }
 

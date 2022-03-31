@@ -216,6 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00732e81f28e64890f2a5d89170098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockedLinear: 0
+  lockedRotation: 0
   distanceTravelled: 0
   timeSinceStationary: 0
   ds: {x: 0, y: 0, z: 0}
@@ -285,13 +287,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -306,13 +304,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -327,13 +321,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -348,13 +338,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -392,21 +378,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 775149946dee93542acf33c45852f676, type: 2}
   currentAbilityIndex: 0
   abilities: []
-  jumpAbility:
-    trigger: SpecialAction
+  currentAbility:
+    trigger: 
     action: {fileID: 0}
     skill:
       skillName: 
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -417,56 +399,19 @@ MonoBehaviour:
       healthDps: 0
       poiseDps: 0
     spCost: 0
-  rollAbility:
-    trigger: SpecialAction
-    action: {fileID: 0}
-    skill:
-      skillName: 
-      element: 0
-      type: 0
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      damage:
-        used: 0
-        numOfHits: 1
-        healthDps: 1
-        staminaDps: 1
-        healthDamage: 1
-        staminaDamage: 1
-      buff:
-        used: 0
-        buffPercent: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  guardAbility:
-    trigger: SpecialAction
-    action: {fileID: 0}
-    skill:
-      skillName: 
-      element: 0
-      type: 0
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      damage:
-        used: 0
-        numOfHits: 1
-        healthDps: 1
-        staminaDps: 1
-        healthDamage: 1
-        staminaDamage: 1
-      buff:
-        used: 0
-        buffPercent: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
+    uses:
+      statValue: 0
+      currentStatValue: 0
+      pointValue: 0
+    damage:
+      used: 0
+      healthDps: 1
+      staminaDps: 1
+      healthDamage: 1
+      staminaDamage: 1
+    buff:
+      used: 0
+      buffPercent: 0
 --- !u!1001 &527941948576359826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -675,7 +620,7 @@ PrefabInstance:
     - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
         type: 3}

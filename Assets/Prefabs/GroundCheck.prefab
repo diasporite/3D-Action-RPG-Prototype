@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716ae67bdb506a74b932114639a9d454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
-  offset: 0.02
-  skin: 0.05
+  radius: 0.02
+  skin: 0.02

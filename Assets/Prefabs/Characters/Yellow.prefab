@@ -94,52 +94,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &8042465399108378553
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 469176760136545111}
-  - component: {fileID: 8006917696233120557}
-  m_Layer: 10
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &469176760136545111
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8042465399108378553}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8773975868281004482}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8006917696233120557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8042465399108378553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 716ae67bdb506a74b932114639a9d454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
-  offset: 0.02
-  skin: 0.05
 --- !u!1 &8773975868281004494
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +132,7 @@ Transform:
   - {fileID: 1711281100183178423}
   - {fileID: 6114292065426377488}
   - {fileID: 5986010706177071805}
-  - {fileID: 469176760136545111}
+  - {fileID: 8294531911196395893}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -261,6 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00732e81f28e64890f2a5d89170098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockedLinear: 0
+  lockedRotation: 0
   distanceTravelled: 0
   timeSinceStationary: 0
   ds: {x: 0, y: 0, z: 0}
@@ -268,7 +224,7 @@ MonoBehaviour:
   runningSpeed: 6.75
   currentSpeed: 0
   turnTime: 0.1
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 1909675966042331407}
   grounded: 1
   timeSinceGrounded: 0
   fallDamageTime: 0
@@ -330,13 +286,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -351,13 +303,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -372,13 +320,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -393,13 +337,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -429,21 +369,17 @@ MonoBehaviour:
   skills: []
   currentAbilityIndex: 0
   abilities: []
-  jumpAbility:
-    trigger: SpecialAction
+  currentAbility:
+    trigger: 
     action: {fileID: 0}
     skill:
       skillName: 
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -454,56 +390,19 @@ MonoBehaviour:
       healthDps: 0
       poiseDps: 0
     spCost: 0
-  rollAbility:
-    trigger: SpecialAction
-    action: {fileID: 0}
-    skill:
-      skillName: 
-      element: 0
-      type: 0
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      damage:
-        used: 0
-        numOfHits: 1
-        healthDps: 1
-        staminaDps: 1
-        healthDamage: 1
-        staminaDamage: 1
-      buff:
-        used: 0
-        buffPercent: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
-  guardAbility:
-    trigger: SpecialAction
-    action: {fileID: 0}
-    skill:
-      skillName: 
-      element: 0
-      type: 0
-      staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
-      damage:
-        used: 0
-        numOfHits: 1
-        healthDps: 1
-        staminaDps: 1
-        healthDamage: 1
-        staminaDamage: 1
-      buff:
-        used: 0
-        buffPercent: 0
-      healthDps: 0
-      poiseDps: 0
-    spCost: 0
+    uses:
+      statValue: 0
+      currentStatValue: 0
+      pointValue: 0
+    damage:
+      used: 0
+      healthDps: 1
+      staminaDps: 1
+      healthDamage: 1
+      staminaDamage: 1
+    buff:
+      used: 0
+      buffPercent: 0
 --- !u!1001 &1587615335290855967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -791,5 +690,92 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de25e70355d1eb44cb3e960abc524c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &7686585222712605596
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8773975868281004482}
+    m_Modifications:
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119548361410534919, guid: 69fb695590b32654284c0ac5c6e7aeef,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundCheck
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69fb695590b32654284c0ac5c6e7aeef, type: 3}
+--- !u!4 &8294531911196395893 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1851019421562041065, guid: 69fb695590b32654284c0ac5c6e7aeef,
+    type: 3}
+  m_PrefabInstance: {fileID: 7686585222712605596}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1909675966042331407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8083034050903728787, guid: 69fb695590b32654284c0ac5c6e7aeef,
+    type: 3}
+  m_PrefabInstance: {fileID: 7686585222712605596}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716ae67bdb506a74b932114639a9d454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

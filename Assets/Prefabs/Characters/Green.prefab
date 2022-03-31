@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00732e81f28e64890f2a5d89170098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockedLinear: 0
+  lockedRotation: 0
   distanceTravelled: 0
   timeSinceStationary: 0
   ds: {x: 0, y: 0, z: 0}
@@ -189,13 +191,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -210,13 +208,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -231,13 +225,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -252,13 +242,9 @@ MonoBehaviour:
       element: 0
       type: 0
       staminaCost: 0
-      uses:
-        statValue: 0
-        currentStatValue: 0
-        pointValue: 0
+      useModifierPercent: 0
       damage:
         used: 0
-        numOfHits: 1
         healthDps: 1
         staminaDps: 1
         healthDamage: 1
@@ -286,6 +272,40 @@ MonoBehaviour:
   skills: []
   currentAbilityIndex: 0
   abilities: []
+  currentAbility:
+    trigger: 
+    action: {fileID: 0}
+    skill:
+      skillName: 
+      element: 0
+      type: 0
+      staminaCost: 0
+      useModifierPercent: 0
+      damage:
+        used: 0
+        healthDps: 1
+        staminaDps: 1
+        healthDamage: 1
+        staminaDamage: 1
+      buff:
+        used: 0
+        buffPercent: 0
+      healthDps: 0
+      poiseDps: 0
+    spCost: 0
+    uses:
+      statValue: 0
+      currentStatValue: 0
+      pointValue: 0
+    damage:
+      used: 0
+      healthDps: 1
+      staminaDps: 1
+      healthDamage: 1
+      staminaDamage: 1
+    buff:
+      used: 0
+      buffPercent: 0
 --- !u!1 &1439766289649130771
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439766289649130771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 406710400405136232}
@@ -329,9 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716ae67bdb506a74b932114639a9d454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
-  offset: 0.02
-  skin: 0.05
+  radius: 0.05
+  skin: 0.02
 --- !u!1 &2307749872637623082
 GameObject:
   m_ObjectHideFlags: 0
