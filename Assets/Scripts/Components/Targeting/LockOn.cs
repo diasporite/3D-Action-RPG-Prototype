@@ -214,13 +214,13 @@ namespace RPG_Project
         public void LockCamera()
         {
             currentlyLocked = true;
-            if (cam!=null) cam.Sm.ChangeState(cam.LOCKED);
+            if (cam != null) cam.Sm.ChangeState(cam.LOCKED);
         }
 
         public void UnlockCamera()
         {
             currentlyLocked = false;
-            if (cam!=null) cam.Sm.ChangeState(cam.UNLOCKED);
+            if (cam != null) cam.Sm.ChangeState(cam.UNLOCKED);
         }
 
         public virtual void TargetLock()

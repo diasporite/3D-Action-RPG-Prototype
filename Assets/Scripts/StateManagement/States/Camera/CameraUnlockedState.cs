@@ -19,7 +19,7 @@ namespace RPG_Project
         public void Enter(params object[] args)
         {
             camera.reticle.gameObject.SetActive(false);
-            //camera.transform.LookAt(camera.lastViewedPosition);
+            camera.transform.LookAt(camera.lastViewedPosition);
         }
 
         public void ExecuteFrame()

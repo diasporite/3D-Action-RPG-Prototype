@@ -33,14 +33,13 @@ namespace RPG_Project
 
         public void ExecuteFrameLate()
         {
-            //camera.FollowTarget();
-            camera.FollowTarget2();
+            camera.FollowTarget();
             camera.ReticleFollow();
         }
 
         public void Exit()
         {
-
+            camera.thetaXz = 0;
         }
         #endregion
     }

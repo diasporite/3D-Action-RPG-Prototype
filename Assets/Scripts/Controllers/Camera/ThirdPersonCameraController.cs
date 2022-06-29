@@ -143,37 +143,32 @@ namespace RPG_Project
             if (follow != null && target != null)
             {
                 var ds = target.position - follow.position;
-
-                //if (ds.sqrMagnitude > lockOn.SqrSearchRadius) sm.ChangeState(UNLOCKED);
-
-                ds.y -= ds.magnitude * Mathf.Sin(10f * Mathf.Deg2Rad);
-
-                targetPos = follow.position - 4.5f * ds.normalized;
-                targetPos.y = follow.position.y + camHeight;
-                targetPos += 1.5f * transform.right;
-
-                //camPos += targetPlayerOffset;
-                //var look = Vector3.Lerp(follow.position, target.position, 0.5f);
-                SmoothFollow();
-            }
-        }
-
-        public void FollowTarget2()
-        {
-            if (follow != null && target != null)
-            {
-                var ds = target.position - follow.position;
                 var newPos = follow.position - 5f * ds.normalized;
-                newPos.y = follow.position.y + 2f;
-                transform.position = Vector3.MoveTowards(transform.position, newPos, updateSpeed * Time.deltaTime);
 
-                transform.LookAt(0.5f * (follow.position + target.position));
+                newPos.y = follow.position.y + 2f;
+                newPos += 2f * follow.transform.right;
+
+                //transform.position = Vector3.MoveTowards(transform.position, newPos, 
+                //    updateSpeed * Time.deltaTime);
+
+                //transform.LookAt(0.5f * (follow.position + target.position));
+
+                SmoothFollow(newPos, 0.5f * (follow.position + target.position));
             }
         }
 
         protected void SmoothFollow()
         {
             var look = Vector3.MoveTowards(lastViewedPosition, targetPos, 
+                updateSpeed * Time.deltaTime);
+            transform.position = look;
+            lastViewedPosition = look;
+            transform.LookAt(follow);
+        }
+
+        protected void SmoothFollow(Vector3 targetPos, Vector3 lookAt)
+        {
+            var look = Vector3.MoveTowards(lastViewedPosition, targetPos,
                 updateSpeed * Time.deltaTime);
             transform.position = look;
             lastViewedPosition = look;
